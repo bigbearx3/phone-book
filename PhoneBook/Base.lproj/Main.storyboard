@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7bZ-Bm-gUr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7bZ-Bm-gUr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -38,12 +38,21 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="hBU-Lx-87h">
                         <barButtonItem key="backBarButtonItem" title=" " id="yPg-Ck-mL6"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="qe1-QC-QSN">
+                            <connections>
+                                <action selector="barButtonItemEditAction:" destination="2tK-BY-QwY" id="Qtf-q6-GSR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="xrw-9x-3jJ" userLabel="AddContact">
                             <connections>
                                 <segue destination="W8a-Xz-FET" kind="presentation" identifier="SendDataToContactVC" customClass="SendDataToContactVC" customModule="PhoneBook" customModuleProvider="target" id="jdr-Kj-B8V"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="barButtonItemEdit" destination="qe1-QC-QSN" id="hYp-Nj-npG"/>
+                        <outlet property="navigationItem" destination="hBU-Lx-87h" id="mDo-q4-6sN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUy-Sf-8kk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

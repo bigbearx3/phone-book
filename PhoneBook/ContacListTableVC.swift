@@ -6,10 +6,20 @@
 import UIKit
 
 class ContacListTableVC: UITableViewController {
+    @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
+    @IBOutlet weak var navItem: UINavigationItem!
+    
     
     private var phoneBook = PhoneBook()
     private var contactsInCurrentState : [Contact] = []
     
+    @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
+        //barButtonItemEdit.set
+        //navItem.backBarButtonItem?.style = UIBarButtonSystemItem.done
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        
+        //tableView.isEditing = !tableView.isEditing
+    }
     
     
     
@@ -30,9 +40,9 @@ class ContacListTableVC: UITableViewController {
     
     @objc private func refresh(){
         contactsInCurrentState = phoneBook.sortedByFirstName()
-        self.tableView.reloadData()
+        tableView.reloadData()
+        //barButtonItemEdit.isEnabled = contactsInCurrentState.count > 0
         print("PhoneBookChanged")
-        
     }
     
     func getPhoneBook() -> PhoneBook{
@@ -44,12 +54,14 @@ class ContacListTableVC: UITableViewController {
         phoneBook.load()
         contactsInCurrentState = phoneBook.sortedByFirstName()
         initNotification()
-
-        // Uncomment the following line to preserve selection between presentations
+        //barButtonItemEdit
+                // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
+        //self.navigationItem.leftBarButtonItem.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,17 +103,21 @@ class ContacListTableVC: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            phoneBook.remove(contact: contactsInCurrentState[indexPath.item])
+            //contactsInCurrentState = phoneBook.sortedByFirstName()
+            //tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            //contactsInCurrentState.[indexPath.item]
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
