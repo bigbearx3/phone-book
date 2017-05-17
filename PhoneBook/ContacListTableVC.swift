@@ -7,35 +7,17 @@ import UIKit
 
 class ContacListTableVC: UITableViewController {
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
-    @IBOutlet weak var navItem: UINavigationItem!
-    
-    
-    private var phoneBook = PhoneBook()
+    private var phoneBook = ContactList()
     private var contactsInCurrentState : [Contact] = []
     
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
-        //barButtonItemEdit.set
-        //navItem.backBarButtonItem?.style = UIBarButtonSystemItem.done
         tableView.setEditing(!tableView.isEditing, animated: true)
-        
-        //tableView.isEditing = !tableView.isEditing
+        barButtonItemEdit.title = "qqq"
+        //print(barButtonItemEdit.possibleTitles.debugDescription)
     }
     
-    
-    
     private func initNotification(){
-        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTableVC.refresh), name: Notification.Name("PhoneBookChanged"), object: nil)
-        // Define identifier
-        //let notificationName = Notification.Name("AddNewContact")
-        
-        // Register to receive notification
-       /*NotificationCenter.default.addObserver(self, selector: #selector(ContacListTableVC.actionAddNewContact), name: Notification.Name("AddNewContact"), object: nil)
-        */
-        // Post notification
-        //NotificationCenter.default.post(name: notificationName, object: nil)
-        
-        // Stop listening notification
-        //NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTableVC.refresh), name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
     }
     
     @objc private func refresh(){
@@ -45,7 +27,7 @@ class ContacListTableVC: UITableViewController {
         print("PhoneBookChanged")
     }
     
-    func getPhoneBook() -> PhoneBook{
+    func getPhoneBook() -> ContactList{
         return phoneBook
     }
     

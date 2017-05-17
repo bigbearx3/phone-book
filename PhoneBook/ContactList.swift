@@ -1,10 +1,14 @@
 //
 //  Contacts.swift
-//  PhoneBook
+//  ContactList
 //
 
 import Foundation
 
+enum PBNotification : String{
+    case ContactListChanged = "ContactListChanged"
+    case ContactChanged = "ContactChanged"
+}
 
 struct Contact{
     let id : UUID
@@ -21,13 +25,13 @@ struct Contact{
     }
 }
 
-class PhoneBook{
+class ContactList{
     private var contacts : [Contact] = []
     
     private func addObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(PhoneBook.addAction), name: Notification.Name("AddNewContact"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PhoneBook.addAction), name: Notification.Name("EditContact"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PhoneBook.addAction), name: Notification.Name("DeleteContact"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("AddNewContact"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("EditContact"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("DeleteContact"), object: nil)
     }
     
     @objc private func editAction(notification : Notification){
@@ -161,7 +165,7 @@ class PhoneBook{
     
     public func save(){
         saveToJsonFile()
-        NotificationCenter.default.post(name: Notification.Name("PhoneBookChanged"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
     }
     
     public func load(){

@@ -19,7 +19,7 @@
 		76D8FEFA1EC9F0E80052DD74 /* PhoneBookNavigationC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEF91EC9F0E80052DD74 /* PhoneBookNavigationC.swift */; };
 		76D8FEFC1EC9F27B0052DD74 /* ContactAddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFB1EC9F27B0052DD74 /* ContactAddEditVC.swift */; };
 		76D8FEFE1ECA069B0052DD74 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFD1ECA069B0052DD74 /* ContactTableViewCell.swift */; };
-		76D8FF001ECA0FAF0052DD74 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFF1ECA0FAF0052DD74 /* Contacts.swift */; };
+		76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,7 @@
 		76D8FEF91EC9F0E80052DD74 /* PhoneBookNavigationC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneBookNavigationC.swift; sourceTree = "<group>"; };
 		76D8FEFB1EC9F27B0052DD74 /* ContactAddEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditVC.swift; sourceTree = "<group>"; };
 		76D8FEFD1ECA069B0052DD74 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
-		76D8FEFF1ECA0FAF0052DD74 /* Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 				76D8FEFB1EC9F27B0052DD74 /* ContactAddEditVC.swift */,
 				76D8FEEE1EC9ED220052DD74 /* LaunchScreen.storyboard */,
 				76D8FEFD1ECA069B0052DD74 /* ContactTableViewCell.swift */,
-				76D8FEFF1ECA0FAF0052DD74 /* Contacts.swift */,
+				76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */,
 				7666AA6A1ECB327C00CF5E2E /* ContactVC.swift */,
 				7666AA6C1ECB3E4000CF5E2E /* SendDataToContactVC.swift */,
 			);
@@ -169,7 +169,7 @@
 				7666AA6B1ECB327C00CF5E2E /* ContactVC.swift in Sources */,
 				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNavigationC.swift in Sources */,
 				76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */,
-				76D8FF001ECA0FAF0052DD74 /* Contacts.swift in Sources */,
+				76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
