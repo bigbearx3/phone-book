@@ -15,11 +15,12 @@
 		76D8FEEB1EC9ED220052DD74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEE91EC9ED220052DD74 /* Main.storyboard */; };
 		76D8FEED1EC9ED220052DD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */; };
 		76D8FEF01EC9ED220052DD74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEE1EC9ED220052DD74 /* LaunchScreen.storyboard */; };
-		76D8FEF81EC9EF0C0052DD74 /* ContacListTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEF71EC9EF0C0052DD74 /* ContacListTableVC.swift */; };
-		76D8FEFA1EC9F0E80052DD74 /* PhoneBookNavigationC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEF91EC9F0E80052DD74 /* PhoneBookNavigationC.swift */; };
-		76D8FEFC1EC9F27B0052DD74 /* ContactAddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFB1EC9F27B0052DD74 /* ContactAddEditVC.swift */; };
-		76D8FEFE1ECA069B0052DD74 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFD1ECA069B0052DD74 /* ContactTableViewCell.swift */; };
+		76D8FEF81EC9EF0C0052DD74 /* ContacListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEF71EC9EF0C0052DD74 /* ContacListTVC.swift */; };
+		76D8FEFA1EC9F0E80052DD74 /* PhoneBookNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEF91EC9F0E80052DD74 /* PhoneBookNC.swift */; };
+		76D8FEFC1EC9F27B0052DD74 /* ContactAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFB1EC9F27B0052DD74 /* ContactAddVC.swift */; };
+		76D8FEFE1ECA069B0052DD74 /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFD1ECA069B0052DD74 /* ContactTVCell.swift */; };
 		76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */; };
+		8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452E7D61ECDB24900B348ED /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,11 +34,12 @@
 		76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D8FEEF1EC9ED220052DD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76D8FEF11EC9ED220052DD74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		76D8FEF71EC9EF0C0052DD74 /* ContacListTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTableVC.swift; sourceTree = "<group>"; };
-		76D8FEF91EC9F0E80052DD74 /* PhoneBookNavigationC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneBookNavigationC.swift; sourceTree = "<group>"; };
-		76D8FEFB1EC9F27B0052DD74 /* ContactAddEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditVC.swift; sourceTree = "<group>"; };
-		76D8FEFD1ECA069B0052DD74 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		76D8FEF71EC9EF0C0052DD74 /* ContacListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTVC.swift; sourceTree = "<group>"; };
+		76D8FEF91EC9F0E80052DD74 /* PhoneBookNC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneBookNC.swift; sourceTree = "<group>"; };
+		76D8FEFB1EC9F27B0052DD74 /* ContactAddVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddVC.swift; sourceTree = "<group>"; };
+		76D8FEFD1ECA069B0052DD74 /* ContactTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactList.swift; sourceTree = "<group>"; };
+		8452E7D61ECDB24900B348ED /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,14 +78,15 @@
 				76D8FEE91EC9ED220052DD74 /* Main.storyboard */,
 				76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */,
 				76D8FEF11EC9ED220052DD74 /* Info.plist */,
-				76D8FEF71EC9EF0C0052DD74 /* ContacListTableVC.swift */,
-				76D8FEF91EC9F0E80052DD74 /* PhoneBookNavigationC.swift */,
-				76D8FEFB1EC9F27B0052DD74 /* ContactAddEditVC.swift */,
+				76D8FEF71EC9EF0C0052DD74 /* ContacListTVC.swift */,
+				76D8FEF91EC9F0E80052DD74 /* PhoneBookNC.swift */,
+				76D8FEFB1EC9F27B0052DD74 /* ContactAddVC.swift */,
 				76D8FEEE1EC9ED220052DD74 /* LaunchScreen.storyboard */,
-				76D8FEFD1ECA069B0052DD74 /* ContactTableViewCell.swift */,
+				76D8FEFD1ECA069B0052DD74 /* ContactTVCell.swift */,
 				76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */,
 				7666AA6A1ECB327C00CF5E2E /* ContactVC.swift */,
 				7666AA6C1ECB3E4000CF5E2E /* SendDataToContactVC.swift */,
+				8452E7D61ECDB24900B348ED /* AppSettings.swift */,
 			);
 			path = PhoneBook;
 			sourceTree = "<group>";
@@ -160,14 +163,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D8FEFE1ECA069B0052DD74 /* ContactTableViewCell.swift in Sources */,
+				76D8FEFE1ECA069B0052DD74 /* ContactTVCell.swift in Sources */,
 				76D8FEE81EC9ED220052DD74 /* ViewController.swift in Sources */,
 				7666AA6D1ECB3E4000CF5E2E /* SendDataToContactVC.swift in Sources */,
 				7666AA6F1ECB575400CF5E2E /* SendDataFromAddContactVC.swift in Sources */,
-				76D8FEF81EC9EF0C0052DD74 /* ContacListTableVC.swift in Sources */,
-				76D8FEFC1EC9F27B0052DD74 /* ContactAddEditVC.swift in Sources */,
+				76D8FEF81EC9EF0C0052DD74 /* ContacListTVC.swift in Sources */,
+				76D8FEFC1EC9F27B0052DD74 /* ContactAddVC.swift in Sources */,
 				7666AA6B1ECB327C00CF5E2E /* ContactVC.swift in Sources */,
-				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNavigationC.swift in Sources */,
+				8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */,
+				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNC.swift in Sources */,
 				76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */,
 				76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */,
 			);

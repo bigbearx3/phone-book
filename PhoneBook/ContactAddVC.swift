@@ -1,11 +1,11 @@
 //
-//  Contact.swift
+//  ContactAddVC.swift
 //  PhoneBook
 //
 
 import UIKit
 
-class ContactAddEditVC: UIViewController {
+class ContactAddVC: UIViewController {
     @IBOutlet weak var textFieldFirstName: UITextField!
     @IBOutlet weak var textFieldLastName: UITextField!
     @IBOutlet weak var textFieldPhone: UITextField!
@@ -40,7 +40,7 @@ class ContactAddEditVC: UIViewController {
             if let firstName = textFieldFirstName.text,
                 let lastName = textFieldLastName.text,
                 let phone = textFieldPhone.text,
-                let email = textFieldEmail.text, let tableVC = segue.destination as? ContacListTableVC {
+                let email = textFieldEmail.text, let tableVC = segue.destination as? ContacListTVC {
                 tableVC.getPhoneBook().update(contact: Contact(firstName: firstName, lastName: lastName, phone: phone, email: email))
             }
         }

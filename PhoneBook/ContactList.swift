@@ -5,53 +5,100 @@
 
 import Foundation
 
-enum PBNotification : String{
-    case ContactListChanged = "ContactListChanged"
-    case ContactChanged = "ContactChanged"
+protocol ContactListAssistent{
+    func Save(contactList : ContactList)
+    func Load(contactList : ContactList)
+}
+
+class JsonFileAssistent : ContactListAssistent{
+    private var sourceFile : String
+    private var destinationFile : String
+    
+    init(sourceFile : String, destinationFile : String){
+        self.sourceFile = sourceFile
+        self.destinationFile = destinationFile
+    }
+    
+    func Load(contactList: ContactList) {
+        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileUrl = documentsDirectoryUrl.appendingPathComponent(destinationFile)
+        
+        do {
+            let data = try Data(contentsOf: fileUrl, options: [])
+            guard let contactsArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return }
+            print(contactsArray)
+            for contactData in contactsArray{
+                if let newContact = Contact(fromJSON : contactData){
+                    contactList.add(newContact: newContact)
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func Save(contactList: ContactList) {
+        guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileUrl = documentDirectoryUrl.appendingPathComponent(destinationFile)
+        do {
+            let data = try JSONSerialization.data(withJSONObject: contactList.preparedForJSONConvert(), options: [])
+            try data.write(to: fileUrl, options: [])
+        } catch {
+            print(error)
+        }
+    }
 }
 
 struct Contact{
-    let id : UUID
+    var id : String
     var firstName : String
     var lastName : String
     var phone : String
-    var email : String
-    init(firstName : String, lastName : String, phone : String, email : String ) {
+    var email : String?
+    
+    init(firstName : String, lastName : String, phone : String, email : String? ) {
         self.firstName = firstName
         self.lastName = lastName
         self.phone = phone
         self.email = email
-        self.id = UUID.init()
+        self.id = UUID.init().uuidString
     }
+    
+    init(id : String ,firstName : String, lastName : String, phone : String, email : String? ) {
+        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email)
+        self.id = id
+    }
+    
+    func prepareForJSON() -> [String:[String:String]] {
+        var result = ["contact" :["id": id, "firstName": firstName, "lastName": lastName, "phone": phone]]
+        if let mail = email{
+            result["contact"]!.updateValue(mail, forKey: "email")
+        }
+        return result
+    }
+    
+    init?(fromJSON : [String:[String:String]]){
+           if let data = fromJSON["contact"],
+            let id = data["id"],
+            let firstName = data["firstName"],
+            let lastName = data["lastName"],
+            let phone = data["phone"] {
+            self.init(id : id, firstName : firstName, lastName : lastName, phone : phone, email : data["email"])
+           }else{
+            return nil
+        }
+    }    
 }
 
 class ContactList{
     private var contacts : [Contact] = []
+    private var helper : ContactListAssistent
+    private var inProssesLoading = false
     
     private func addObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("AddNewContact"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("EditContact"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("DeleteContact"), object: nil)
-    }
-    
-    @objc private func editAction(notification : Notification){
-        if let userInfo = notification.userInfo,
-            let firstName  = userInfo["firstName"] as? String,
-            let lastName  = userInfo["lastName"] as? String,
-            let phone  = userInfo["phone"] as? String,
-            let email     = userInfo["email"]    as? String {
-            //add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email))
-        }
-    }
-    
-    @objc private func deleteAction(notification : Notification){
-        if let userInfo = notification.userInfo,
-            let firstName  = userInfo["firstName"] as? String,
-            let lastName  = userInfo["lastName"] as? String,
-            let phone  = userInfo["phone"] as? String,
-            let email     = userInfo["email"]    as? String {
-            //add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email))
-        }
     }
     
     @objc private func addAction(notification : Notification){
@@ -64,16 +111,21 @@ class ContactList{
         }
     }
     
-    init() {
-        addObservers()
-        load()
+    init(assistent : ContactListAssistent) {
+        self.helper = assistent
     }
-
     
-    private func getIndex(contact : Contact)->Int{
+    func prepare(){
+        addObservers()
+        inProssesLoading = true
+        helper.Load(contactList: self)
+        inProssesLoading = false
+    }
+    
+    private func getIndex(contactID : String)->Int{
         var index = -1
         for i in 0 ... contacts.count - 1 {
-            if contacts[i].id == contact.id {
+            if contacts[i].id == contactID {
                 index = i
                 break
             }
@@ -98,8 +150,8 @@ class ContactList{
         save()
     }
     
-    public func remove(contact : Contact){
-        let index = getIndex(contact: contact)
+    public func remove(contactID : String){
+        let index = getIndex(contactID: contactID)
         if  index > -1 {
             contacts.remove(at: index)
         }
@@ -107,7 +159,7 @@ class ContactList{
     }
     
     public func update(contact : Contact){
-        let index = getIndex(contact: contact)
+        let index = getIndex(contactID: contact.id)
         if index > -1{
             contacts[index].firstName = contact.firstName
             contacts[index].lastName = contact.lastName
@@ -118,58 +170,25 @@ class ContactList{
         }
         save()
     }
-    private func prepareForJSONConvert()->[[String:[String:String]]]{
+    
+    func preparedForJSONConvert()->[[String:[String:String]]]{
         var result : [[String:[String:String]]] = []
         for contact in contacts {
-            let arrContact = ["contact":["firstName": contact.firstName, "lastName": contact.lastName, "phone": contact.phone, "email": contact.email]]
-            result.append(arrContact)
-        }
-        return result
-    }
-    
-    private func saveToJsonFile() {
-        guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let fileUrl = documentDirectoryUrl.appendingPathComponent("Contacts.json")
-        do {
-            let data = try JSONSerialization.data(withJSONObject: prepareForJSONConvert(), options: [])
-            print(data)
-            try data.write(to: fileUrl, options: [])
-        } catch {
-            print(error)
-        }
-    }
-    
-    private func loadFromJsonFile() -> [Contact]{
-        var result : [Contact] = []
-        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return result}
-        let fileUrl = documentsDirectoryUrl.appendingPathComponent("Contacts.json")
-        
-        do {
-            let data = try Data(contentsOf: fileUrl, options: [])
-            guard let contactsArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return result}
-            print(contactsArray)
-            for contactArray in contactsArray{
-                if let contactArr = contactArray["contact"]{
-                    result.append(Contact(firstName :contactArr["firstName"] ?? "",
-                                          lastName : contactArr["lastName"] ?? "",
-                                          phone : contactArr["phone"] ?? "",
-                                          email : contactArr["email"] ?? ""))
-                }
-                            }
-            
-        } catch {
-            print(error)
+            result.append(contact.prepareForJSON())
         }
         return result
     }
     
     public func save(){
-        saveToJsonFile()
-        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
-    }
+        if !inProssesLoading{
+            helper.Save(contactList: self)
+            NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
+        }
+    }    
     
     public func load(){
-        contacts = loadFromJsonFile()
+        inProssesLoading = true
+        helper.Load(contactList: self)
+        inProssesLoading = false
     }
-    
 }

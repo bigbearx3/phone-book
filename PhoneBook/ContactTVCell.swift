@@ -1,11 +1,11 @@
 //
-//  ContactTableViewCell.swift
+//  ContactTVCell.swift
 //  PhoneBook
 //
 
 import UIKit
 
-class ContactTableViewCell: UITableViewCell {
+class ContactTVCell: UITableViewCell {
     var myContact : Contact?    
 
     override func awakeFromNib() {

@@ -5,7 +5,7 @@
 
 import UIKit
 
-class PhoneBookNavigationC: UINavigationController {
+class PhoneBookNC: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

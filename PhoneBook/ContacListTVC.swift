@@ -1,28 +1,35 @@
 //
-//  ContacListTableViewController.swift
+//  ContacListTVC.swift
 //  PhoneBook
 //
 
 import UIKit
 
-class ContacListTableVC: UITableViewController {
+class ContacListTVC: UITableViewController {
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
-    private var phoneBook = ContactList()
+    private var phoneBook = ContactList(assistent: JsonFileAssistent(sourceFile: "Contacts.json", destinationFile: "Contacts.json"))
     private var contactsInCurrentState : [Contact] = []
     
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
-        barButtonItemEdit.title = "qqq"
-        //print(barButtonItemEdit.possibleTitles.debugDescription)
     }
     
     private func initNotification(){
-        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTableVC.refresh), name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVC.refresh), name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
     }
     
     @objc private func refresh(){
         contactsInCurrentState = phoneBook.sortedByFirstName()
         tableView.reloadData()
+        if contactsInCurrentState.count <= 1 {
+            navigationItem.leftBarButtonItem = nil
+        }else{
+            navigationItem.leftBarButtonItem = barButtonItemEdit
+        }
+        
+        
+       
+        //navigationItem.leftBarButtonItem = self.barButtonItemEdit
         //barButtonItemEdit.isEnabled = contactsInCurrentState.count > 0
         print("PhoneBookChanged")
     }
@@ -33,17 +40,16 @@ class ContacListTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        phoneBook.load()
+        initNotification()
+        phoneBook.prepare()
         contactsInCurrentState = phoneBook.sortedByFirstName()
         initNotification()
-        //barButtonItemEdit
+        
                 // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
-        //self.navigationItem.leftBarButtonItem.
-        
+        //self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,8 +72,8 @@ class ContacListTableVC: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell", for: indexPath)
-        if let myCell = cell as?  ContactTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCell", for: indexPath)
+        if let myCell = cell as?  ContactTVCell {
             let curentContact = contactsInCurrentState[indexPath.item]
             myCell.textLabel?.text = curentContact.firstName + " " + curentContact.lastName
             myCell.myContact = curentContact
@@ -90,7 +96,7 @@ class ContacListTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            phoneBook.remove(contact: contactsInCurrentState[indexPath.item])
+            phoneBook.remove(contactID: contactsInCurrentState[indexPath.item].id)
             //contactsInCurrentState = phoneBook.sortedByFirstName()
             //tableView.deleteRows(at: [indexPath], with: .fade)
             
@@ -123,17 +129,16 @@ class ContacListTableVC: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        tableView.isEditing = false
         if segue.identifier == "SendDataToContactVC" {
             if let destination = segue.destination as? ContactVC {
                 
                 let path = tableView.indexPathForSelectedRow
                 let cell = tableView.cellForRow(at: path!)
-                if let myCell = cell as? ContactTableViewCell{
+                if let myCell = cell as? ContactTVCell{
                     destination.currentContact = myCell.myContact
                 }
             }
         }
     }
-    
-
 }
