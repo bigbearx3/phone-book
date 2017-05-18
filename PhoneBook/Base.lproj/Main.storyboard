@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7bZ-Bm-gUr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,32 +19,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCell" textLabel="YuS-hw-w8O" style="IBUITableViewCellStyleDefault" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCell" editingAccessoryType="disclosureIndicator" textLabel="YuS-hw-w8O" detailTextLabel="uG0-GK-EYW" style="IBUITableViewCellStyleValue1" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LoS-bw-Cno" id="h7z-8w-h7R">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="LoS-bw-Cno" id="h7z-8w-h7R">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YuS-hw-w8O">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQS-NU-cMl">
-                                            <rect key="frame" x="166" y="11" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uG0-GK-EYW">
+                                            <rect key="frame" x="316" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <accessibility key="accessibilityConfiguration" identifier="ContactTableViewCell"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ContactTVCell">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                </accessibility>
                                 <connections>
-                                    <segue destination="5qh-WE-hgp" kind="showDetail" identifier="SendDataToContactVC" customClass="SendDataToContactVC" customModule="PhoneBook" customModuleProvider="target" action="showViewController:sender:" id="Phy-cY-fJ0"/>
+                                    <segue destination="5qh-WE-hgp" kind="showDetail" identifier="ToContactVC" customClass="ToContactVC" customModule="PhoneBook" customModuleProvider="target" action="showViewController:sender:" id="Phy-cY-fJ0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -54,25 +57,33 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="hBU-Lx-87h">
                         <barButtonItem key="backBarButtonItem" title=" " id="yPg-Ck-mL6"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="qe1-QC-QSN">
-                            <connections>
-                                <action selector="barButtonItemEditAction:" destination="2tK-BY-QwY" id="Qtf-q6-GSR"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="edit" id="qe1-QC-QSN">
+                                <connections>
+                                    <action selector="barButtonItemEditAction:" destination="2tK-BY-QwY" id="Qtf-q6-GSR"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" id="2Uh-9X-TQr">
+                                <connections>
+                                    <action selector="barButtonItemSortByAction:" destination="2tK-BY-QwY" id="iim-Ri-c9f"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xrw-9x-3jJ" userLabel="AddContact">
                             <connections>
-                                <segue destination="W8a-Xz-FET" kind="presentation" identifier="SendDataToContactVC" customClass="SendDataToContactVC" customModule="PhoneBook" customModuleProvider="target" id="jdr-Kj-B8V"/>
+                                <segue destination="W8a-Xz-FET" kind="presentation" identifier="ToAddContactVC" customClass="ToAddContactVC" customModule="PhoneBook" customModuleProvider="target" id="jdr-Kj-B8V"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="barButtonItemEdit" destination="qe1-QC-QSN" id="hYp-Nj-npG"/>
+                        <outlet property="barButtonItemSortBy" destination="2Uh-9X-TQr" id="Xz0-I1-LI0"/>
                         <outlet property="navigationItem" destination="hBU-Lx-87h" id="mDo-q4-6sN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUy-Sf-8kk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1492" y="54"/>
+            <point key="canvasLocation" x="1492" y="53.523238380809602"/>
         </scene>
         <!--Phone BookNC-->
         <scene sceneID="Wcl-0L-xk5">

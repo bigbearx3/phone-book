@@ -12,6 +12,8 @@ class ContactVC: UIViewController {
     @IBOutlet weak var labelForLastName: UILabel!
     @IBOutlet weak var labelForPhone: UILabel!
     @IBOutlet weak var labelForEmail: UILabel!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if let contact = currentContact{

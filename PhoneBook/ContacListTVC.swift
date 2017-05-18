@@ -5,46 +5,67 @@
 
 import UIKit
 
-class ContacListTVC: UITableViewController {
+class ContacListTVC: UITableViewController, PBMember {
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
-    private var phoneBook = ContactList(assistent: JsonFileAssistent(sourceFile: "Contacts.json", destinationFile: "Contacts.json"))
-    private var contactsInCurrentState : [Contact] = []
-    
+    @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!
+    private var myContactList : ContactList!
+    private var contactsInCurrentState : [Contact] = []    
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+    
+    @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
+        
+    }
+    private func buttonSortByOnOff(){
+        if contactsInCurrentState.count > 1 {
+            barButtonItemSortBy.isEnabled = true
+            barButtonItemSortBy.tintColor = nil
+        }else{
+            barButtonItemSortBy.isEnabled = false
+            barButtonItemSortBy.tintColor = UIColor.clear
+        }
+    }
+    
+    private func buttonEditOnOff(){
+        if contactsInCurrentState.count > 0 {
+            barButtonItemEdit.isEnabled = true
+            barButtonItemEdit.tintColor = nil
+        }else{
+            barButtonItemEdit.isEnabled = false
+            barButtonItemEdit.tintColor = UIColor.clear
+        }
+    }
+    
+    
+    var contactList: ContactList{
+        set{myContactList = newValue}
+        get{return myContactList}
+    }
+
+    @objc internal func refresh(){
+        contactsInCurrentState = myContactList.sortedByFirstName()
+        tableView.reloadData()
+        buttonEditOnOff()
+        buttonSortByOnOff()
+        print("ContactListChanged")
     }
     
     private func initNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVC.refresh), name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
     }
     
-    @objc private func refresh(){
-        contactsInCurrentState = phoneBook.sortedByFirstName()
-        tableView.reloadData()
-        if contactsInCurrentState.count <= 1 {
-            navigationItem.leftBarButtonItem = nil
-        }else{
-            navigationItem.leftBarButtonItem = barButtonItemEdit
-        }
-        
-        
-       
-        //navigationItem.leftBarButtonItem = self.barButtonItemEdit
-        //barButtonItemEdit.isEnabled = contactsInCurrentState.count > 0
-        print("PhoneBookChanged")
-    }
-    
-    func getPhoneBook() -> ContactList{
-        return phoneBook
-    }
+    func refreshContact() {
+        print("CellChanged")
+    }   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initNotification()
-        phoneBook.prepare()
-        contactsInCurrentState = phoneBook.sortedByFirstName()
-        initNotification()
-        
+        myContactList.prepare()
+        contactsInCurrentState = myContactList.sortedByFirstName()
+        buttonEditOnOff()
+        buttonSortByOnOff()
                 // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -76,6 +97,7 @@ class ContacListTVC: UITableViewController {
         if let myCell = cell as?  ContactTVCell {
             let curentContact = contactsInCurrentState[indexPath.item]
             myCell.textLabel?.text = curentContact.firstName + " " + curentContact.lastName
+            myCell.detailTextLabel?.text = curentContact.phone
             myCell.myContact = curentContact
             return myCell
         }
@@ -96,7 +118,7 @@ class ContacListTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            phoneBook.remove(contactID: contactsInCurrentState[indexPath.item].id)
+            myContactList.remove(contactID: contactsInCurrentState[indexPath.item].id)
             //contactsInCurrentState = phoneBook.sortedByFirstName()
             //tableView.deleteRows(at: [indexPath], with: .fade)
             
@@ -130,9 +152,8 @@ class ContacListTVC: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         tableView.isEditing = false
-        if segue.identifier == "SendDataToContactVC" {
+        if segue.identifier == "ToContactVC" {
             if let destination = segue.destination as? ContactVC {
-                
                 let path = tableView.indexPathForSelectedRow
                 let cell = tableView.cellForRow(at: path!)
                 if let myCell = cell as? ContactTVCell{
@@ -140,5 +161,11 @@ class ContacListTVC: UITableViewController {
                 }
             }
         }
+        if segue.identifier == "ToAddContactVC" {
+            if let destination = segue.destination as? ContactAddVC {
+                destination.contactList = myContactList
+            }
+        }
+        
     }
 }

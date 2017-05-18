@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7666AA6B1ECB327C00CF5E2E /* ContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6A1ECB327C00CF5E2E /* ContactVC.swift */; };
-		7666AA6D1ECB3E4000CF5E2E /* SendDataToContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6C1ECB3E4000CF5E2E /* SendDataToContactVC.swift */; };
-		7666AA6F1ECB575400CF5E2E /* SendDataFromAddContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6E1ECB575400CF5E2E /* SendDataFromAddContactVC.swift */; };
+		7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6C1ECB3E4000CF5E2E /* ToContactVC.swift */; };
+		7666AA6F1ECB575400CF5E2E /* ToAddContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6E1ECB575400CF5E2E /* ToAddContactVC.swift */; };
+		766F09A61ECDD6C300EE23C1 /* PBMemeber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F09A51ECDD6C300EE23C1 /* PBMemeber.swift */; };
 		76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */; };
-		76D8FEE81EC9ED220052DD74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEE71EC9ED220052DD74 /* ViewController.swift */; };
 		76D8FEEB1EC9ED220052DD74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEE91EC9ED220052DD74 /* Main.storyboard */; };
 		76D8FEED1EC9ED220052DD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */; };
 		76D8FEF01EC9ED220052DD74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEE1EC9ED220052DD74 /* LaunchScreen.storyboard */; };
@@ -25,11 +25,11 @@
 
 /* Begin PBXFileReference section */
 		7666AA6A1ECB327C00CF5E2E /* ContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactVC.swift; sourceTree = "<group>"; };
-		7666AA6C1ECB3E4000CF5E2E /* SendDataToContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendDataToContactVC.swift; sourceTree = "<group>"; };
-		7666AA6E1ECB575400CF5E2E /* SendDataFromAddContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendDataFromAddContactVC.swift; sourceTree = "<group>"; };
+		7666AA6C1ECB3E4000CF5E2E /* ToContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToContactVC.swift; sourceTree = "<group>"; };
+		7666AA6E1ECB575400CF5E2E /* ToAddContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToAddContactVC.swift; sourceTree = "<group>"; };
+		766F09A51ECDD6C300EE23C1 /* PBMemeber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBMemeber.swift; sourceTree = "<group>"; };
 		76D8FEE21EC9ED220052DD74 /* PhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		76D8FEE71EC9ED220052DD74 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		76D8FEEA1EC9ED220052DD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D8FEEF1EC9ED220052DD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -73,8 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */,
-				76D8FEE71EC9ED220052DD74 /* ViewController.swift */,
-				7666AA6E1ECB575400CF5E2E /* SendDataFromAddContactVC.swift */,
+				7666AA6E1ECB575400CF5E2E /* ToAddContactVC.swift */,
 				76D8FEE91EC9ED220052DD74 /* Main.storyboard */,
 				76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */,
 				76D8FEF11EC9ED220052DD74 /* Info.plist */,
@@ -85,8 +84,9 @@
 				76D8FEFD1ECA069B0052DD74 /* ContactTVCell.swift */,
 				76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */,
 				7666AA6A1ECB327C00CF5E2E /* ContactVC.swift */,
-				7666AA6C1ECB3E4000CF5E2E /* SendDataToContactVC.swift */,
+				7666AA6C1ECB3E4000CF5E2E /* ToContactVC.swift */,
 				8452E7D61ECDB24900B348ED /* AppSettings.swift */,
+				766F09A51ECDD6C300EE23C1 /* PBMemeber.swift */,
 			);
 			path = PhoneBook;
 			sourceTree = "<group>";
@@ -164,14 +164,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D8FEFE1ECA069B0052DD74 /* ContactTVCell.swift in Sources */,
-				76D8FEE81EC9ED220052DD74 /* ViewController.swift in Sources */,
-				7666AA6D1ECB3E4000CF5E2E /* SendDataToContactVC.swift in Sources */,
-				7666AA6F1ECB575400CF5E2E /* SendDataFromAddContactVC.swift in Sources */,
+				7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */,
+				7666AA6F1ECB575400CF5E2E /* ToAddContactVC.swift in Sources */,
 				76D8FEF81EC9EF0C0052DD74 /* ContacListTVC.swift in Sources */,
 				76D8FEFC1EC9F27B0052DD74 /* ContactAddVC.swift in Sources */,
 				7666AA6B1ECB327C00CF5E2E /* ContactVC.swift in Sources */,
 				8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */,
 				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNC.swift in Sources */,
+				766F09A61ECDD6C300EE23C1 /* PBMemeber.swift in Sources */,
 				76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */,
 				76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */,
 			);
