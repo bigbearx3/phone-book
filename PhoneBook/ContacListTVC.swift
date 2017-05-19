@@ -9,18 +9,22 @@ class ContacListTVC: UITableViewController, PBMember {
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!
     private var myContactList : ContactList!
-    private var sortBy : SortBy!
+    private var sortField : SortField!
     private var contactsInCurrentState : [Contact] = []    
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
-        sortBy.next()
-        barButtonItemSortBy.title = "Sort by" + sortBy.toString()
+        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
+        tableView.reloadData()
+        sortField.next()
+        barButtonItemSortBy.title = "Sort by " + sortField.toString()
         let defaults = UserDefaults.standard
-        defaults.set(sortBy, forKey: "SortBy")
+        defaults.set(sortField.rawValue, forKey: "SortField")
         defaults.synchronize()
+        print(sortField)
+        
     }
     
     private func buttonSortByOnOff(){
@@ -45,15 +49,9 @@ class ContacListTVC: UITableViewController, PBMember {
     
     private func loadSortBy(){
         let defaults = UserDefaults.standard
-        if let sort = defaults.object(forKey: "SortBy"),
-            let sortBy = sort as? SortBy{
-            self.sortBy = sortBy
-           
-        }else{
-            self.sortBy = .firstName
-        }
-         barButtonItemSortBy.title = "Sort by" + self.sortBy.toString()
-
+        let intValue = defaults.integer(forKey: "SortBy")
+        self.sortField = SortField(rawValue : intValue)
+        barButtonItemSortBy.title = "Sort by " + self.sortField.toString()
     }
     
     var contactList: ContactList{
@@ -62,7 +60,7 @@ class ContacListTVC: UITableViewController, PBMember {
     }
 
     @objc internal func refresh(){
-        contactsInCurrentState = myContactList.sortedByFirstName()
+        contactsInCurrentState = myContactList.sortedBy(sortingBy: sortField)
         tableView.reloadData()
         buttonEditOnOff()
         buttonSortByOnOff()
@@ -82,7 +80,7 @@ class ContacListTVC: UITableViewController, PBMember {
         loadSortBy()        
         initNotification()
         myContactList.prepare()
-        contactsInCurrentState = myContactList.sortedByFirstName()
+        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
         buttonEditOnOff()
         buttonSortByOnOff()
                 // Uncomment the following line to preserve selection between presentations
@@ -117,7 +115,7 @@ class ContacListTVC: UITableViewController, PBMember {
             let curentContact = contactsInCurrentState[indexPath.item]
             myCell.textLabel?.text = curentContact.firstName + " " + curentContact.lastName
             myCell.detailTextLabel?.text = curentContact.phone
-            myCell.myContact = curentContact
+            myCell.currentID = curentContact.id
             return myCell
         }
         return cell
@@ -175,8 +173,9 @@ class ContacListTVC: UITableViewController, PBMember {
             if let destination = segue.destination as? ContactVC {
                 let path = tableView.indexPathForSelectedRow
                 let cell = tableView.cellForRow(at: path!)
+                destination.contactList = contactList
                 if let myCell = cell as? ContactTVCell{
-                    destination.currentContact = myCell.myContact
+                    destination.currentID = myCell.currentID
                 }
             }
         }

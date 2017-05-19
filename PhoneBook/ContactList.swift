@@ -5,9 +5,9 @@
 
 import Foundation
 
-enum SortBy{
+enum SortField : Int{
+    case  lastName = 0
     case  firstName
-    case  lastName
     mutating func next() {
         switch self {
         case .firstName:
@@ -16,6 +16,7 @@ enum SortBy{
             self = .firstName
         }
     }
+    
     func toString() -> String {
         switch self {
         case .firstName: return "First Name"
@@ -116,12 +117,6 @@ class ContactList{
     private var helper : ContactListAssistent
     private var inProssesLoading = false
     
-    private func addObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("AddNewContact"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("EditContact"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ContactList.addAction), name: Notification.Name("DeleteContact"), object: nil)
-    }
-    
     @objc private func addAction(notification : Notification){
         if let userInfo = notification.userInfo,
             let firstName  = userInfo["firstName"] as? String,
@@ -137,7 +132,6 @@ class ContactList{
     }
     
     func prepare(){
-        addObservers()
         inProssesLoading = true
         helper.Load(contactList: self)
         inProssesLoading = false
@@ -154,21 +148,27 @@ class ContactList{
         return index
     }
     
-    public func sortedByFirstName()->[Contact]{
-        var result = contacts
-        result = result.sorted(by: {$0.firstName < $1.firstName})
-        return result
-    }
-    
-    public func sortedByLastName()->[Contact]{
-        var result = contacts
-        result = result.sorted(by: {$0.lastName < $1.lastName})
-        return result
+    public func sortedBy(sortingBy : SortField)->[Contact] {
+        switch sortingBy {
+        case .firstName :
+            return contacts.sorted { ($0.firstName + $0.lastName).localizedCaseInsensitiveCompare($1.firstName + $1.lastName) == ComparisonResult.orderedAscending }
+        case .lastName :
+            return contacts.sorted { ($0.lastName + $0.firstName).localizedCaseInsensitiveCompare($1.lastName + $1.firstName) == ComparisonResult.orderedAscending }
+        }
     }
     
     public func add(newContact : Contact){
         contacts.append(newContact)
         save()
+    }
+    
+    public func get(byID contactID : String) -> Contact?{
+        let index =  getIndex(contactID: contactID)
+        if index == -1{
+            return nil
+        }else{
+            return contacts[index]
+        }
     }
     
     public func remove(contactID : String){
@@ -182,10 +182,7 @@ class ContactList{
     public func update(contact : Contact){
         let index = getIndex(contactID: contact.id)
         if index > -1{
-            contacts[index].firstName = contact.firstName
-            contacts[index].lastName = contact.lastName
-            contacts[index].phone = contact.phone
-            contacts[index].email = contact.email
+            contacts[index] = contact            
         }else{
             contacts.append(contact)
         }

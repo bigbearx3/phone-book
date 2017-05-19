@@ -6,7 +6,11 @@
 import UIKit
 
 class ContactTVCell: UITableViewCell {
-    var myContact : Contact?    
+    private var contactID : String!
+    var currentID: String{
+        set{contactID = newValue}
+        get{return contactID}
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
