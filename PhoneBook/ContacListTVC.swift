@@ -9,14 +9,20 @@ class ContacListTVC: UITableViewController, PBMember {
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!
     private var myContactList : ContactList!
+    private var sortBy : SortBy!
     private var contactsInCurrentState : [Contact] = []    
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
-        
+        sortBy.next()
+        barButtonItemSortBy.title = "Sort by" + sortBy.toString()
+        let defaults = UserDefaults.standard
+        defaults.set(sortBy, forKey: "SortBy")
+        defaults.synchronize()
     }
+    
     private func buttonSortByOnOff(){
         if contactsInCurrentState.count > 1 {
             barButtonItemSortBy.isEnabled = true
@@ -37,6 +43,18 @@ class ContacListTVC: UITableViewController, PBMember {
         }
     }
     
+    private func loadSortBy(){
+        let defaults = UserDefaults.standard
+        if let sort = defaults.object(forKey: "SortBy"),
+            let sortBy = sort as? SortBy{
+            self.sortBy = sortBy
+           
+        }else{
+            self.sortBy = .firstName
+        }
+         barButtonItemSortBy.title = "Sort by" + self.sortBy.toString()
+
+    }
     
     var contactList: ContactList{
         set{myContactList = newValue}
@@ -60,7 +78,8 @@ class ContacListTVC: UITableViewController, PBMember {
     }   
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
+        loadSortBy()        
         initNotification()
         myContactList.prepare()
         contactsInCurrentState = myContactList.sortedByFirstName()

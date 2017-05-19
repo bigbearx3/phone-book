@@ -5,10 +5,31 @@
 
 import Foundation
 
+enum SortBy{
+    case  firstName
+    case  lastName
+    mutating func next() {
+        switch self {
+        case .firstName:
+            self = .lastName
+        case .lastName:
+            self = .firstName
+        }
+    }
+    func toString() -> String {
+        switch self {
+        case .firstName: return "First Name"
+        case .lastName: return "Last Name"
+        }
+    }
+}
+
+
 protocol ContactListAssistent{
     func Save(contactList : ContactList)
     func Load(contactList : ContactList)
 }
+
 
 class JsonFileAssistent : ContactListAssistent{
     private var sourceFile : String
