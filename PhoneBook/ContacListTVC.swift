@@ -16,10 +16,11 @@ class ContacListTVC: UITableViewController, PBMember {
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
+        sortField.next()
+        barButtonItemSortBy.title = "Sort by " + sortField.nextString()
         contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
         tableView.reloadData()
-        sortField.next()
-        barButtonItemSortBy.title = "Sort by " + sortField.toString()
+        
         let defaults = UserDefaults.standard
         defaults.set(sortField.rawValue, forKey: "SortField")
         defaults.synchronize()
@@ -51,7 +52,7 @@ class ContacListTVC: UITableViewController, PBMember {
         let defaults = UserDefaults.standard
         let intValue = defaults.integer(forKey: "SortBy")
         self.sortField = SortField(rawValue : intValue)
-        barButtonItemSortBy.title = "Sort by " + self.sortField.toString()
+        barButtonItemSortBy.title = "Sort by " + self.sortField.nextString()
     }
     
     var contactList: ContactList{
@@ -64,11 +65,26 @@ class ContacListTVC: UITableViewController, PBMember {
         tableView.reloadData()
         buttonEditOnOff()
         buttonSortByOnOff()
-        print("ContactListChanged")
     }
     
+    @objc private func refreshCell(notification : Notification){
+        if let updatedId = notification.userInfo?["id"],
+            let id = updatedId as? String,
+            let updatedContact = myContactList.get(byID: id) {
+            contactsInCurrentState.index(where: updatedContact)
+            
+            //tableView.ce
+            
+        }
+        
+        
+    }
+
+    
+    
     private func initNotification(){
-        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVC.refresh), name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVC.refresh), name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVC.refreshCell), name: Notification.Name(PBNotification.ContactChanged), object: nil)
     }
     
     func refreshContact() {
@@ -79,7 +95,7 @@ class ContacListTVC: UITableViewController, PBMember {
         super.viewDidLoad()        
         loadSortBy()        
         initNotification()
-        myContactList.prepare()
+        myContactList.load()
         contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
         buttonEditOnOff()
         buttonSortByOnOff()
@@ -88,6 +104,10 @@ class ContacListTVC: UITableViewController, PBMember {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -179,11 +199,12 @@ class ContacListTVC: UITableViewController, PBMember {
                 }
             }
         }
-        if segue.identifier == "ToAddContactVC" {
-            if let destination = segue.destination as? ContactAddVC {
-                destination.contactList = myContactList
+        if segue.identifier == "ToContactAddVC" {
+            if let destination = segue.destination as? ContactAddEditNC{
+                if let contactAddVC =  destination.viewControllers.first as? ContactAddVC{
+                    contactAddVC.contactList = myContactList
+                }
             }
-        }
-        
+        }        
     }
 }

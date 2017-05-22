@@ -7,6 +7,7 @@ import UIKit
 
 class ContactAddVC: UIViewController {
     private var contactID : String?
+    private var isEditingMode = false
     private var myContactList : ContactList!
     var contactList: ContactList{
         set{myContactList = newValue}
@@ -22,7 +23,7 @@ class ContactAddVC: UIViewController {
     @IBOutlet weak var textFieldEmail: UITextField!    
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        closeView()
     }
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {
@@ -31,29 +32,36 @@ class ContactAddVC: UIViewController {
         let lastName = textFieldLastName.text!
         let phone = textFieldPhone.text!
         let email = textFieldEmail.text
-        if contactID == nil {
+        if !isEditingMode {
             contact = Contact(firstName: firstName, lastName: lastName, phone: phone, email: email)
         }else{
             contact = Contact(id : contactID!, firstName: firstName, lastName: lastName, phone: phone, email: email)
         }
-        myContactList.update(contact: contact)        
-        self.dismiss(animated: true, completion: nil)
+        myContactList.update(contact: contact)
+        closeView()
+    }
+    
+    private func closeView(){
+        if isEditingMode {
+            self.navigationController?.popViewController(animated: false)
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }        
     }
     
     private func load(){
-        if let id = contactID{
-        let myContact = myContactList.get(byID: id)
-        textFieldFirstName.text = myContact?.firstName
-        textFieldLastName.text = myContact?.lastName
-        textFieldPhone.text = myContact?.phone
-        textFieldEmail.text = myContact?.email
+        if let id = contactID, let myContact = myContactList.get(byID: id){        
+        textFieldFirstName.text = myContact.firstName
+        textFieldLastName.text = myContact.lastName
+        textFieldPhone.text = myContact.phone
+        textFieldEmail.text = myContact.email
+        self.navigationItem.title = myContact.firstName +  " " + myContact.lastName
+        isEditingMode = true
+        }else{
+            self.navigationItem.title = "New contact"
+            isEditingMode = false
         }
-    }
-
-    
-    
-    
-    
+    }    
     
     override func viewDidLoad() {
         super.viewDidLoad()

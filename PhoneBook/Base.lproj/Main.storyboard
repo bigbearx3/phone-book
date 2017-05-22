@@ -63,7 +63,7 @@
                                     <action selector="barButtonItemEditAction:" destination="2tK-BY-QwY" id="Qtf-q6-GSR"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="2Uh-9X-TQr">
+                            <barButtonItem title="Sort by" id="2Uh-9X-TQr">
                                 <connections>
                                     <action selector="barButtonItemSortByAction:" destination="2tK-BY-QwY" id="iim-Ri-c9f"/>
                                 </connections>
@@ -71,7 +71,7 @@
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xrw-9x-3jJ" userLabel="AddContact">
                             <connections>
-                                <segue destination="W8a-Xz-FET" kind="presentation" identifier="ToAddContactVC" customClass="ToAddContactVC" customModule="PhoneBook" customModuleProvider="target" id="jdr-Kj-B8V"/>
+                                <segue destination="RJg-wC-mpa" kind="presentation" identifier="ToContactAddVC" customClass="ToContactAddVC" customModule="PhoneBook" customModuleProvider="target" id="jdr-Kj-B8V"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -104,7 +104,7 @@
             </objects>
             <point key="canvasLocation" x="413.60000000000002" y="53.523238380809602"/>
         </scene>
-        <!--Contact AddVC-->
+        <!--Title-->
         <scene sceneID="x17-hu-Nrx">
             <objects>
                 <viewController storyboardIdentifier="ContactAddVC" id="W8a-Xz-FET" customClass="ContactAddVC" customModule="PhoneBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -113,7 +113,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ZKQ-yT-eak"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PUA-iP-NXd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FirstName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTU-vW-G67">
@@ -172,27 +172,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W0I-Lt-YVw">
-                                <rect key="frame" x="0.0" y="19" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="gEd-AZ-nMn">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lhE-dP-PFv">
-                                            <connections>
-                                                <action selector="cancel:" destination="W8a-Xz-FET" id="iLz-7Q-MmC"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="BkC-hK-1fI">
-                                            <connections>
-                                                <action selector="saveContact:" destination="W8a-Xz-FET" id="Gmz-jl-xNE"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="Drf-fi-U7y">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="V6d-4q-5mF">
+                            <connections>
+                                <action selector="cancel:" destination="W8a-Xz-FET" id="Oyx-11-wBq"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Sf9-z3-3Zw">
+                            <connections>
+                                <action selector="saveContact:" destination="W8a-Xz-FET" id="cmm-93-Yxe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="textFieldEmail" destination="eNK-Me-2Je" id="jbX-AR-1kb"/>
                         <outlet property="textFieldFirstName" destination="VS5-8r-C8k" id="4o4-Uk-oLd"/>
@@ -202,104 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bG1-bM-6ht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2780" y="-286"/>
-        </scene>
-        <!--Contact EditVC-->
-        <scene sceneID="3Tk-Io-RDE">
-            <objects>
-                <viewController id="LDh-S2-sgM" customClass="ContactEditVC" customModule="PhoneBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PVf-IZ-n62"/>
-                        <viewControllerLayoutGuide type="bottom" id="2C3-M8-3OX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Abo-3c-DB9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfe-co-H9I">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="mqF-cL-QVe">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="H4U-el-4xx"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="cCj-5K-Hn5"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FirstName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HkA-QM-Beg">
-                                <rect key="frame" x="16" y="72" width="88" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SUw-Vy-wJW" userLabel="TextFieldFistName">
-                                <rect key="frame" x="128" y="70" width="231" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zP4-gR-oF8" userLabel="LastName">
-                                <rect key="frame" x="16" y="110" width="88" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MXt-f0-CCD" userLabel="TextFieldLastName">
-                                <rect key="frame" x="128" y="108" width="231" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-Mq-PBm" userLabel="Phone">
-                                <rect key="frame" x="16" y="150" width="88" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CWy-2c-5zU" userLabel="TextFieldPhone">
-                                <rect key="frame" x="128" y="146" width="231" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20K-xg-Uia" userLabel="Email">
-                                <rect key="frame" x="16" y="186" width="88" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-NI-sIu" userLabel="TextFieldEmail">
-                                <rect key="frame" x="128" y="184" width="231" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5u8-Tr-zeg">
-                                <rect key="frame" x="164" y="602" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Delete"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="textFielEmail" destination="dcW-NI-sIu" id="cJc-xZ-lUj"/>
-                        <outlet property="textFielFirstName" destination="SUw-Vy-wJW" id="fGW-7e-Mff"/>
-                        <outlet property="textFielLastName" destination="MXt-f0-CCD" id="4yz-zh-oZI"/>
-                        <outlet property="textFielPhone" destination="CWy-2c-5zU" id="QVI-O2-mnA"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HbC-91-kg7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3055" y="542"/>
+            <point key="canvasLocation" x="3719.1999999999998" y="-286.50674662668666"/>
         </scene>
         <!--Title-->
         <scene sceneID="14K-6h-1nm">
@@ -310,7 +208,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ntl-El-jKg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2pk-eg-DYq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FirstName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oV-dE-vhj">
@@ -373,6 +271,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Gdr-gV-sTN"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="labelForEmail" destination="brz-DB-pdg" id="eng-ra-aQP"/>
                         <outlet property="labelForFirstName" destination="FHq-z9-rdt" id="zvA-SO-y7Y"/>
@@ -383,6 +282,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uu9-Vy-j4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2380" y="541.97901049475263"/>
+        </scene>
+        <!--Contact Add EditNC-->
+        <scene sceneID="c9F-sg-tZj">
+            <objects>
+                <navigationController storyboardIdentifier="ContactAddEditNC" automaticallyAdjustsScrollViewInsets="NO" id="RJg-wC-mpa" customClass="ContactAddEditNC" customModule="PhoneBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1OC-Wb-uQj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="W8a-Xz-FET" kind="relationship" relationship="rootViewController" id="Pxi-f5-N9X"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2mP-YJ-4K6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2780" y="-286.50674662668666"/>
         </scene>
     </scenes>
 </document>

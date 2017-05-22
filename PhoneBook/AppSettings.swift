@@ -5,8 +5,8 @@
 
 import Foundation
 
-enum PBNotification : String{
-    case ContactListChanged = "ContactListChanged"
-    case ContactChanged = "ContactChanged"
+struct PBNotification {
+    static let ContactListChanged = "ContactListChanged"
+    static let ContactChanged = "ContactChanged"
 }
 

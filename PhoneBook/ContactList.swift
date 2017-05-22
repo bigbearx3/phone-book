@@ -17,18 +17,18 @@ enum SortField : Int{
         }
     }
     
-    func toString() -> String {
+    func nextString() -> String {
         switch self {
-        case .firstName: return "First Name"
-        case .lastName: return "Last Name"
+        case .firstName: return "Last Name"
+        case .lastName: return "First Name"
         }
     }
 }
 
 
 protocol ContactListAssistent{
-    func Save(contactList : ContactList)
-    func Load(contactList : ContactList)
+    func save(contactArray : [Contact])
+    func load()->[Contact]
 }
 
 
@@ -41,29 +41,34 @@ class JsonFileAssistent : ContactListAssistent{
         self.destinationFile = destinationFile
     }
     
-    func Load(contactList: ContactList) {
-        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+    func load() -> [Contact] {
+        var result : [Contact] = []
+        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return result}
         let fileUrl = documentsDirectoryUrl.appendingPathComponent(destinationFile)
-        
         do {
             let data = try Data(contentsOf: fileUrl, options: [])
-            guard let contactsArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return }
-            print(contactsArray)
-            for contactData in contactsArray{
+            guard let contactRawArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return result}
+            print(contactRawArray)
+            for contactData in contactRawArray{
                 if let newContact = Contact(fromJSON : contactData){
-                    contactList.add(newContact: newContact)
+                    result.append(newContact)
                 }
             }
         } catch {
             print(error)
         }
+        return result
     }
     
-    func Save(contactList: ContactList) {
+    func save(contactArray : [Contact]) {
         guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let fileUrl = documentDirectoryUrl.appendingPathComponent(destinationFile)
         do {
-            let data = try JSONSerialization.data(withJSONObject: contactList.preparedForJSONConvert(), options: [])
+            var praparedForJSON : [[String:[String:String]]] = []
+            for contact in contactArray{
+                praparedForJSON.append(contact.prepareForJSON())
+            }
+            let data = try JSONSerialization.data(withJSONObject: praparedForJSON, options: [])
             try data.write(to: fileUrl, options: [])
         } catch {
             print(error)
@@ -100,16 +105,16 @@ struct Contact{
     }
     
     init?(fromJSON : [String:[String:String]]){
-           if let data = fromJSON["contact"],
+        if let data = fromJSON["contact"],
             let id = data["id"],
             let firstName = data["firstName"],
             let lastName = data["lastName"],
             let phone = data["phone"] {
             self.init(id : id, firstName : firstName, lastName : lastName, phone : phone, email : data["email"])
-           }else{
+        }else{
             return nil
         }
-    }    
+    }
 }
 
 class ContactList{
@@ -123,7 +128,7 @@ class ContactList{
             let lastName  = userInfo["lastName"] as? String,
             let phone  = userInfo["phone"] as? String,
             let email     = userInfo["email"]    as? String {
-        add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email))
+            add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email))
         }
     }
     
@@ -131,15 +136,9 @@ class ContactList{
         self.helper = assistent
     }
     
-    func prepare(){
-        inProssesLoading = true
-        helper.Load(contactList: self)
-        inProssesLoading = false
-    }
-    
     private func getIndex(contactID : String)->Int{
         var index = -1
-        for i in 0 ... contacts.count - 1 {
+        for i in 0 ..< contacts.count {
             if contacts[i].id == contactID {
                 index = i
                 break
@@ -159,6 +158,7 @@ class ContactList{
     
     public func add(newContact : Contact){
         contacts.append(newContact)
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
         save()
     }
     
@@ -176,15 +176,17 @@ class ContactList{
         if  index > -1 {
             contacts.remove(at: index)
         }
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
         save()
     }
     
     public func update(contact : Contact){
         let index = getIndex(contactID: contact.id)
         if index > -1{
-            contacts[index] = contact            
+            contacts[index] = contact
+            NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactChanged), object: nil, userInfo : ["id" : contact.id])
         }else{
-            contacts.append(contact)
+            add(newContact: contact)
         }
         save()
     }
@@ -198,15 +200,10 @@ class ContactList{
     }
     
     public func save(){
-        if !inProssesLoading{
-            helper.Save(contactList: self)
-            NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged.rawValue), object: nil)
-        }
-    }    
+        helper.save(contactArray: contacts)        
+    }
     
     public func load(){
-        inProssesLoading = true
-        helper.Load(contactList: self)
-        inProssesLoading = false
+        contacts = helper.load()
     }
 }
