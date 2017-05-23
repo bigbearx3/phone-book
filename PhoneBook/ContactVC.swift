@@ -49,8 +49,7 @@ class ContactVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initNotification()
-        reload()
-        
+        reload()        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: #selector(contactEditVC(_:)))
     }
     
@@ -60,6 +59,5 @@ class ContactVC: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
+    }    
 }

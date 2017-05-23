@@ -12,7 +12,7 @@ class ContacListTVC: UITableViewController, PBMember {
     private var sortField : SortField!
     private var contactsInCurrentState : [Contact] = []
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
-        tableView.setEditing(!tableView.isEditing, animated: true)
+        setEditing(!isEditing, animated: true)
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
@@ -20,12 +20,9 @@ class ContacListTVC: UITableViewController, PBMember {
         barButtonItemSortBy.title = "Sort by " + sortField.nextString()
         contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
         tableView.reloadData()
-        
         let defaults = UserDefaults.standard
         defaults.set(sortField.rawValue, forKey: "SortField")
         defaults.synchronize()
-        print(sortField)
-        
     }
     
     private func buttonSortByOnOff(){
@@ -85,10 +82,6 @@ class ContacListTVC: UITableViewController, PBMember {
         NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVC.refreshCell), name: Notification.Name(PBNotification.ContactChanged), object: nil)
     }
     
-    func refreshContact() {
-        print("CellChanged")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSortBy()
@@ -97,6 +90,7 @@ class ContacListTVC: UITableViewController, PBMember {
         contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
         buttonEditOnOff()
         buttonSortByOnOff()
+        self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
     }
     
     deinit {
@@ -134,7 +128,7 @@ class ContacListTVC: UITableViewController, PBMember {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        tableView.isEditing = false
+        setEditing(false, animated: false)
         if segue.identifier == "ToContactVC" {
             if let destination = segue.destination as? ContactVC {
                 let path = tableView.indexPathForSelectedRow

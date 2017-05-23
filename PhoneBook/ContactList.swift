@@ -46,8 +46,7 @@ class JsonFileAssistent : ContactListAssistent{
         let fileUrl = documentsDirectoryUrl.appendingPathComponent(destinationFile)
         do {
             let data = try Data(contentsOf: fileUrl, options: [])
-            guard let contactRawArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return result}
-            print(contactRawArray)
+            guard let contactRawArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return result}            
             for contactData in contactRawArray{
                 if let newContact = Contact(fromJSON : contactData){
                     result.append(newContact)

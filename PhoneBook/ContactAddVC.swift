@@ -27,16 +27,15 @@ class ContactAddVC: UIViewController, UITextFieldDelegate {
     @IBAction func changeValues(_ sender: UITextField) {
         barButtonSave.isEnabled =
             !((textFieldFirstName.text?.isEmpty ?? true) ||
-            (textFieldLastName.text?.isEmpty ?? true)  ||
-            (textFieldPhone.text?.isEmpty ?? true))
+                (textFieldLastName.text?.isEmpty ?? true)  ||
+                (textFieldPhone.text?.isEmpty ?? true))
     }
     
     @IBAction func buttonDeleteContact(_ sender: UIButton) {
         if let id = contactID{
             myContactList.remove(contactID: id)
         }
-        self.dismiss(animated: true, completion: nil)
-        
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -104,5 +103,5 @@ class ContactAddVC: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }    
+    }
 }

@@ -182,9 +182,9 @@
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yB-Gs-9Al">
-                                <rect key="frame" x="142" y="482" width="90" height="30"/>
+                                <rect key="frame" x="126" y="482" width="122" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Delete"/>
+                                <state key="normal" title="Delete contact"/>
                                 <connections>
                                     <action selector="buttonDeleteContact:" destination="W8a-Xz-FET" eventType="touchUpInside" id="b6K-eG-0QK"/>
                                 </connections>
