@@ -25,8 +25,8 @@ class ContactAddVC: UIViewController {
     @IBOutlet weak var barButtonSave: UIBarButtonItem!
     
     @IBAction func changeValues(_ sender: UITextField) {
-        barButtonSave.isEnabled = !((textFieldFirstName.text?.isEmpty ?? true) &&
-            (textFieldLastName.text?.isEmpty ?? true) &&
+        barButtonSave.isEnabled = !((textFieldFirstName.text?.isEmpty ?? true) ||
+            (textFieldLastName.text?.isEmpty ?? true)  ||
             (textFieldPhone.text?.isEmpty ?? true))
     }
     
