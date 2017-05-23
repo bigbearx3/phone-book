@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ContactAddVC: UIViewController {
+class ContactAddVC: UIViewController, UITextFieldDelegate {
     private var contactID : String?
     private var isEditingMode = false
     private var myContactList : ContactList!
@@ -25,7 +25,8 @@ class ContactAddVC: UIViewController {
     @IBOutlet weak var barButtonSave: UIBarButtonItem!
     
     @IBAction func changeValues(_ sender: UITextField) {
-        barButtonSave.isEnabled = !((textFieldFirstName.text?.isEmpty ?? true) ||
+        barButtonSave.isEnabled =
+            !((textFieldFirstName.text?.isEmpty ?? true) ||
             (textFieldLastName.text?.isEmpty ?? true)  ||
             (textFieldPhone.text?.isEmpty ?? true))
     }
@@ -82,8 +83,19 @@ class ContactAddVC: UIViewController {
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == textFieldPhone{
+            let aSet = CharacterSet(charactersIn:"0123456789").inverted
+            let compSepByCharInSet = string.components(separatedBy: aSet)
+            let numberFiltered = compSepByCharInSet.joined()
+            return string == numberFiltered && (textField.text?.characters.count ?? 0) <= 10
+        }
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        textFieldPhone.delegate = self
         load()
     }
     
@@ -92,8 +104,5 @@ class ContactAddVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
-    
+    }    
 }
