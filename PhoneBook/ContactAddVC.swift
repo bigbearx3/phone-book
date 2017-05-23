@@ -21,7 +21,16 @@ class ContactAddVC: UIViewController {
     @IBOutlet weak var textFieldLastName: UITextField!
     @IBOutlet weak var textFieldPhone: UITextField!
     @IBOutlet weak var textFieldEmail: UITextField!    
+    @IBOutlet weak var buttonDelete: UIButton!
     
+    @IBAction func buttonDeleteContact(_ sender: UIButton) {
+        if let id = contactID{
+            myContactList.remove(contactID: id)
+            //self.dismiss(animated: true, completion: nil)
+            closeView()
+        }
+        
+    }
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         closeView()
     }
@@ -57,9 +66,11 @@ class ContactAddVC: UIViewController {
         textFieldEmail.text = myContact.email
         self.navigationItem.title = myContact.firstName +  " " + myContact.lastName
         isEditingMode = true
+        buttonDelete.isHidden = false
         }else{
             self.navigationItem.title = "New contact"
             isEditingMode = false
+            buttonDelete.isHidden = true
         }
     }    
     

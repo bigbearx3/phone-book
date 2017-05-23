@@ -25,7 +25,6 @@ enum SortField : Int{
     }
 }
 
-
 protocol ContactListAssistent{
     func save(contactArray : [Contact])
     func load()->[Contact]
@@ -76,7 +75,7 @@ class JsonFileAssistent : ContactListAssistent{
     }
 }
 
-struct Contact{
+struct Contact : Equatable{
     var id : String
     var firstName : String
     var lastName : String
@@ -114,6 +113,10 @@ struct Contact{
         }else{
             return nil
         }
+    }
+    
+    static func == (lhs: Contact, rhs: Contact) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 

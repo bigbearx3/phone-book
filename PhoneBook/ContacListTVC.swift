@@ -68,16 +68,16 @@ class ContacListTVC: UITableViewController, PBMember {
     }
     
     @objc private func refreshCell(notification : Notification){
-        if let updatedId = notification.userInfo?["id"],
+        print(notification)
+        if let data = notification.userInfo,
+        let updatedId = data["id"],
             let id = updatedId as? String,
-            let updatedContact = myContactList.get(byID: id) {
-            contactsInCurrentState.index(where: updatedContact)
-            
-            //tableView.ce
-            
-        }
-        
-        
+            let updatedContact = myContactList.get(byID: id),
+            let  updRowIndex = contactsInCurrentState.index(of: updatedContact){
+            contactsInCurrentState[updRowIndex] = updatedContact
+            let indexPath = IndexPath(item: updRowIndex, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .top)
+        }     
     }
 
     
