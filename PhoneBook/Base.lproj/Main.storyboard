@@ -129,6 +129,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                <connections>
+                                    <action selector="changeValues:" destination="W8a-Xz-FET" eventType="editingChanged" id="xjR-W5-q5d"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJH-to-ESf" userLabel="LastName">
                                 <rect key="frame" x="16" y="108" width="88" height="26"/>
@@ -197,6 +200,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
+                        <outlet property="barButtonSave" destination="Sf9-z3-3Zw" id="BRh-Ws-6vd"/>
                         <outlet property="buttonDelete" destination="8yB-Gs-9Al" id="UDQ-5z-oUj"/>
                         <outlet property="textFieldEmail" destination="eNK-Me-2Je" id="jbX-AR-1kb"/>
                         <outlet property="textFieldFirstName" destination="VS5-8r-C8k" id="4o4-Uk-oLd"/>

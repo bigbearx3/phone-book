@@ -20,17 +20,24 @@ class ContactAddVC: UIViewController {
     @IBOutlet weak var textFieldFirstName: UITextField!
     @IBOutlet weak var textFieldLastName: UITextField!
     @IBOutlet weak var textFieldPhone: UITextField!
-    @IBOutlet weak var textFieldEmail: UITextField!    
+    @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var buttonDelete: UIButton!
+    @IBOutlet weak var barButtonSave: UIBarButtonItem!
+    
+    @IBAction func changeValues(_ sender: UITextField) {
+        barButtonSave.isEnabled = !((textFieldFirstName.text?.isEmpty ?? true) &&
+            (textFieldLastName.text?.isEmpty ?? true) &&
+            (textFieldPhone.text?.isEmpty ?? true))
+    }
     
     @IBAction func buttonDeleteContact(_ sender: UIButton) {
         if let id = contactID{
             myContactList.remove(contactID: id)
-            //self.dismiss(animated: true, completion: nil)
-            closeView()
         }
+        self.dismiss(animated: true, completion: nil)
         
     }
+    
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         closeView()
     }
@@ -55,24 +62,25 @@ class ContactAddVC: UIViewController {
             self.navigationController?.popViewController(animated: false)
         }else{
             self.dismiss(animated: true, completion: nil)
-        }        
+        }
     }
     
     private func load(){
-        if let id = contactID, let myContact = myContactList.get(byID: id){        
-        textFieldFirstName.text = myContact.firstName
-        textFieldLastName.text = myContact.lastName
-        textFieldPhone.text = myContact.phone
-        textFieldEmail.text = myContact.email
-        self.navigationItem.title = myContact.firstName +  " " + myContact.lastName
-        isEditingMode = true
-        buttonDelete.isHidden = false
+        if let id = contactID, let myContact = myContactList.get(byID: id){
+            textFieldFirstName.text = myContact.firstName
+            textFieldLastName.text = myContact.lastName
+            textFieldPhone.text = myContact.phone
+            textFieldEmail.text = myContact.email
+            self.navigationItem.title = myContact.firstName +  " " + myContact.lastName
+            isEditingMode = true
+            buttonDelete.isHidden = false
         }else{
             self.navigationItem.title = "New contact"
             isEditingMode = false
             buttonDelete.isHidden = true
+            barButtonSave.isEnabled = false
         }
-    }    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,22 +91,8 @@ class ContactAddVC: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       /* if segue.identifier == "SendDataFromContacAddtVC" {
-            if let firstName = textFieldFirstName.text,
-                let lastName = textFieldLastName.text,
-                let phone = textFieldPhone.text,
-                let email = textFieldEmail.text, let tableVC = segue.destination as? ContacListTVC {
-                tableVC.contactList.update(contact: Contact(firstName: firstName, lastName: lastName, phone: phone, email: email))
-            }
-
-        }
-         */
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
     }
     
     

@@ -6,5 +6,4 @@
 import UIKit
 
 class ToContactVC: UIStoryboardSegue {
-
 }

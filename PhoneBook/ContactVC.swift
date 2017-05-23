@@ -31,6 +31,7 @@ class ContactVC: UIViewController {
             }
         }
     }
+    
     @objc private  func reload(){
         if let contact = myContactList.get(byID: contactID){
             labelForFirstName.text = contact.firstName
@@ -41,21 +42,16 @@ class ContactVC: UIViewController {
         }
     }
     
-
-    
     private func initNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(ContactVC.reload), name: Notification.Name(PBNotification.ContactChanged), object: nil)
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initNotification()
         reload()
         
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: #selector(contactEditVC(_:)))
-        // Do any additional setup after loading the view.
     }
     
     deinit {
@@ -64,18 +60,6 @@ class ContactVC: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
