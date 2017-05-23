@@ -74,51 +74,6 @@ class JsonFileAssistent : ContactListAssistent{
     }
 }
 
-struct Contact : Equatable{
-    var id : String
-    var firstName : String
-    var lastName : String
-    var phone : String
-    var email : String?
-    
-    init(firstName : String, lastName : String, phone : String, email : String? ) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.phone = phone
-        self.email = email
-        self.id = UUID.init().uuidString
-    }
-    
-    init(id : String ,firstName : String, lastName : String, phone : String, email : String? ) {
-        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email)
-        self.id = id
-    }
-    
-    func prepareForJSON() -> [String:[String:String]] {
-        var result = ["contact" :["id": id, "firstName": firstName, "lastName": lastName, "phone": phone]]
-        if let mail = email{
-            result["contact"]!.updateValue(mail, forKey: "email")
-        }
-        return result
-    }
-    
-    init?(fromJSON : [String:[String:String]]){
-        if let data = fromJSON["contact"],
-            let id = data["id"],
-            let firstName = data["firstName"],
-            let lastName = data["lastName"],
-            let phone = data["phone"] {
-            self.init(id : id, firstName : firstName, lastName : lastName, phone : phone, email : data["email"])
-        }else{
-            return nil
-        }
-    }
-    
-    static func == (lhs: Contact, rhs: Contact) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
-
 class ContactList{
     private var contacts : [Contact] = []
     private var helper : ContactListAssistent

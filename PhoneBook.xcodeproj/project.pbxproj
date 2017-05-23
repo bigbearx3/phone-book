@@ -22,6 +22,7 @@
 		76D8FEFE1ECA069B0052DD74 /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFD1ECA069B0052DD74 /* ContactTVCell.swift */; };
 		76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */; };
 		8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452E7D61ECDB24900B348ED /* AppSettings.swift */; };
+		845F33721ED4535600D7E242 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F33711ED4535600D7E242 /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		76D8FEFD1ECA069B0052DD74 /* ContactTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactList.swift; sourceTree = "<group>"; };
 		8452E7D61ECDB24900B348ED /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		845F33711ED4535600D7E242 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Contact.swift; path = ../Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		767B0CE31ED340FB00822C10 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				845F33711ED4535600D7E242 /* Contact.swift */,
 				76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */,
 			);
 			name = Models;
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845F33721ED4535600D7E242 /* Contact.swift in Sources */,
 				76D8FEFE1ECA069B0052DD74 /* ContactTVCell.swift in Sources */,
 				7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */,
 				7666AA6F1ECB575400CF5E2E /* ToContactAddVC.swift in Sources */,
