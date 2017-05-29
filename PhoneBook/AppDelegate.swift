@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        contactList = ContactList(assistent: JsonFileAssistent(sourceFile: "Contacts.json", destinationFile: "Contacts.json"))
+        contactList = ContactList(assistent: NSCodingAssistent(sourceFile: "Contacts.db", destinationFile: "Contacts.db"))
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhoneBookNC")

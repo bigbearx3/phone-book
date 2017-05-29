@@ -30,8 +30,7 @@ protocol ContactListAssistent{
     func load()->[Contact]
 }
 
-
-class JsonFileAssistent : ContactListAssistent{
+class NSCodingAssistent : ContactListAssistent{
     private var sourceFile : String
     private var destinationFile : String
     
@@ -44,16 +43,8 @@ class JsonFileAssistent : ContactListAssistent{
         var result : [Contact] = []
         guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return result}
         let fileUrl = documentsDirectoryUrl.appendingPathComponent(destinationFile)
-        do {
-            let data = try Data(contentsOf: fileUrl, options: [])
-            guard let contactRawArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: [String: String]]] else { return result}            
-            for contactData in contactRawArray{
-                if let newContact = Contact(fromJSON : contactData){
-                    result.append(newContact)
-                }
-            }
-        } catch {
-            print(error)
+        if let data = (NSKeyedUnarchiver.unarchiveObject(withFile: fileUrl.path) as? [Contact.Coding])?.decoded{
+            result = data as! [Contact]
         }
         return result
     }
@@ -61,16 +52,7 @@ class JsonFileAssistent : ContactListAssistent{
     func save(contactArray : [Contact]) {
         guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let fileUrl = documentDirectoryUrl.appendingPathComponent(destinationFile)
-        do {
-            var praparedForJSON : [[String:[String:String]]] = []
-            for contact in contactArray{
-                praparedForJSON.append(contact.prepareForJSON())
-            }
-            let data = try JSONSerialization.data(withJSONObject: praparedForJSON, options: [])
-            try data.write(to: fileUrl, options: [])
-        } catch {
-            print(error)
-        }
+        NSKeyedArchiver.archiveRootObject(contactArray.encoded, toFile: fileUrl.path)
     }
 }
 
@@ -148,16 +130,9 @@ class ContactList{
         save()
     }
     
-    func preparedForJSONConvert()->[[String:[String:String]]]{
-        var result : [[String:[String:String]]] = []
-        for contact in contacts {
-            result.append(contact.prepareForJSON())
-        }
-        return result
-    }
-    
     public func save(){
-        helper.save(contactArray: contacts)        
+        
+        helper.save(contactArray: contacts)
     }
     
     public func load(){

@@ -26,35 +26,15 @@ struct Contact : Equatable{
     }
     
     static func encode(contact: Contact) {
-        let contactClassObject = HelperClass(contact: contact)
-        NSKeyedArchiver.archiveRootObject(contactClassObject, toFile: HelperClass.path())
+        let contactClassObject = Coding(contact: contact)
+        NSKeyedArchiver.archiveRootObject(contactClassObject, toFile: Coding.path())
     }
     
     static func decode() -> Contact? {
-        let contactClassObject = NSKeyedUnarchiver.unarchiveObject(withFile : HelperClass.path()) as? HelperClass
+        let contactClassObject = NSKeyedUnarchiver.unarchiveObject(withFile : Coding.path()) as? Coding
         
         return contactClassObject?.contact
-    }
-    
-    func prepareForJSON() -> [String:[String:String]] {
-        var result = ["contact" :["id": id, "firstName": firstName, "lastName": lastName, "phone": phone]]
-        if let mail = email{
-            result["contact"]!.updateValue(mail, forKey: "email")
-        }
-        return result
-    }
-    
-    init?(fromJSON : [String:[String:String]]){
-        if let data = fromJSON["contact"],
-            let id = data["id"],
-            let firstName = data["firstName"],
-            let lastName = data["lastName"],
-            let phone = data["phone"] {
-            self.init(id : id, firstName : firstName, lastName : lastName, phone : phone, email : data["email"])
-        }else{
-            return nil
-        }
-    }
+    }    
     
     static func == (lhs: Contact, rhs: Contact) -> Bool {
         return lhs.id == rhs.id
@@ -62,7 +42,7 @@ struct Contact : Equatable{
 }
 
 extension Contact {
-    class HelperClass: NSObject, NSCoding {
+    class Coding: NSObject, NSCoding {
         
         var contact: Contact?
         
@@ -95,5 +75,40 @@ extension Contact {
             aCoder.encode(contact!.phone, forKey: "phone")
             aCoder.encode(contact!.email, forKey: "email")
         }
+    }
+}
+
+
+extension Contact: Encodable {
+    var encoded: Decodable? {
+        return Contact.Coding(contact: self)
+    }
+}
+
+extension Contact.Coding: Decodable {
+    var decoded: Encodable? {
+        return self.contact
+    }
+}
+
+protocol Encodable {
+    var encoded: Decodable? { get }
+}
+
+protocol Decodable {
+    var decoded: Encodable? { get }
+}
+
+
+extension Sequence where Iterator.Element: Encodable {
+    var encoded: [Decodable] {
+        return self.filter({ $0.encoded != nil }).map({ $0.encoded! })
+    }
+}
+
+
+extension Sequence where Iterator.Element: Decodable {
+    var decoded: [Encodable] {
+        return self.filter({ $0.decoded != nil }).map({ $0.decoded! })
     }
 }
