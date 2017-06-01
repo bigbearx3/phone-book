@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhoneBookNC")
         if let phoneBookNC = initialViewController as? UINavigationController,
-            var contactListTVC = phoneBookNC.viewControllers[0] as? PBMember{
+            var contactListTVC = phoneBookNC.viewControllers.first as? PBMember{
             contactListTVC.contactList = contactList!
         }
         self.window?.rootViewController = initialViewController
@@ -39,6 +39,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
     }
-    
 }
 

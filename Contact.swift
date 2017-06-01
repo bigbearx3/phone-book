@@ -25,17 +25,6 @@ struct Contact : Equatable{
         self.id = id
     }
     
-    static func encode(contact: Contact) {
-        let contactClassObject = Coding(contact: contact)
-        NSKeyedArchiver.archiveRootObject(contactClassObject, toFile: Coding.path())
-    }
-    
-    static func decode() -> Contact? {
-        let contactClassObject = NSKeyedUnarchiver.unarchiveObject(withFile : Coding.path()) as? Coding
-        
-        return contactClassObject?.contact
-    }    
-    
     static func == (lhs: Contact, rhs: Contact) -> Bool {
         return lhs.id == rhs.id
     }
@@ -49,14 +38,7 @@ extension Contact {
         init(contact: Contact) {
             self.contact = contact
             super.init()
-        }
-        
-        class func path() -> String {
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                    .userDomainMask, true).first
-            let path = documentsPath?.appending("/Contacts")
-            return path!
-        }
+        }        
         
         required init?(coder aDecoder: NSCoder) {
             guard let id = aDecoder.decodeObject(forKey: "id") as? String else { contact = nil; super.init(); return nil }
