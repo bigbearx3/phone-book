@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum SortField : Int{
+enum SortType : Int{
     case  lastName = 0
     case  firstName
     mutating func next() {
@@ -17,7 +17,7 @@ enum SortField : Int{
         }
     }
     
-    func nextString() -> String {
+    func toString() -> String {
         switch self {
         case .firstName: return "Last Name"
         case .lastName: return "First Name"
@@ -86,7 +86,7 @@ class ContactList{
         return index
     }
     
-    public func sortedBy(sortingBy : SortField)->[Contact] {
+    public func sortedBy(sortingBy : SortType)->[Contact] {
         switch sortingBy {
         case .firstName :
             return contacts.sorted { ($0.firstName + $0.lastName).localizedCaseInsensitiveCompare($1.firstName + $1.lastName) == ComparisonResult.orderedAscending }

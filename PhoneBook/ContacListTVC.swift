@@ -9,47 +9,39 @@ class ContacListTVC: UITableViewController, PBMember {
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!
     private var myContactList : ContactList!
-    private var sortField : SortField!
+    private var sortType : SortType!
     private var contactsInCurrentState : [Contact] = []
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         setEditing(!isEditing, animated: true)
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
-        sortField.next()
-        barButtonItemSortBy.title = "Sort by " + sortField.nextString()
-        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
+        sortType.next()
+        barButtonItemSortBy.title = "Sort by " + sortType.toString()
+        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortType)
         tableView.reloadData()
         let defaults = UserDefaults.standard
-        defaults.set(sortField.rawValue, forKey: "SortField")
+        defaults.set(sortType.rawValue, forKey: "SortField")
         defaults.synchronize()
     }
     
     private func buttonSortByOnOff(){
-        if contactsInCurrentState.count > 1 {
-            barButtonItemSortBy.isEnabled = true
-            barButtonItemSortBy.tintColor = nil
-        }else{
-            barButtonItemSortBy.isEnabled = false
-            barButtonItemSortBy.tintColor = UIColor.clear
-        }
+        let oneAndMore = contactsInCurrentState.count > 1
+        barButtonItemSortBy.isEnabled = oneAndMore
+        barButtonItemSortBy.tintColor = oneAndMore ? nil : UIColor.clear
     }
     
     private func buttonEditOnOff(){
-        if contactsInCurrentState.count > 0 {
-            barButtonItemEdit.isEnabled = true
-            barButtonItemEdit.tintColor = nil
-        }else{
-            barButtonItemEdit.isEnabled = false
-            barButtonItemEdit.tintColor = UIColor.clear
-        }
+        let notEmpty = contactsInCurrentState.count > 0
+        barButtonItemEdit.isEnabled = notEmpty
+        barButtonItemEdit.tintColor = notEmpty ? nil : UIColor.clear
     }
     
     private func loadSortBy(){
         let defaults = UserDefaults.standard
         let intValue = defaults.integer(forKey: "SortBy")
-        self.sortField = SortField(rawValue : intValue)
-        barButtonItemSortBy.title = "Sort by " + self.sortField.nextString()
+        self.sortType = SortType(rawValue : intValue)
+        barButtonItemSortBy.title = "Sort by " + self.sortType.toString()
     }
     
     var contactList: ContactList{
@@ -58,7 +50,7 @@ class ContacListTVC: UITableViewController, PBMember {
     }
     
     @objc internal func refresh(){
-        contactsInCurrentState = myContactList.sortedBy(sortingBy: sortField)
+        contactsInCurrentState = myContactList.sortedBy(sortingBy: sortType)
         tableView.reloadData()
         buttonEditOnOff()
         buttonSortByOnOff()
@@ -87,7 +79,7 @@ class ContacListTVC: UITableViewController, PBMember {
         loadSortBy()
         initNotification()
         myContactList.load()
-        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortField)
+        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortType)
         buttonEditOnOff()
         buttonSortByOnOff()
         self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
@@ -141,8 +133,9 @@ class ContacListTVC: UITableViewController, PBMember {
         }
         if segue.identifier == "ToContactAddVC" {
             if let destination = segue.destination as? ContactAddEditNC{
-                if let contactAddVC =  destination.viewControllers.first as? ContactAddVC{
-                    contactAddVC.contactList = myContactList
+                if let ContactAddEditView =  destination.viewControllers.first as? ContactAddEditViewImpl{
+                    let presenter = ContactAddEditPresenterImpl(view : ContactAddEditView, contactList : contactList, currentId : nil)
+                    ContactAddEditView.presenter = presenter                    
                 }
             }
         }

@@ -23,11 +23,11 @@ class ContactVC: UIViewController {
     @IBOutlet weak var labelForEmail: UILabel!
     func contactEditVC(_ sender: UIButton) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        if let contactAddVC = storyBoard.instantiateViewController(withIdentifier: "ContactAddVC") as? ContactAddVC{
-            contactAddVC.contactList = contactList
-            contactAddVC.currentID = contactID
+        if let ContactAddEditView = storyBoard.instantiateViewController(withIdentifier: "ContactAddEditViewImpl") as? ContactAddEditViewImpl{
+            let presenter = ContactAddEditPresenterImpl(view : ContactAddEditView, contactList : contactList, currentId : nil)
+            ContactAddEditView.presenter = presenter            
             if let navC = self.navigationController{
-                navC.pushViewController(contactAddVC, animated: false)
+                navC.pushViewController(ContactAddEditView, animated: false)
             }
         }
     }
