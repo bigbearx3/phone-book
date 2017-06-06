@@ -11,6 +11,8 @@ class ContacListTVC: UITableViewController, PBMember {
     private var myContactList : ContactList!
     private var sortType : SortType!
     private var contactsInCurrentState : [Contact] = []
+    private var paddingCell  = 0
+    private var paddingCellFunc : (_ value : Int) -> Int = {$0 - 1}
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         setEditing(!isEditing, animated: true)
     }
@@ -83,6 +85,8 @@ class ContacListTVC: UITableViewController, PBMember {
         buttonEditOnOff()
         buttonSortByOnOff()
         self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 48
     }
     
     deinit {
@@ -104,9 +108,16 @@ class ContacListTVC: UITableViewController, PBMember {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCell", for: indexPath)
         if let myCell = cell as?  ContactTVCell {
+            
             let curentContact = contactsInCurrentState[indexPath.item]
-            myCell.textLabel?.text = curentContact.firstName + " " + curentContact.lastName
-            myCell.detailTextLabel?.text = curentContact.phone
+            myCell.labelFirstName?.text = curentContact.firstName
+            myCell.labelLastName?.text = curentContact.lastName
+            myCell.labelPhone?.text = curentContact.phone
+            myCell.labelEmail?.text = curentContact.email
+            myCell.constraintPhone.constant = CGFloat(10 * paddingCell)
+            if paddingCell == 0 {paddingCellFunc = {$0 + 1}}
+            if paddingCell == 4 {paddingCellFunc = {$0 - 1}}
+            paddingCell = paddingCellFunc(paddingCell)
             myCell.currentID = curentContact.id
             return myCell
         }
