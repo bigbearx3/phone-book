@@ -11,6 +11,5 @@ protocol ContactAddEditPresenter {
     func checkPhone(shouldChangeCharactersIn range: NSRange, replacementString string: String, size : Int) -> Bool
     func deleteContact()
     func initView()
-    func closeView()
-    
+    func closeView()    
 }

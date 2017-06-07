@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,16 +16,16 @@
         <scene sceneID="szw-2E-7Z7">
             <objects>
                 <tableViewController storyboardIdentifier="ContacListTVC" id="2tK-BY-QwY" customClass="ContacListTVC" customModule="PhoneBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="134" sectionHeaderHeight="28" sectionFooterHeight="28" id="5jZ-uK-iCG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="118" sectionHeaderHeight="28" sectionFooterHeight="28" id="5jZ-uK-iCG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCell" editingAccessoryType="disclosureIndicator" rowHeight="134" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="134"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCell" editingAccessoryType="disclosureIndicator" rowHeight="118" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="118"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="LoS-bw-Cno" id="h7z-8w-h7R">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="firstName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSc-dK-s2g">
@@ -35,47 +35,58 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lastName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBj-i4-NDj">
-                                            <rect key="frame" x="13" y="30" width="354" height="21"/>
+                                            <rect key="frame" x="13" y="33" width="354" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phone" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-DC-bzb">
-                                            <rect key="frame" x="13" y="56" width="354" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SU-DC-bzb">
+                                            <rect key="frame" x="13" y="61" width="303.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFn-hy-C3l">
-                                            <rect key="frame" x="13" y="84" width="354" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40.5" translatesAutoresizingMaskIntoConstraints="NO" id="RFn-hy-C3l">
+                                            <rect key="frame" x="326.5" y="61" width="40.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxk-lQ-8Fn">
+                                            <rect key="frame" x="329" y="8" width="30" height="30"/>
+                                            <state key="normal" title="B"/>
+                                            <state key="selected" title="B+"/>
+                                            <connections>
+                                                <action selector="tapedOnOff:" destination="LoS-bw-Cno" eventType="touchUpInside" id="jxd-ac-06F"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="RFn-hy-C3l" secondAttribute="bottom" constant="5" id="1b7-TU-ZSn"/>
-                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="trailing" secondItem="xBj-i4-NDj" secondAttribute="trailing" id="2rC-Vy-vsb"/>
-                                        <constraint firstItem="RFn-hy-C3l" firstAttribute="leading" secondItem="0SU-DC-bzb" secondAttribute="leading" id="6kK-7t-Q8x"/>
+                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="top" secondItem="xBj-i4-NDj" secondAttribute="bottom" constant="7" id="01J-jC-VUD"/>
+                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="leading" secondItem="dSc-dK-s2g" secondAttribute="leading" id="4Wl-hP-uJC"/>
                                         <constraint firstItem="xBj-i4-NDj" firstAttribute="leading" secondItem="dSc-dK-s2g" secondAttribute="leading" id="AZT-bW-7yj"/>
-                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="top" secondItem="xBj-i4-NDj" secondAttribute="bottom" constant="5" id="HHL-Sz-RSQ"/>
                                         <constraint firstItem="dSc-dK-s2g" firstAttribute="top" secondItem="h7z-8w-h7R" secondAttribute="top" constant="5" id="Hf6-UX-udc"/>
-                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="leading" secondItem="xBj-i4-NDj" secondAttribute="leading" id="Quz-hT-RMQ"/>
+                                        <constraint firstItem="uxk-lQ-8Fn" firstAttribute="top" secondItem="h7z-8w-h7R" secondAttribute="topMargin" id="KYz-X1-Ki1"/>
                                         <constraint firstItem="xBj-i4-NDj" firstAttribute="trailing" secondItem="dSc-dK-s2g" secondAttribute="trailing" id="TTq-U4-z2c"/>
                                         <constraint firstItem="dSc-dK-s2g" firstAttribute="leading" secondItem="h7z-8w-h7R" secondAttribute="leadingMargin" constant="5" id="Xjg-SR-fbf"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="dSc-dK-s2g" secondAttribute="trailing" id="YFQ-Le-uOB"/>
-                                        <constraint firstItem="xBj-i4-NDj" firstAttribute="top" secondItem="dSc-dK-s2g" secondAttribute="bottom" constant="4" id="eOU-wT-JCX"/>
-                                        <constraint firstItem="RFn-hy-C3l" firstAttribute="top" secondItem="0SU-DC-bzb" secondAttribute="bottom" constant="7" id="gd2-cV-ac6"/>
-                                        <constraint firstItem="RFn-hy-C3l" firstAttribute="trailing" secondItem="0SU-DC-bzb" secondAttribute="trailing" id="rwa-3T-nSy"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="0SU-DC-bzb" secondAttribute="bottom" constant="7" id="Zku-gY-E7G"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="uxk-lQ-8Fn" secondAttribute="trailing" constant="8" id="aiR-Qp-nhS"/>
+                                        <constraint firstItem="xBj-i4-NDj" firstAttribute="top" secondItem="dSc-dK-s2g" secondAttribute="bottom" constant="7" id="eOU-wT-JCX"/>
+                                        <constraint firstItem="RFn-hy-C3l" firstAttribute="leading" secondItem="0SU-DC-bzb" secondAttribute="trailing" constant="10" id="gct-pi-QGd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="RFn-hy-C3l" secondAttribute="trailing" id="jWZ-mB-OPL"/>
+                                        <constraint firstItem="RFn-hy-C3l" firstAttribute="baseline" secondItem="0SU-DC-bzb" secondAttribute="baseline" id="nQq-bv-n0n"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" identifier="ContactTVCell">
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <outlet property="constraintPhone" destination="Quz-hT-RMQ" id="7G6-uS-RCP"/>
+                                    <outlet property="buttonOnOff" destination="uxk-lQ-8Fn" id="vY1-Wv-oIo"/>
+                                    <outlet property="constrainSwitchButton" destination="aiR-Qp-nhS" id="uTl-Tn-8Um"/>
+                                    <outlet property="constraintPhone" destination="01J-jC-VUD" id="FQi-9z-zh0"/>
                                     <outlet property="labelEmail" destination="RFn-hy-C3l" id="xcu-R0-KfT"/>
-                                    <outlet property="labelFirstName" destination="dSc-dK-s2g" id="xha-hs-jlN"/>
+                                    <outlet property="labelFirstName" destination="dSc-dK-s2g" id="Cg6-CQ-8S4"/>
                                     <outlet property="labelLastName" destination="xBj-i4-NDj" id="U90-hW-L0G"/>
                                     <outlet property="labelPhone" destination="0SU-DC-bzb" id="sCM-0D-gbu"/>
                                     <segue destination="5qh-WE-hgp" kind="showDetail" identifier="ToContactVC" customClass="ToContactVC" customModule="PhoneBook" customModuleProvider="target" action="showViewController:sender:" id="Phy-cY-fJ0"/>
@@ -271,7 +282,7 @@
         <!--Title-->
         <scene sceneID="14K-6h-1nm">
             <objects>
-                <viewController storyboardIdentifier="ContactVC" id="5qh-WE-hgp" customClass="ContactVC" customModule="PhoneBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactVCImpl" id="5qh-WE-hgp" customClass="ContactVCImpl" customModule="PhoneBook" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k0Y-I5-jhk"/>
                         <viewControllerLayoutGuide type="bottom" id="Ntl-El-jKg"/>
@@ -339,7 +350,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="Gdr-gV-sTN"/>
+                    <navigationItem key="navigationItem" title="Title" id="Gdr-gV-sTN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="XOx-rC-LI6">
+                            <connections>
+                                <action selector="contactEditVC:" destination="5qh-WE-hgp" id="ZBh-2B-roU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="labelForEmail" destination="brz-DB-pdg" id="eng-ra-aQP"/>

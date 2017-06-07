@@ -113,7 +113,10 @@ class ContacListTVC: UITableViewController, PBMember {
             myCell.labelLastName?.text = curentContact.lastName
             myCell.labelPhone?.text = curentContact.phone
             myCell.labelEmail?.text = curentContact.email
-            myCell.constraintPhone.constant = CGFloat(10 * paddingCell)
+            myCell.fullName = curentContact.fullName
+            myCell.constrainSwitchButton.constant = 0
+            //myCell.labelEmail.isHidden = true
+            //myCell.constraintPhone.constant = CGFloat(10 * paddingCell)
             if paddingCell == 0 {paddingCellFunc = {$0 + 1}}
             if paddingCell == 4 {paddingCellFunc = {$0 - 1}}
             paddingCell = paddingCellFunc(paddingCell)
@@ -132,12 +135,12 @@ class ContacListTVC: UITableViewController, PBMember {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         setEditing(false, animated: false)
         if segue.identifier == "ToContactVC" {
-            if let destination = segue.destination as? ContactVC {
+            if let destination = segue.destination as? ContactVCImpl {
                 let path = tableView.indexPathForSelectedRow
                 let cell = tableView.cellForRow(at: path!)
-                destination.contactList = contactList
                 if let myCell = cell as? ContactTVCell{
-                    destination.currentID = myCell.currentID
+                    let presenter = ContactVCPresenterImpl(view : destination, contactList : contactList, currentId : myCell.currentID)
+                    destination.presenter = presenter                    
                 }
             }
         }

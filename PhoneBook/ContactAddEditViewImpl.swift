@@ -52,7 +52,6 @@ class ContactAddEditViewImpl: UIViewController, UITextFieldDelegate, ContactAddE
         }
     }
     
-    
     @IBAction func changeValues(_ sender: UITextField) {
         barButtonSave.isEnabled =
             !((textFieldFirstName.text?.isEmpty ?? true) ||
@@ -77,7 +76,6 @@ class ContactAddEditViewImpl: UIViewController, UITextFieldDelegate, ContactAddE
         }
         presenter.closeView()
     }
-    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == textFieldPhone{
