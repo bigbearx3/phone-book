@@ -24,7 +24,7 @@ class ContactVC: UIViewController {
     func contactEditVC(_ sender: UIButton) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         if let ContactAddEditView = storyBoard.instantiateViewController(withIdentifier: "ContactAddEditViewImpl") as? ContactAddEditViewImpl{
-            let presenter = ContactAddEditPresenterImpl(view : ContactAddEditView, contactList : contactList, currentId : nil)
+            let presenter = ContactAddEditPresenterImpl(view : ContactAddEditView, contactList : contactList, currentId : contactID)
             ContactAddEditView.presenter = presenter            
             if let navC = self.navigationController{
                 navC.pushViewController(ContactAddEditView, animated: false)

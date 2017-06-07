@@ -42,9 +42,11 @@ class ContactAddEditViewImpl: UIViewController, UITextFieldDelegate, ContactAddE
         textFieldEmail.text = email
     }
     
-    func close(){        
-        if let navC = self.navigationController{
-            navC.popViewController(animated: false)
+    func close(isEditingMode : Bool){        
+        if isEditingMode {
+            if let navC = self.navigationController{
+                navC.popViewController(animated: false)
+            }
         }else{
             self.dismiss(animated: true, completion: nil)
         }
@@ -63,7 +65,7 @@ class ContactAddEditViewImpl: UIViewController, UITextFieldDelegate, ContactAddE
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        close()
+        presenter.closeView()
     }
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {

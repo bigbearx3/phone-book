@@ -13,5 +13,5 @@ protocol ContactAddEditView: class {
     func setLastName(lastName : String)
     func setPhone(phone : String)
     func setEmail(email : String?)
-    func close()
+    func close(isEditingMode : Bool)
 }

@@ -12,7 +12,7 @@ class ContacListTVC: UITableViewController, PBMember {
     private var sortType : SortType!
     private var contactsInCurrentState : [Contact] = []
     private var paddingCell  = 0
-    private var paddingCellFunc : (_ value : Int) -> Int = {$0 - 1}
+    private var paddingCellFunc : (_ value : Int) -> Int = {$0 + 1}
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         setEditing(!isEditing, animated: true)
     }
@@ -108,7 +108,6 @@ class ContacListTVC: UITableViewController, PBMember {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCell", for: indexPath)
         if let myCell = cell as?  ContactTVCell {
-            
             let curentContact = contactsInCurrentState[indexPath.item]
             myCell.labelFirstName?.text = curentContact.firstName
             myCell.labelLastName?.text = curentContact.lastName

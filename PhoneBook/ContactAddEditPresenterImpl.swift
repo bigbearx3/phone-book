@@ -19,7 +19,7 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
     }
     
     func closeView(){
-        view.close()
+        view.close(isEditingMode: isEditingMode)
     }
     
     func initView(){
@@ -35,7 +35,7 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
             view.setTitle(title: "New contact")           
         }
         view.setEnableSaveButton(enable: isEditingMode)
-        view.setVisibleDeleteButton(visible: isEditingMode)
+        view.setVisibleDeleteButton(visible: !isEditingMode)
         
         
     }
@@ -44,7 +44,7 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         if let id = currentId{
             contactList.remove(contactID: id)
         }
-        view.close()
+        view.close(isEditingMode : isEditingMode)
     }
     
     func saveContact(firstName: String, lastName: String, phone: String, email: String?){
