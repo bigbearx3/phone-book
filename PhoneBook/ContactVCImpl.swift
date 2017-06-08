@@ -42,11 +42,11 @@ class ContactVCImpl: UIViewController, ContactVC{
     
     func showEditView(editViewName : String, model : ContactList, currentID : String){
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        if let ContactAddEditView = storyBoard.instantiateViewController(withIdentifier: editViewName) as? ContactAddEditViewImpl{
-            let presenter = ContactAddEditPresenterImpl(view : ContactAddEditView, contactList : model, currentId : currentID)
-            ContactAddEditView.presenter = presenter
+        if let ContactAddEdit = storyBoard.instantiateViewController(withIdentifier: editViewName) as? ContactAddEditImpl{
+            let presenter = ContactAddEditPresenterImpl(view : ContactAddEdit , contactList : model, currentId : currentID)
+            ContactAddEdit.presenter = presenter
             if let navC = self.navigationController{
-                navC.pushViewController(ContactAddEditView, animated: false)
+                navC.pushViewController(ContactAddEdit, animated: false)
             }
         }
     }

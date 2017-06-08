@@ -1,11 +1,11 @@
 //
-//  ContactAddEditView.swift
+//  ContactAddEdit.swift
 //  PhoneBook
 //
 
 import Foundation
 
-protocol ContactAddEditView: class {
+protocol ContactAddEdit: class {
     func setEnableSaveButton(enable : Bool)
     func setVisibleDeleteButton(visible : Bool)
     func setTitle(title : String)

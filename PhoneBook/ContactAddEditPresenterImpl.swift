@@ -6,13 +6,12 @@
 import Foundation
 
 class ContactAddEditPresenterImpl : ContactAddEditPresenter{
-    
-    private unowned let view: ContactAddEditView
+    private unowned let view: ContactAddEdit
     private let contactList: ContactList
     private var currentId : String?
     private var isEditingMode = false
     
-    required init(view: ContactAddEditView, contactList: ContactList, currentId : String?) {
+    required init(view: ContactAddEdit, contactList: ContactList, currentId : String?) {
         self.view = view
         self.contactList = contactList
         self.currentId = currentId
@@ -32,12 +31,10 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
             view.setEmail(email: myContact.email)
             isEditingMode = true
         }else{
-            view.setTitle(title: "New contact")           
+            view.setTitle(title: "New contact")
         }
         view.setEnableSaveButton(enable: isEditingMode)
         view.setVisibleDeleteButton(visible: !isEditingMode)
-        
-        
     }
     
     func deleteContact(){

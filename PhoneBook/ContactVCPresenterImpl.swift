@@ -22,7 +22,7 @@ class ContactVCPresenterImpl: ContactVCPresenter {
     }
     
     func showNextView(){
-        view.showEditView(editViewName: "ContactAddEditViewImpl", model: contactList, currentID: currentId)
+        view.showEditView(editViewName: "ContactAddEditImpl", model: contactList, currentID: currentId)
     }
     
     @objc func initView(){

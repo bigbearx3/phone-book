@@ -1,11 +1,11 @@
 //
-//  ContactAddEditViewImpl.swift
+//  ContactAddEditImpl.swift
 //  PhoneBook
 //
 
 import UIKit
 
-class ContactAddEditViewImpl: UIViewController, UITextFieldDelegate, ContactAddEditView {
+class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit {
     var presenter: ContactAddEditPresenter!
     @IBOutlet weak var textFieldFirstName: UITextField!
     @IBOutlet weak var textFieldLastName: UITextField!
