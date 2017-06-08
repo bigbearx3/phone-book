@@ -6,13 +6,14 @@
 import Foundation
 
 protocol ContacListTVCPresenter {
-    init(view: ContacListTVC, contactList: ContactList)
-    func showContactView()
-    func showContactAddEditView()
-    func deleteContact()
+    init(view: ContacListTVC, contactList: ContactList, sortType : SortType)
+    func deleteContact(byIndex : Int)
     func getNumberOfSection() ->Int
     func getNumberOfRowsInSection(section : Int) -> Int
-    func getCellForRowAt(indexPath : IndexPath)
+    func getContactBy(index : Int) ->Contact    
+    func getContactVCPresenter(for view : ContactVC, contactId : String)->ContactVCPresenter
+    func getContactAddEditPresenter(for view : ContactAddEdit, contactId : String?)->ContactAddEditPresenter
     func sortBy()
-    //func initView()
+    func switchEditing()
+    func initView()
 }

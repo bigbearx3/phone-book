@@ -5,8 +5,8 @@
 
 import Foundation
 
-struct PBNotification {
+internal struct PBNotification {
     static let ContactListChanged = "ContactListChanged"
-    static let ContactChanged = "ContactChanged"
+    static let ContactChanged = "ContactChanged"   
 }
 

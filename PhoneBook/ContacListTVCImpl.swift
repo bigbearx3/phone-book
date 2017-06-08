@@ -5,85 +5,50 @@
 
 import UIKit
 
-class ContacListTVCImpl: UITableViewController, PBMember {
+class ContacListTVCImpl: UITableViewController, ContacListTVC {
+    var presenter: ContacListTVCPresenter!
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!
-    private var myContactList : ContactList!
-    private var sortType : SortType!
-    private var contactsInCurrentState : [Contact] = []
     private var paddingCell  = 0
     private var paddingCellFunc : (_ value : Int) -> Int = {$0 + 1}
+    
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         setEditing(!isEditing, animated: true)
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
-        sortType.next()
-        barButtonItemSortBy.title = "Sort by " + sortType.toString()
-        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortType)
+        presenter.sortBy()
+    }
+    
+    func setEditingMode(isEditing : Bool){
+        setEditing(isEditing, animated: true)
+    }
+    
+    func setVisibleButtonSortBy(isVisible : Bool){
+        barButtonItemSortBy.isEnabled = isVisible
+        barButtonItemSortBy.tintColor = isVisible ? nil : UIColor.clear
+    }
+    
+    func setVisibleButtonEdit(isVisible : Bool){
+        barButtonItemEdit.isEnabled = isVisible
+        barButtonItemEdit.tintColor = isVisible ? nil : UIColor.clear
+    }
+    
+    func setTitleSortBy(title : String){
+        barButtonItemSortBy.title = title
+    }
+    
+    func refreshData(){
         tableView.reloadData()
-        let defaults = UserDefaults.standard
-        defaults.set(sortType.rawValue, forKey: "SortField")
-        defaults.synchronize()
     }
     
-    private func buttonSortByOnOff(){
-        let oneAndMore = contactsInCurrentState.count > 1
-        barButtonItemSortBy.isEnabled = oneAndMore
-        barButtonItemSortBy.tintColor = oneAndMore ? nil : UIColor.clear
-    }
-    
-    private func buttonEditOnOff(){
-        let notEmpty = contactsInCurrentState.count > 0
-        barButtonItemEdit.isEnabled = notEmpty
-        barButtonItemEdit.tintColor = notEmpty ? nil : UIColor.clear
-    }
-    
-    private func loadSortBy(){
-        let defaults = UserDefaults.standard
-        let intValue = defaults.integer(forKey: "SortBy")
-        self.sortType = SortType(rawValue : intValue)
-        barButtonItemSortBy.title = "Sort by " + self.sortType.toString()
-    }
-    
-    var contactList: ContactList{
-        set{myContactList = newValue}
-        get{return myContactList}
-    }
-    
-    @objc internal func refresh(){
-        contactsInCurrentState = myContactList.sortedBy(sortingBy: sortType)
-        tableView.reloadData()
-        buttonEditOnOff()
-        buttonSortByOnOff()
-    }
-    
-    @objc private func refreshCell(notification : Notification){
-        print(notification)
-        if let data = notification.userInfo,
-            let updatedId = data["id"],
-            let id = updatedId as? String,
-            let updatedContact = myContactList.get(byID: id),
-            let  updRowIndex = contactsInCurrentState.index(of: updatedContact){
-            contactsInCurrentState[updRowIndex] = updatedContact
-            let indexPath = IndexPath(item: updRowIndex, section: 0)
-            tableView.reloadRows(at: [indexPath], with: .top)
-        }
-    }
-    
-    private func initNotification(){
-        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCImpl.refresh), name: Notification.Name(PBNotification.ContactListChanged), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCImpl.refreshCell), name: Notification.Name(PBNotification.ContactChanged), object: nil)
+    func refreshCellData(byIndexPath : IndexPath){
+        tableView.reloadRows(at: [byIndexPath], with: .top)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSortBy()
-        initNotification()
-        myContactList.load()
-        contactsInCurrentState = myContactList.sortedBy(sortingBy : sortType)
-        buttonEditOnOff()
-        buttonSortByOnOff()
+        presenter.initView()
         self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 48
@@ -98,29 +63,21 @@ class ContacListTVCImpl: UITableViewController, PBMember {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return presenter.getNumberOfSection()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactsInCurrentState.count
+        return presenter.getNumberOfRowsInSection(section: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCell", for: indexPath)
-        if let myCell = cell as?  ContactTVCell {
-            let curentContact = contactsInCurrentState[indexPath.item]
-            myCell.labelFirstName?.text = curentContact.firstName
-            myCell.labelLastName?.text = curentContact.lastName
-            myCell.labelPhone?.text = curentContact.phone
-            myCell.labelEmail?.text = curentContact.email
-            myCell.fullName = curentContact.fullName
-            myCell.constrainSwitchButton.constant = 0
-            //myCell.labelEmail.isHidden = true
-            //myCell.constraintPhone.constant = CGFloat(10 * paddingCell)
-            if paddingCell == 0 {paddingCellFunc = {$0 + 1}}
-            if paddingCell == 4 {paddingCellFunc = {$0 - 1}}
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCellImpl", for: indexPath)
+        if let myCell = cell as?  ContactTVCellImpl {
+            let curentContact = presenter.getContactBy(index : indexPath.item)
+            myCell.configure(with: curentContact)
+            //if paddingCell == 0 {paddingCellFunc = {$0 + 1}}
+            //if paddingCell == 4 {paddingCellFunc = {$0 - 1}}
             paddingCell = paddingCellFunc(paddingCell)
-            myCell.currentID = curentContact.id
             return myCell
         }
         return cell
@@ -128,7 +85,7 @@ class ContacListTVCImpl: UITableViewController, PBMember {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            myContactList.remove(contactID: contactsInCurrentState[indexPath.item].id)
+            presenter.deleteContact(byIndex : indexPath.item)
         }
     }
     
@@ -138,17 +95,17 @@ class ContacListTVCImpl: UITableViewController, PBMember {
             if let destination = segue.destination as? ContactVCImpl {
                 let path = tableView.indexPathForSelectedRow
                 let cell = tableView.cellForRow(at: path!)
-                if let myCell = cell as? ContactTVCell{
-                    let presenter = ContactVCPresenterImpl(view : destination, contactList : contactList, currentId : myCell.currentID)
-                    destination.presenter = presenter                    
+                if let myCell = cell as? ContactTVCellImpl{
+                    let contactVCPresenter = presenter.getContactVCPresenter(for: destination, contactId: myCell.currentID)
+                    destination.presenter = contactVCPresenter
                 }
             }
         }
         if segue.identifier == "ToContactAddVC" {
             if let destination = segue.destination as? ContactAddEditNC{
-                if let ContactAddEditView =  destination.viewControllers.first as? ContactAddEditImpl{
-                    let presenter = ContactAddEditPresenterImpl(view : ContactAddEditView, contactList : contactList, currentId : nil)
-                    ContactAddEditView.presenter = presenter                    
+                if let contactAddEditView =  destination.viewControllers.first as? ContactAddEditImpl{
+                    let contactAddEditPresenter = presenter.getContactAddEditPresenter(for: contactAddEditView, contactId: nil)
+                    contactAddEditView.presenter = contactAddEditPresenter
                 }
             }
         }

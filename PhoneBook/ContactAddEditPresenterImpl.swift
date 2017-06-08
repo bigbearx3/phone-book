@@ -58,6 +58,6 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         let aSet = CharacterSet(charactersIn:"0123456789").inverted
         let compSepByCharInSet = string.components(separatedBy: aSet)
         let numberFiltered = compSepByCharInSet.joined()
-        return (string == numberFiltered) //&& (size <= 10)
+        return (string == numberFiltered) && (size <= 20)
     }
 }

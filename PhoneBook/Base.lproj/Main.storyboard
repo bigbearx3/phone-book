@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCell" editingAccessoryType="disclosureIndicator" rowHeight="118" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCellImpl" editingAccessoryType="disclosureIndicator" rowHeight="118" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="118"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="LoS-bw-Cno" id="h7z-8w-h7R">
@@ -62,7 +62,7 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="top" secondItem="xBj-i4-NDj" secondAttribute="bottom" constant="7" id="01J-jC-VUD"/>
+                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="top" secondItem="xBj-i4-NDj" secondAttribute="bottom" priority="999" constant="7" id="01J-jC-VUD"/>
                                         <constraint firstItem="0SU-DC-bzb" firstAttribute="leading" secondItem="dSc-dK-s2g" secondAttribute="leading" id="4Wl-hP-uJC"/>
                                         <constraint firstItem="xBj-i4-NDj" firstAttribute="leading" secondItem="dSc-dK-s2g" secondAttribute="leading" id="AZT-bW-7yj"/>
                                         <constraint firstItem="dSc-dK-s2g" firstAttribute="top" secondItem="h7z-8w-h7R" secondAttribute="top" constant="5" id="Hf6-UX-udc"/>
@@ -76,6 +76,7 @@
                                         <constraint firstItem="RFn-hy-C3l" firstAttribute="leading" secondItem="0SU-DC-bzb" secondAttribute="trailing" constant="10" id="gct-pi-QGd"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="RFn-hy-C3l" secondAttribute="trailing" id="jWZ-mB-OPL"/>
                                         <constraint firstItem="RFn-hy-C3l" firstAttribute="baseline" secondItem="0SU-DC-bzb" secondAttribute="baseline" id="nQq-bv-n0n"/>
+                                        <constraint firstItem="0SU-DC-bzb" firstAttribute="top" secondItem="dSc-dK-s2g" secondAttribute="bottom" priority="10" constant="7" id="x52-zN-HBS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" identifier="ContactTVCell">
@@ -84,9 +85,9 @@
                                 <connections>
                                     <outlet property="buttonOnOff" destination="uxk-lQ-8Fn" id="vY1-Wv-oIo"/>
                                     <outlet property="constrainSwitchButton" destination="aiR-Qp-nhS" id="uTl-Tn-8Um"/>
+                                    <outlet property="constrainTopPhoneToFirstName" destination="x52-zN-HBS" id="LGJ-an-4Vv"/>
                                     <outlet property="constraintPhone" destination="01J-jC-VUD" id="FQi-9z-zh0"/>
                                     <outlet property="labelEmail" destination="RFn-hy-C3l" id="xcu-R0-KfT"/>
-                                    <outlet property="labelFirstName" destination="dSc-dK-s2g" id="Cg6-CQ-8S4"/>
                                     <outlet property="labelLastName" destination="xBj-i4-NDj" id="U90-hW-L0G"/>
                                     <outlet property="labelPhone" destination="0SU-DC-bzb" id="sCM-0D-gbu"/>
                                     <segue destination="5qh-WE-hgp" kind="showDetail" identifier="ToContactVC" customClass="ToContactVC" customModule="PhoneBook" customModuleProvider="target" action="showViewController:sender:" id="Phy-cY-fJ0"/>
