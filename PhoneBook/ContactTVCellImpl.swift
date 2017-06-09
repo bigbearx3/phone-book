@@ -5,30 +5,20 @@
 
 import UIKit
 
-class ContactTVCellImpl: UITableViewCell{
-    fileprivate var contactID : String!
-    
+class ContactTVCellImpl: UITableViewCell, ContactTVCell{
+    var presenter : ContactTVCellPresenter!
+    var currentID : String!
     @IBOutlet weak var constrainSwitchButton: NSLayoutConstraint!
-    
     @IBOutlet weak var buttonOnOff: UIButton!
-    
     @IBOutlet weak var constraintPhone: NSLayoutConstraint!
-    
     @IBOutlet weak var labelFirstName: UILabel!
-    
     @IBOutlet weak var labelLastName: UILabel!
-    
     @IBOutlet weak var labelPhone: UILabel!
-    
     @IBOutlet weak var labelEmail: UILabel!
-    
     @IBOutlet weak var constrainTopPhoneToFirstName: NSLayoutConstraint!
-    var expanded :Bool!
-    var fullName = ""
-    private var firstName : String?
-    var currentID: String{
-        set{contactID = newValue}
-        get{return contactID}
+    
+    func setCurrentId(currentId : String){
+        self.currentID = currentId
     }
     
     func setFirstName(firstName : String){
@@ -54,22 +44,32 @@ class ContactTVCellImpl: UITableViewCell{
     func setVisibleEmail(isVisible : Bool){
         labelEmail.isHidden = !isVisible
     }
-
     
-    func expand(){
-        
-    }   
+    func expand(expanded : Bool){        
+        constraintPhone.priority = expanded ? 999 : 10
+        constrainTopPhoneToFirstName.priority = expanded ? 10 : 999
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
     @IBAction func tapedOnOff(_ sender: Any) {
-        expanded = !expanded
-        refreshViews()
+        presenter.expandView()
     }
     
-    fileprivate func refreshViews(){
-        
+    func refresh(){
+        if let superview = self.superview,
+            let ssuperview = superview.superview,
+            let tableView = ssuperview as? UITableView{
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+        //(self.superview?.superview as! UITableView).beginUpdates()
+        //(self.superview?.superview as! UITableView).endUpdates()
+    }
+    
+    /*fileprivate func refreshViews(){
         labelEmail.isHidden = expanded
         labelLastName.isHidden = expanded
         if expanded{
@@ -84,17 +84,13 @@ class ContactTVCellImpl: UITableViewCell{
         }
         (self.superview?.superview as! UITableView).beginUpdates()
          (self.superview?.superview as! UITableView).endUpdates()
-        
-    }
+    }*/
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        if selected {
-            constrainSwitchButton.constant = 100
-        }else{
-            constrainSwitchButton.constant = 0
-        }
     }
+    
+    
 }
 
 extension ContactTVCellImpl{
@@ -103,8 +99,5 @@ extension ContactTVCellImpl{
         labelLastName.text = currentContact.lastName
         labelPhone.text = currentContact.phone
         labelEmail.text = currentContact.email
-        contactID = currentContact.id
-        fullName = currentContact.fullName
-        expanded = false
     }
 }

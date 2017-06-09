@@ -1,4 +1,4 @@
-//
+		//
 //  ContacListTVCPresenterImpl.swift
 //  PhoneBook
 //
@@ -9,6 +9,7 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     private unowned let view: ContacListTVC
     private let contactList: ContactList
     private var contactListInCurrentState : [Contact]
+    private var contactCellPresenters : [String : ContactTVCellPresenter] = [:]
     private var isEditingMode = false
     private var sortType : SortType
     required init(view: ContacListTVC, contactList: ContactList, sortType : SortType) {
@@ -24,6 +25,23 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
         NotificationCenter.default.removeObserver(self)
     }
     
+    func getContactCellPresenter(byIndex : Int, view : ContactTVCell) -> ContactTVCellPresenter{
+        let contact = contactListInCurrentState[byIndex]
+        var presenter = contactCellPresenters[contact.id]
+        if presenter == nil {
+            presenter = ContactTVCellPresenterImpl(view: view, contact: contact)
+            contactCellPresenters[contact.id] = presenter
+        }
+        else{
+            presenter!.changeView(view: view)
+        }
+        return presenter!
+    }
+    
+    func getContactId(byIndex : Int) -> String{
+        return contactListInCurrentState[byIndex].id
+    }
+    
     func getContactVCPresenter(for view : ContactVC, contactId : String)->ContactVCPresenter{
         return ContactVCPresenterImpl(view : view, contactList : contactList, currentId : contactId)
     }
@@ -33,8 +51,9 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     }
     
     func deleteContact(byIndex : Int) {
-        contactList.remove(contactID: contactListInCurrentState[byIndex].id)
-        contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
+        let delId = contactListInCurrentState[byIndex].id
+        contactList.remove(contactID: delId)
+        contactCellPresenters[delId] = nil
         refreshView()
     }
     
@@ -61,10 +80,9 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
         defaults.synchronize()
     }
     
-    func sortBy(){
+    func changeSort(){
         sortType.next()
         saveSortType()
-        contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
         refreshView()
     }
     
@@ -81,11 +99,10 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     }
     
     @objc func refreshView(){
-        setVisibleButtons()
-        view.setTitleSortBy(title: "Sort by " + sortType.toString())
         contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
-        view.refreshData()
-        
+        setVisibleButtons()
+        view.setTitleSortBy(title: "Sort by " + sortType.toString())        
+        view.refreshData()        
     }
     
     @objc func refreshCell(notification : Notification){

@@ -8,16 +8,14 @@ import UIKit
 class ContacListTVCImpl: UITableViewController, ContacListTVC {
     var presenter: ContacListTVCPresenter!
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
-    @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!
-    private var paddingCell  = 0
-    private var paddingCellFunc : (_ value : Int) -> Int = {$0 + 1}
+    @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!    
     
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
-        setEditing(!isEditing, animated: true)
+        presenter.switchEditing()
     }
     
     @IBAction func barButtonItemSortByAction(_ sender: UIBarButtonItem) {
-        presenter.sortBy()
+        presenter.changeSort()
     }
     
     func setEditingMode(isEditing : Bool){
@@ -54,10 +52,6 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC {
         tableView.estimatedRowHeight = 48
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -73,11 +67,9 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCellImpl", for: indexPath)
         if let myCell = cell as?  ContactTVCellImpl {
-            let curentContact = presenter.getContactBy(index : indexPath.item)
-            myCell.configure(with: curentContact)
-            //if paddingCell == 0 {paddingCellFunc = {$0 + 1}}
-            //if paddingCell == 4 {paddingCellFunc = {$0 - 1}}
-            paddingCell = paddingCellFunc(paddingCell)
+            let curentContactCellPresenter = presenter.getContactCellPresenter(byIndex: indexPath.row, view: myCell)
+            myCell.presenter = curentContactCellPresenter
+            curentContactCellPresenter.initView()
             return myCell
         }
         return cell
@@ -85,20 +77,18 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            presenter.deleteContact(byIndex : indexPath.item)
+            presenter.deleteContact(byIndex : indexPath.row)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         setEditing(false, animated: false)
         if segue.identifier == "ToContactVC" {
-            if let destination = segue.destination as? ContactVCImpl {
+            if let contactVCImpl = segue.destination as? ContactVCImpl {
                 let path = tableView.indexPathForSelectedRow
-                let cell = tableView.cellForRow(at: path!)
-                if let myCell = cell as? ContactTVCellImpl{
-                    let contactVCPresenter = presenter.getContactVCPresenter(for: destination, contactId: myCell.currentID)
-                    destination.presenter = contactVCPresenter
-                }
+                let contactId = presenter.getContactId(byIndex : path!.item)
+                let contactVCPresenter = presenter.getContactVCPresenter(for: contactVCImpl, contactId: contactId)
+                contactVCImpl.presenter = contactVCPresenter
             }
         }
         if segue.identifier == "ToContactAddVC" {

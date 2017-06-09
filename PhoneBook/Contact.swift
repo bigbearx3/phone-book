@@ -82,13 +82,11 @@ protocol Decodable {
     var decoded: Encodable? { get }
 }
 
-
 extension Sequence where Iterator.Element: Encodable {
     var encoded: [Decodable] {
         return self.filter({ $0.encoded != nil }).map({ $0.encoded! })
     }
 }
-
 
 extension Sequence where Iterator.Element: Decodable {
     var decoded: [Encodable] {

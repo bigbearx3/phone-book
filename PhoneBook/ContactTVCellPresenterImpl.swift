@@ -6,25 +6,41 @@
 import Foundation
 
 class ContactTVCellPresenterImpl: ContactTVCellPresenter {
-    private unowned let view: ContactTVCell
+    private unowned var view: ContactTVCell
     private let contact: Contact
-    private var expanded = false
+    private(set) var expanded = false
     
     required init(view: ContactTVCell, contact: Contact) {
         self.view = view
         self.contact = contact
     }
     
+    func changeView(view: ContactTVCell){
+        self.view = view
+    }
+    
     func initView(){
-        view.setFirstName(firstName: contact.firstName)
+        view.setCurrentId(currentId : contact.id)
+        view.setFirstName(firstName: expanded ? contact.firstName : contact.fullName)
         view.setLastName(lastName: contact.lastName)
         view.setPhone(phone: contact.phone)
         view.setEmail(email: contact.email)
+        view.setVisibleEmail(isVisible: expanded)
+        view.setVisibleLastName(isVisible: expanded)
+        view.expand(expanded: expanded)
+//        view.refresh()
     }
     
     func expandView(){
-        view.setFirstName(firstName: contact.fullName)
-        view.setVisibleLastName(isVisible : false)
-        view.setVisibleEmail(isVisible : false)
+        expanded = !expanded
+        view.setFirstName(firstName: expanded ? contact.firstName : contact.fullName)
+        view.setVisibleLastName(isVisible : expanded)
+        view.setVisibleEmail(isVisible : expanded)
+        view.expand(expanded: expanded)
+//        view.refresh()
+    }
+    
+    deinit {
+        print("presener destroyed")
     }
 }

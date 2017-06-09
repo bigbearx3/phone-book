@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCellImpl" editingAccessoryType="disclosureIndicator" rowHeight="118" id="LoS-bw-Cno" customClass="ContactTVCell" customModule="PhoneBook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTVCellImpl" editingAccessoryType="disclosureIndicator" rowHeight="118" id="LoS-bw-Cno" customClass="ContactTVCellImpl" customModule="PhoneBook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="118"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="LoS-bw-Cno" id="h7z-8w-h7R">
@@ -83,13 +83,14 @@
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <outlet property="buttonOnOff" destination="uxk-lQ-8Fn" id="vY1-Wv-oIo"/>
-                                    <outlet property="constrainSwitchButton" destination="aiR-Qp-nhS" id="uTl-Tn-8Um"/>
+                                    <outlet property="buttonOnOff" destination="uxk-lQ-8Fn" id="KKv-6V-UZt"/>
+                                    <outlet property="constrainSwitchButton" destination="aiR-Qp-nhS" id="FUP-rM-kEF"/>
                                     <outlet property="constrainTopPhoneToFirstName" destination="x52-zN-HBS" id="LGJ-an-4Vv"/>
                                     <outlet property="constraintPhone" destination="01J-jC-VUD" id="FQi-9z-zh0"/>
-                                    <outlet property="labelEmail" destination="RFn-hy-C3l" id="xcu-R0-KfT"/>
-                                    <outlet property="labelLastName" destination="xBj-i4-NDj" id="U90-hW-L0G"/>
-                                    <outlet property="labelPhone" destination="0SU-DC-bzb" id="sCM-0D-gbu"/>
+                                    <outlet property="labelEmail" destination="RFn-hy-C3l" id="Zma-Du-pr2"/>
+                                    <outlet property="labelFirstName" destination="dSc-dK-s2g" id="LBa-Te-LF6"/>
+                                    <outlet property="labelLastName" destination="xBj-i4-NDj" id="p6A-b9-YyL"/>
+                                    <outlet property="labelPhone" destination="0SU-DC-bzb" id="EKe-m3-1CZ"/>
                                     <segue destination="5qh-WE-hgp" kind="showDetail" identifier="ToContactVC" customClass="ToContactVC" customModule="PhoneBook" customModuleProvider="target" action="showViewController:sender:" id="Phy-cY-fJ0"/>
                                 </connections>
                             </tableViewCell>

@@ -13,7 +13,9 @@ protocol ContacListTVCPresenter {
     func getContactBy(index : Int) ->Contact    
     func getContactVCPresenter(for view : ContactVC, contactId : String)->ContactVCPresenter
     func getContactAddEditPresenter(for view : ContactAddEdit, contactId : String?)->ContactAddEditPresenter
-    func sortBy()
+    func changeSort()
     func switchEditing()
     func initView()
+    func getContactCellPresenter(byIndex : Int, view : ContactTVCell) -> ContactTVCellPresenter
+    func getContactId(byIndex : Int) -> String
 }

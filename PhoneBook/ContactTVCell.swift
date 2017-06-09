@@ -6,11 +6,13 @@
 import Foundation
 
 protocol ContactTVCell: class {
+    func setCurrentId(currentId : String)
     func setFirstName(firstName : String)
     func setLastName(lastName : String)
     func setPhone(phone : String)
     func setEmail(email : String?)
     func setVisibleLastName(isVisible : Bool)
     func setVisibleEmail(isVisible : Bool)
-    func expand()
+    func refresh()
+    func expand(expanded : Bool)
 }

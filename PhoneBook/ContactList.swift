@@ -130,8 +130,7 @@ class ContactList{
         save()
     }
     
-    public func save(){
-        
+    public func save(){        
         helper.save(contactArray: contacts)
     }
     
