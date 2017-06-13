@@ -64,7 +64,7 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
             let tableView = ssuperview as? UITableView{
             tableView.beginUpdates()
             tableView.endUpdates()
-        }
+        }        
         //(self.superview?.superview as! UITableView).beginUpdates()
         //(self.superview?.superview as! UITableView).endUpdates()
     }
@@ -84,12 +84,12 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
         }
         (self.superview?.superview as! UITableView).beginUpdates()
          (self.superview?.superview as! UITableView).endUpdates()
-    }*/
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+    */
     
 }
 

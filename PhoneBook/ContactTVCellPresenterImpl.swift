@@ -28,7 +28,7 @@ class ContactTVCellPresenterImpl: ContactTVCellPresenter {
         view.setVisibleEmail(isVisible: expanded)
         view.setVisibleLastName(isVisible: expanded)
         view.expand(expanded: expanded)
-//        view.refresh()
+        //view.refresh()
     }
     
     func expandView(){
@@ -37,7 +37,7 @@ class ContactTVCellPresenterImpl: ContactTVCellPresenter {
         view.setVisibleLastName(isVisible : expanded)
         view.setVisibleEmail(isVisible : expanded)
         view.expand(expanded: expanded)
-//        view.refresh()
+        view.refresh()
     }
     
     deinit {
