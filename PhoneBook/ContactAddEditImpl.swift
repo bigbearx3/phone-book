@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit {
+class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var presenter: ContactAddEditPresenter!
     @IBOutlet weak var textFieldFirstName: UITextField!
     @IBOutlet weak var textFieldLastName: UITextField!
@@ -13,11 +13,52 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit 
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var buttonDelete: UIButton!
     @IBOutlet weak var barButtonSave: UIBarButtonItem!
+    @IBOutlet weak var contactImage: UIImageView!
+    let picker = UIImagePickerController()
     
+    @IBAction func addImage(_ sender: Any) {
+        presenter.openGallery()
+    }
+    
+    func presentGallery(){
+        picker.delegate = self
+        if UIImagePickerController.availableMediaTypes(for: .photoLibrary) != nil {
+            picker.allowsEditing = false
+            picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            present(picker, animated: true, completion: nil)
+        } else {
+            noCamera()
+        }
+    }
+    
+    func noCamera(){
+        let alertVC = UIAlertController(title: "No Camera", message: "Sorry, Gallery is not accessible.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style:.default, handler: nil)
+        alertVC.addAction(okAction)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            //contactImage.contentMode = .scaleAspectFill
+            let imageData = UIImagePNGRepresentation(pickedImage)
+            presenter.setImage(imageData : imageData)
+        }
+        presenter.closeGallery()
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        presenter.closeGallery()
+    }
+    
+    func hideGallery(){
+        self.dismiss(animated: true, completion: nil)
+    }   
+   
     func setEnableSaveButton(enable : Bool){
         barButtonSave.isEnabled =  enable
     }
-    
+
     func setVisibleDeleteButton(visible : Bool){
         buttonDelete.isHidden = visible
     }
@@ -42,6 +83,19 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit 
         textFieldEmail.text = email
     }
     
+    func setImage(imageData : Data?){
+        if let iData = imageData,
+            let image = UIImage(data : iData){
+            contactImage.image = image
+        }else{
+            setDefaultImage()
+        }
+    }
+    
+    private func setDefaultImage(){
+        contactImage.image =  #imageLiteral(resourceName: "nophoto")
+    }
+    
     func close(isEditingMode : Bool){        
         if isEditingMode {
             if let navC = self.navigationController{
@@ -50,6 +104,9 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit 
         }else{
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    @IBAction func clearImage(_ sender: Any) {
+        presenter.setImage(imageData: nil)
     }
     
     @IBAction func changeValues(_ sender: UITextField) {
@@ -69,10 +126,11 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit 
     
     @IBAction func saveContact(_ sender: UIBarButtonItem) {
         if let firstName = textFieldFirstName.text,
-           let lastName = textFieldLastName.text,
-           let phone = textFieldPhone.text{
-           let email = textFieldEmail.text
-           presenter.saveContact(firstName: firstName, lastName: lastName, phone: phone, email: email)
+            let lastName = textFieldLastName.text,
+            let phone = textFieldPhone.text{
+            let email = textFieldEmail.text
+            let imageData = contactImage.image ==  #imageLiteral(resourceName: "nophoto")  ? nil : UIImagePNGRepresentation(contactImage.image!)
+            presenter.saveContact(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData: imageData)
         }
         presenter.closeView()
     }

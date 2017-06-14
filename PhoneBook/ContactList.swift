@@ -65,9 +65,10 @@ class ContactList{
         if let userInfo = notification.userInfo,
             let firstName  = userInfo["firstName"] as? String,
             let lastName  = userInfo["lastName"] as? String,
-            let phone  = userInfo["phone"] as? String,
-            let email     = userInfo["email"]    as? String {
-            add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email))
+            let phone  = userInfo["phone"] as? String{
+            let email     = userInfo["email"]    as? String
+            let imageData = userInfo["imageData"]    as? Data
+            add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email, imageData : imageData))
         }
     }
     

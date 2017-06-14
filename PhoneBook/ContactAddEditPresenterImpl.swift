@@ -11,6 +11,7 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
     private var currentId : String?
     private var isEditingMode = false
     
+    
     required init(view: ContactAddEdit, contactList: ContactList, currentId : String?) {
         self.view = view
         self.contactList = contactList
@@ -21,6 +22,10 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         view.close(isEditingMode: isEditingMode)
     }
     
+    func openGallery(){
+        view.presentGallery()
+    }
+    
     func initView(){
         isEditingMode = false
         if let id = currentId, let myContact = contactList.get(byID: id){
@@ -29,12 +34,25 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
             view.setLastName(lastName: myContact.lastName)
             view.setPhone(phone: myContact.phone)
             view.setEmail(email: myContact.email)
+            view.setImage(imageData :myContact.imageData)
             isEditingMode = true
         }else{
             view.setTitle(title: "New contact")
         }
         view.setEnableSaveButton(enable: isEditingMode)
         view.setVisibleDeleteButton(visible: !isEditingMode)
+    }
+    
+    func closeGallery(){
+        view.hideGallery()    
+    }
+    
+    func setImage(imageData : Data?){
+        if let id = currentId, var contact = contactList.get(byID: id){
+            contact.imageData = imageData
+            contactList.update(contact: contact)            
+        }
+        view.setImage(imageData : imageData)
     }
     
     func deleteContact(){
@@ -44,12 +62,12 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         view.close(isEditingMode : isEditingMode)
     }
     
-    func saveContact(firstName: String, lastName: String, phone: String, email: String?){
+    func saveContact(firstName: String, lastName: String, phone: String, email: String?, imageData : Data?){
         let contact : Contact
         if !isEditingMode {
-            contact = Contact(firstName: firstName, lastName: lastName, phone: phone, email: email)
+            contact = Contact(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
         }else{
-            contact = Contact(id : currentId!, firstName: firstName, lastName: lastName, phone: phone, email: email)
+            contact = Contact(id : currentId!, firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
         }
         contactList.update(contact: contact)
     }

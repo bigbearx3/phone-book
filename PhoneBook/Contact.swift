@@ -11,18 +11,20 @@ struct Contact : Equatable{
     var lastName : String
     var phone : String
     var email : String?
+    var imageData : Data?
     var fullName : String{ return firstName + " " + lastName }
     
-    init(firstName : String, lastName : String, phone : String, email : String? ) {
+    init(firstName : String, lastName : String, phone : String, email : String?, imageData : Data?) {
         self.firstName = firstName
         self.lastName = lastName
         self.phone = phone
         self.email = email
+        self.imageData = imageData
         self.id = UUID.init().uuidString
     }    
     
-    init(id : String ,firstName : String, lastName : String, phone : String, email : String? ) {
-        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email)
+    init(id : String ,firstName : String, lastName : String, phone : String, email : String?, imageData : Data? ) {
+        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
         self.id = id
     }
     
@@ -47,7 +49,8 @@ extension Contact {
             guard let lastName = aDecoder.decodeObject(forKey:"lastName") as? String else { contact = nil; super.init(); return nil }
             guard let phone = aDecoder.decodeObject(forKey:"phone") as? String else { contact = nil; super.init(); return nil }
             let email = aDecoder.decodeObject(forKey:"email") as? String
-            contact = Contact(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email)
+            let imageData = aDecoder.decodeObject(forKey: "imageData") as? Data
+            contact = Contact(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
             super.init()
         }
         
@@ -57,6 +60,7 @@ extension Contact {
             aCoder.encode(contact!.lastName, forKey: "lastName")
             aCoder.encode(contact!.phone, forKey: "phone")
             aCoder.encode(contact!.email, forKey: "email")
+            aCoder.encode(contact!.imageData, forKey: "imageData")
         }
     }
 }

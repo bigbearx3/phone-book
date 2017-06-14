@@ -14,4 +14,7 @@ protocol ContactAddEdit: class {
     func setPhone(phone : String)
     func setEmail(email : String?)
     func close(isEditingMode : Bool)
+    func setImage(imageData : Data?)
+    func presentGallery()
+    func hideGallery()
 }
