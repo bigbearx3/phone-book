@@ -11,6 +11,7 @@ class ContactVCImpl: UIViewController, ContactVC{
     @IBOutlet weak var labelForLastName: UILabel!
     @IBOutlet weak var labelForPhone: UILabel!
     @IBOutlet weak var labelForEmail: UILabel!
+    @IBOutlet weak var contactImage: UIImageView!    
     @IBAction func contactEditVC(_ sender: UIBarButtonItem) {
         presenter.showNextView()
     }
@@ -23,6 +24,16 @@ class ContactVCImpl: UIViewController, ContactVC{
     func setTitle(title : String){
         self.title = title
     }
+    
+    func setImage(imageData : Data?){
+        if let iData = imageData,
+            let image = UIImage(data : iData){
+            contactImage.image = image
+        }else{
+            contactImage.image =  #imageLiteral(resourceName: "nophoto")
+        }
+    }
+    
     
     func setFirstName(firstName : String){
         labelForFirstName.text = firstName

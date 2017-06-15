@@ -31,6 +31,7 @@ class ContactVCPresenterImpl: ContactVCPresenter {
             view.setLastName(lastName: contact.lastName)
             view.setPhone(phone: contact.phone)
             view.setEmail(email: contact.email)
+            view.setImage(imageData : contact.imageData)
             view.setTitle(title: contact.fullName)
         }
     }    

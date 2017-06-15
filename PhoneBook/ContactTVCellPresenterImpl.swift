@@ -7,7 +7,7 @@ import Foundation
 
 class ContactTVCellPresenterImpl: ContactTVCellPresenter {
     private unowned var view: ContactTVCell
-    private let contact: Contact
+    private var contact: Contact
     private(set) var expanded = false
     
     required init(view: ContactTVCell, contact: Contact) {
@@ -27,8 +27,13 @@ class ContactTVCellPresenterImpl: ContactTVCellPresenter {
         view.setEmail(email: contact.email)
         view.setVisibleEmail(isVisible: expanded)
         view.setVisibleLastName(isVisible: expanded)
+        view.setImage(imageData : contact.imageData)
         view.expand(expanded: expanded)
         //view.refresh()
+    }
+    
+    func updateData(contact : Contact){
+        self.contact = contact    
     }
     
     func expandView(){

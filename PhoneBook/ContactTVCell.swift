@@ -11,6 +11,7 @@ protocol ContactTVCell: class {
     func setLastName(lastName : String)
     func setPhone(phone : String)
     func setEmail(email : String?)
+    func setImage(imageData : Data?)
     func setVisibleLastName(isVisible : Bool)
     func setVisibleEmail(isVisible : Bool)
     func refresh()

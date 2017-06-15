@@ -110,7 +110,9 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
             let updatedId = data["id"],
             let id = updatedId as? String,
             let updatedContact = contactList.get(byID: id),
+            let currentCellPresenter = contactCellPresenters[id],
             let  updRowIndex = contactListInCurrentState.index(of: updatedContact){
+            currentCellPresenter.updateData(contact : updatedContact)
             contactListInCurrentState[updRowIndex] = updatedContact
             let indexPath = IndexPath(item: updRowIndex, section: 0)
             view.refreshCellData(byIndexPath : indexPath)

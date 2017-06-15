@@ -10,4 +10,5 @@ protocol ContactTVCellPresenter {
     func changeView(view: ContactTVCell)
     func initView()
     func expandView()
+    func updateData(contact : Contact)
 }

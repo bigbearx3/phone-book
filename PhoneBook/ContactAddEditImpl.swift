@@ -7,6 +7,7 @@ import UIKit
 
 class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var presenter: ContactAddEditPresenter!
+    var ac: UIAlertController?
     @IBOutlet weak var textFieldFirstName: UITextField!
     @IBOutlet weak var textFieldLastName: UITextField!
     @IBOutlet weak var textFieldPhone: UITextField!
@@ -99,10 +100,12 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     func close(isEditingMode : Bool){        
         if isEditingMode {
             if let navC = self.navigationController{
-                navC.popViewController(animated: false)
+                navC.popToRootViewController(animated: true)
+                debugPrint(navC)
             }
         }else{
             self.dismiss(animated: true, completion: nil)
+            debugPrint(self)
         }
     }
     @IBAction func clearImage(_ sender: Any) {
@@ -151,4 +154,36 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func fake(_ action: UIAlertAction) {
+        
+    }
+    
+    @IBAction func showAlert() {
+        
+        ac = UIAlertController(title: "My Alert", message: "Hi there!", preferredStyle: .alert)
+        //ac?.addTextField()
+        
+        ac?.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        
+        ac?.addAction(UIAlertAction(title: "Increment", style: .destructive) { _ in
+            //self.counter += 1
+            //self.updateLabel()
+            self.ac = nil
+        })
+        
+        ac?.addTextField(configurationHandler: { (textField : UITextField) -> Void in
+            textField.borderStyle = UITextBorderStyle.bezel
+            textField.placeholder = "Firstname"
+            let myColor = UIColor.red
+            textField.layer.borderColor = myColor.cgColor
+            textField.layer.borderWidth = 1.0
+            
+        })
+        
+        ac?.addAction(UIAlertAction(title: "Fake", style: .default, handler: fake))
+        
+        self.present(ac!, animated: true, completion:nil)
+    }
+
 }
