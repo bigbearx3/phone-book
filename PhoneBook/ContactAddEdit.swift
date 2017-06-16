@@ -15,6 +15,12 @@ protocol ContactAddEdit: class {
     func setEmail(email : String?)
     func close(isEditingMode : Bool)
     func setImage(imageData : Data?)
-    func presentGallery()
-    func hideGallery()
+    func showSoursesPhotoAS(params  : [String : ()->Void])
+    func showPhotoLibrary()
+    func showSavedPhotosAlbum()
+    func showCamera()
+    func isAvailablePhotoLibrary()->Bool
+    func isAvailableSavedPhotosAlbum()->Bool
+    func isAvailableCamera()->Bool
+    func hideSourcePhoto()
 }

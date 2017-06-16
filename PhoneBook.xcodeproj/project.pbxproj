@@ -21,6 +21,8 @@
 		767E92271EE9C17D00B1C5FD /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */; };
 		767E92291EE9C38E00B1C5FD /* ContactTVCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E92281EE9C38E00B1C5FD /* ContactTVCellPresenter.swift */; };
 		767E922B1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */; };
+		769315601EF414FE00451967 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7693155F1EF414FE00451967 /* LocationVC.swift */; };
+		769315631EF415DD00451967 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769315621EF415DD00451967 /* MapKit.framework */; };
 		76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */; };
 		76D8FEEB1EC9ED220052DD74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEE91EC9ED220052DD74 /* Main.storyboard */; };
 		76D8FEED1EC9ED220052DD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 		767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		767E92281EE9C38E00B1C5FD /* ContactTVCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenter.swift; sourceTree = "<group>"; };
 		767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenterImpl.swift; sourceTree = "<group>"; };
+		7693155F1EF414FE00451967 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
+		769315621EF415DD00451967 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		76D8FEE21EC9ED220052DD74 /* PhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D8FEEA1EC9ED220052DD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				769315631EF415DD00451967 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,11 +127,20 @@
 			name = Impl;
 			sourceTree = "<group>";
 		};
+		769315611EF415DD00451967 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				769315621EF415DD00451967 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		76D8FED91EC9ED220052DD74 = {
 			isa = PBXGroup;
 			children = (
 				76D8FEE41EC9ED220052DD74 /* PhoneBook */,
 				76D8FEE31EC9ED220052DD74 /* Products */,
+				769315611EF415DD00451967 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +167,7 @@
 				76D8FEEE1EC9ED220052DD74 /* LaunchScreen.storyboard */,
 				8452E7D61ECDB24900B348ED /* AppSettings.swift */,
 				767B0CE41ED3560400822C10 /* ContactAddEditNC.swift */,
+				7693155F1EF414FE00451967 /* LocationVC.swift */,
 			);
 			path = PhoneBook;
 			sourceTree = "<group>";
@@ -211,6 +226,11 @@
 					76D8FEE11EC9ED220052DD74 = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -251,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D8FEFE1ECA069B0052DD74 /* ContactTVCellImpl.swift in Sources */,
+				769315601EF414FE00451967 /* LocationVC.swift in Sources */,
 				7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */,
 				767E92271EE9C17D00B1C5FD /* ContactTVCell.swift in Sources */,
 				7678DE831EE871AA00579405 /* ContactVC.swift in Sources */,

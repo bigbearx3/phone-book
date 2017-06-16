@@ -14,45 +14,72 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var buttonDelete: UIButton!
     @IBOutlet weak var barButtonSave: UIBarButtonItem!
-    @IBOutlet weak var contactImage: UIImageView!
+    @IBOutlet weak var buttonContactImage: UIButton!
+    
     let picker = UIImagePickerController()
     
     @IBAction func addImage(_ sender: Any) {
-        presenter.openGallery()
+       // presenter.openGallery()
+    }
+    @IBAction func imageTap(_ sender: Any) {
+        presenter.presentSoursesPhotoAS()
     }
     
-    func presentGallery(){
-        picker.delegate = self
-        if UIImagePickerController.availableMediaTypes(for: .photoLibrary) != nil {
-            picker.allowsEditing = false
-            picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            present(picker, animated: true, completion: nil)
-        } else {
-            noCamera()
+    func isAvailablePhotoLibrary()->Bool{
+        return UIImagePickerController.availableMediaTypes(for: .photoLibrary) != nil
+    }
+    
+    func isAvailableSavedPhotosAlbum()->Bool{
+        return UIImagePickerController.availableMediaTypes(for: .savedPhotosAlbum) != nil
+    }
+    
+    func isAvailableCamera()->Bool{
+        return UIImagePickerController.availableMediaTypes(for: .camera) != nil
+    }
+    
+    
+    func showSoursesPhotoAS(params  : [String : ()->Void]){
+        ac = UIAlertController(title: "Choise photo", message: "Please, select photo from", preferredStyle: .actionSheet)
+        for param in params{
+            ac?.addAction(UIAlertAction(title: param.key, style: .default){ _ in param.value()})
         }
+        ac?.addAction(UIAlertAction(title: "Clear", style: .default){ _ in self.presenter.setImage(imageData: nil) })
+        ac?.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        self.present(ac!, animated: true, completion:nil)
     }
     
-    func noCamera(){
-        let alertVC = UIAlertController(title: "No Camera", message: "Sorry, Gallery is not accessible.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style:.default, handler: nil)
-        alertVC.addAction(okAction)
-        present(alertVC, animated: true, completion: nil)
+    
+    func showPhotoLibrary(){
+            picker.allowsEditing = false
+            picker.sourceType = .photoLibrary
+            present(picker, animated: true, completion: nil)
+    }
+    
+    func showSavedPhotosAlbum(){
+        picker.allowsEditing = false
+        picker.sourceType = .savedPhotosAlbum
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func showCamera(){
+        picker.allowsEditing = false
+        picker.sourceType = .camera
+        present(picker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            //contactImage.contentMode = .scaleAspectFill
             let imageData = UIImagePNGRepresentation(pickedImage)
             presenter.setImage(imageData : imageData)
         }
-        presenter.closeGallery()
+        presenter.closeSourcePhoto()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        presenter.closeGallery()
+        presenter.closeSourcePhoto()
     }
     
-    func hideGallery(){
+    func hideSourcePhoto(){
         self.dismiss(animated: true, completion: nil)
     }   
    
@@ -87,17 +114,18 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     func setImage(imageData : Data?){
         if let iData = imageData,
             let image = UIImage(data : iData){
-            contactImage.image = image
+            buttonContactImage.imageView?.image = image
         }else{
             setDefaultImage()
         }
     }
     
     private func setDefaultImage(){
-        contactImage.image =  #imageLiteral(resourceName: "nophoto")
+        buttonContactImage.setImage(#imageLiteral(resourceName: "nophoto"), for: UIControlState.normal)
+        
     }
     
-    func close(isEditingMode : Bool){        
+    func close(isEditingMode : Bool){
         if isEditingMode {
             if let navC = self.navigationController{
                 navC.popToRootViewController(animated: true)
@@ -107,9 +135,6 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
             self.dismiss(animated: true, completion: nil)
             debugPrint(self)
         }
-    }
-    @IBAction func clearImage(_ sender: Any) {
-        presenter.setImage(imageData: nil)
     }
     
     @IBAction func changeValues(_ sender: UITextField) {
@@ -132,7 +157,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
             let lastName = textFieldLastName.text,
             let phone = textFieldPhone.text{
             let email = textFieldEmail.text
-            let imageData = contactImage.image ==  #imageLiteral(resourceName: "nophoto")  ? nil : UIImagePNGRepresentation(contactImage.image!)
+            let imageData = buttonContactImage.currentImage ==  #imageLiteral(resourceName: "nophoto")  ? nil : UIImagePNGRepresentation(buttonContactImage.currentImage!)
             presenter.saveContact(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData: imageData)
         }
         presenter.closeView()
@@ -154,6 +179,11 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+    
+    
+    
     
     func fake(_ action: UIAlertAction) {
         

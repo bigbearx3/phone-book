@@ -22,8 +22,30 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         view.close(isEditingMode: isEditingMode)
     }
     
-    func openGallery(){
-        view.presentGallery()
+    func presentSoursesPhotoAS(){
+        var params = [String : ()->Void]()
+        if view.isAvailableCamera(){
+            params["Camera"] = presentCamera
+        }
+        if view.isAvailablePhotoLibrary(){
+            params["Photo library"] = presentPhotoLibrary
+        }
+        if view.isAvailableSavedPhotosAlbum(){
+            params["Saved photos album"] = presentSavedPhotosAlbum
+        }        
+        view.showSoursesPhotoAS(params  : params)
+    }
+    
+    func presentCamera(){
+        view.showCamera()
+    }
+    
+    func presentPhotoLibrary(){
+        view.showPhotoLibrary()
+    }
+    
+    func presentSavedPhotosAlbum(){
+        view.showSavedPhotosAlbum()
     }
     
     func initView(){
@@ -43,8 +65,8 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         view.setVisibleDeleteButton(visible: !isEditingMode)
     }
     
-    func closeGallery(){
-        view.hideGallery()    
+    func closeSourcePhoto(){
+        view.hideSourcePhoto()
     }
     
     func setImage(imageData : Data?){
