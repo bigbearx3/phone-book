@@ -34,7 +34,6 @@ class ContactVCImpl: UIViewController, ContactVC{
         }
     }
     
-    
     func setFirstName(firstName : String){
         labelForFirstName.text = firstName
     }

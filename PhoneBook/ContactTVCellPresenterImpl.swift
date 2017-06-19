@@ -29,7 +29,6 @@ class ContactTVCellPresenterImpl: ContactTVCellPresenter {
         view.setVisibleLastName(isVisible: expanded)
         view.setImage(imageData : contact.imageData)
         view.expand(expanded: expanded)
-        //view.refresh()
     }
     
     func updateData(contact : Contact){
@@ -43,9 +42,5 @@ class ContactTVCellPresenterImpl: ContactTVCellPresenter {
         view.setVisibleEmail(isVisible : expanded)
         view.expand(expanded: expanded)
         view.refresh()
-    }
-    
-    deinit {
-        print("presener destroyed")
     }
 }

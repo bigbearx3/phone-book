@@ -15,12 +15,12 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     @IBOutlet weak var buttonDelete: UIButton!
     @IBOutlet weak var barButtonSave: UIBarButtonItem!
     @IBOutlet weak var buttonContactImage: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var constraintPhotoHeight: NSLayoutConstraint!
     
     let picker = UIImagePickerController()
     
-    @IBAction func addImage(_ sender: Any) {
-       // presenter.openGallery()
-    }
     @IBAction func imageTap(_ sender: Any) {
         presenter.presentSoursesPhotoAS()
     }
@@ -45,14 +45,14 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         }
         ac?.addAction(UIAlertAction(title: "Clear", style: .default){ _ in self.presenter.setImage(imageData: nil) })
         ac?.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        picker.delegate = self
         self.present(ac!, animated: true, completion:nil)
     }
     
-    
     func showPhotoLibrary(){
-            picker.allowsEditing = false
-            picker.sourceType = .photoLibrary
-            present(picker, animated: true, completion: nil)
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
     }
     
     func showSavedPhotosAlbum(){
@@ -81,12 +81,12 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     
     func hideSourcePhoto(){
         self.dismiss(animated: true, completion: nil)
-    }   
-   
+    }
+    
     func setEnableSaveButton(enable : Bool){
         barButtonSave.isEnabled =  enable
     }
-
+    
     func setVisibleDeleteButton(visible : Bool){
         buttonDelete.isHidden = visible
     }
@@ -114,14 +114,16 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     func setImage(imageData : Data?){
         if let iData = imageData,
             let image = UIImage(data : iData){
-            buttonContactImage.imageView?.image = image
+            buttonContactImage.setImage(image, for: .normal)
         }else{
             setDefaultImage()
         }
+        buttonContactImage.imageView?.contentMode = .scaleAspectFit
+        //buttonContactImage.imageView?.contentMode = .scaleAspectFill
     }
     
     private func setDefaultImage(){
-        buttonContactImage.setImage(#imageLiteral(resourceName: "nophoto"), for: UIControlState.normal)
+        buttonContactImage.setImage(#imageLiteral(resourceName: "nophoto"), for: .normal)
         
     }
     
@@ -174,46 +176,59 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         super.viewDidLoad()
         textFieldPhone.delegate = self
         presenter.initView()
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.keyboardDidShow(_:)), name: Notification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.keyboardWillBeHidden(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
-    
-    
-    
-    
-    func fake(_ action: UIAlertAction) {
-        
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
-    @IBAction func showAlert() {
-        
-        ac = UIAlertController(title: "My Alert", message: "Hi there!", preferredStyle: .alert)
-        //ac?.addTextField()
-        
-        ac?.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-        
-        ac?.addAction(UIAlertAction(title: "Increment", style: .destructive) { _ in
-            //self.counter += 1
-            //self.updateLabel()
-            self.ac = nil
-        })
-        
-        ac?.addTextField(configurationHandler: { (textField : UITextField) -> Void in
-            textField.borderStyle = UITextBorderStyle.bezel
-            textField.placeholder = "Firstname"
-            let myColor = UIColor.red
-            textField.layer.borderColor = myColor.cgColor
-            textField.layer.borderWidth = 1.0
-            
-        })
-        
-        ac?.addAction(UIAlertAction(title: "Fake", style: .default, handler: fake))
-        
-        self.present(ac!, animated: true, completion:nil)
+    func rotated(){
+        //let heightMultiplier  = CGFloat(UIDevice.current.orientation.isLandscape ? 0.5 : 0.3)        
+        //constraintPhotoHeight.multiplier.add(heightMultiplier)
     }
-
+    
+    
+    
+    
+    weak var activeField: UITextField?
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.activeField = nil
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeField = textField
+    }
+    
+    func keyboardDidShow(_ notification: Notification) {
+        if let activeField = self.activeField, let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
+            var aRect = self.view.frame
+            aRect.size.height -= keyboardSize.size.height
+            if (!aRect.contains(activeField.frame.origin)) {
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(_ notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
 }

@@ -10,10 +10,7 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
     var currentID : String!
     
     @IBOutlet weak var heightImageConstraint: NSLayoutConstraint!
-    @IBOutlet weak var widthImageConstraint: NSLayoutConstraint!
-    
-    
-    
+    @IBOutlet weak var widthImageConstraint: NSLayoutConstraint!    
     @IBOutlet weak var phoneBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var phoneTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonOnOff: UIButton!
