@@ -60,6 +60,7 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
             isEditingMode = true
         }else{
             view.setTitle(title: "New contact")
+            view.setImage(imageData : nil)
         }
         view.setEnableSaveButton(enable: isEditingMode)
         view.setVisibleDeleteButton(visible: !isEditingMode)
