@@ -21,8 +21,12 @@
 		767E92271EE9C17D00B1C5FD /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */; };
 		767E92291EE9C38E00B1C5FD /* ContactTVCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E92281EE9C38E00B1C5FD /* ContactTVCellPresenter.swift */; };
 		767E922B1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */; };
-		769315601EF414FE00451967 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7693155F1EF414FE00451967 /* LocationVC.swift */; };
+		769315601EF414FE00451967 /* LocationVCImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7693155F1EF414FE00451967 /* LocationVCImpl.swift */; };
 		769315631EF415DD00451967 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769315621EF415DD00451967 /* MapKit.framework */; };
+		76B8D1311EFAE356000BC345 /* LocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1301EFAE356000BC345 /* LocationPresenter.swift */; };
+		76B8D1331EFAE3A3000BC345 /* LocationPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */; };
+		76B8D1351EFAE41D000BC345 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1341EFAE41D000BC345 /* LocationVC.swift */; };
+		76B8D1371EFAF545000BC345 /* ToLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1361EFAF545000BC345 /* ToLocationVC.swift */; };
 		76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */; };
 		76D8FEEB1EC9ED220052DD74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEE91EC9ED220052DD74 /* Main.storyboard */; };
 		76D8FEED1EC9ED220052DD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */; };
@@ -53,8 +57,12 @@
 		767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		767E92281EE9C38E00B1C5FD /* ContactTVCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenter.swift; sourceTree = "<group>"; };
 		767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenterImpl.swift; sourceTree = "<group>"; };
-		7693155F1EF414FE00451967 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
+		7693155F1EF414FE00451967 /* LocationVCImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVCImpl.swift; sourceTree = "<group>"; };
 		769315621EF415DD00451967 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		76B8D1301EFAE356000BC345 /* LocationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenter.swift; sourceTree = "<group>"; };
+		76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenterImpl.swift; sourceTree = "<group>"; };
+		76B8D1341EFAE41D000BC345 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
+		76B8D1361EFAF545000BC345 /* ToLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToLocationVC.swift; sourceTree = "<group>"; };
 		76D8FEE21EC9ED220052DD74 /* PhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D8FEEA1EC9ED220052DD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -97,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				767DA32D1EE1A0AD0031C4C5 /* Impl */,
+				76B8D1301EFAE356000BC345 /* LocationPresenter.swift */,
 				767DA3281EE1A0440031C4C5 /* ContactAddEditPresenter.swift */,
 				7678DE841EE872B100579405 /* ContactVCPresenter.swift */,
 				840A395C1EE946B300B07E93 /* ContacListTVCPresenter.swift */,
@@ -112,6 +121,7 @@
 				76D8FEF71EC9EF0C0052DD74 /* ContacListTVCImpl.swift */,
 				7666AA6A1ECB327C00CF5E2E /* ContactVCImpl.swift */,
 				76D8FEFB1EC9F27B0052DD74 /* ContactAddEditImpl.swift */,
+				7693155F1EF414FE00451967 /* LocationVCImpl.swift */,
 			);
 			name = Impl;
 			sourceTree = "<group>";
@@ -123,6 +133,7 @@
 				7678DE861EE8735900579405 /* ContactVCPresenterImpl.swift */,
 				840A39601EE96D0500B07E93 /* ContacListTVCPresenterImpl.swift */,
 				767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */,
+				76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */,
 			);
 			name = Impl;
 			sourceTree = "<group>";
@@ -156,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				767DA3271EE19F090031C4C5 /* Presenters */,
+				76DEB8EE1ECF41F400FABF00 /* Views */,
 				767B0CE31ED340FB00822C10 /* Models */,
 				76DEB8EF1ECF424F00FABF00 /* Segues */,
 				76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */,
@@ -166,7 +178,6 @@
 				76D8FEEE1EC9ED220052DD74 /* LaunchScreen.storyboard */,
 				8452E7D61ECDB24900B348ED /* AppSettings.swift */,
 				767B0CE41ED3560400822C10 /* ContactAddEditNC.swift */,
-				7693155F1EF414FE00451967 /* LocationVC.swift */,
 			);
 			path = PhoneBook;
 			sourceTree = "<group>";
@@ -175,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				767DA32A1EE1A05D0031C4C5 /* Impl */,
+				76B8D1341EFAE41D000BC345 /* LocationVC.swift */,
 				840A395E1EE94D5E00B07E93 /* ContacListTVC.swift */,
 				767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */,
 				767DA3251EE19E3D0031C4C5 /* ContactAddEdit.swift */,
@@ -186,9 +198,9 @@
 		76DEB8EF1ECF424F00FABF00 /* Segues */ = {
 			isa = PBXGroup;
 			children = (
-				76DEB8EE1ECF41F400FABF00 /* Views */,
 				7666AA6E1ECB575400CF5E2E /* ToContactAddVC.swift */,
 				7666AA6C1ECB3E4000CF5E2E /* ToContactVC.swift */,
+				76B8D1361EFAF545000BC345 /* ToLocationVC.swift */,
 			);
 			name = Segues;
 			sourceTree = "<group>";
@@ -271,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D8FEFE1ECA069B0052DD74 /* ContactTVCellImpl.swift in Sources */,
-				769315601EF414FE00451967 /* LocationVC.swift in Sources */,
+				769315601EF414FE00451967 /* LocationVCImpl.swift in Sources */,
 				7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */,
 				767E92271EE9C17D00B1C5FD /* ContactTVCell.swift in Sources */,
 				7678DE831EE871AA00579405 /* ContactVC.swift in Sources */,
@@ -284,13 +296,17 @@
 				76D8FEF81EC9EF0C0052DD74 /* ContacListTVCImpl.swift in Sources */,
 				840A395D1EE946B300B07E93 /* ContacListTVCPresenter.swift in Sources */,
 				76D8FEFC1EC9F27B0052DD74 /* ContactAddEditImpl.swift in Sources */,
+				76B8D1371EFAF545000BC345 /* ToLocationVC.swift in Sources */,
+				76B8D1331EFAE3A3000BC345 /* LocationPresenterImpl.swift in Sources */,
 				761FA6C31EE0732C00B5F7BA /* Contact.swift in Sources */,
 				767E922B1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift in Sources */,
 				7666AA6B1ECB327C00CF5E2E /* ContactVCImpl.swift in Sources */,
 				8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */,
 				7678DE871EE8735900579405 /* ContactVCPresenterImpl.swift in Sources */,
 				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNC.swift in Sources */,
+				76B8D1351EFAE41D000BC345 /* LocationVC.swift in Sources */,
 				7678DE851EE872B100579405 /* ContactVCPresenter.swift in Sources */,
+				76B8D1311EFAE356000BC345 /* LocationPresenter.swift in Sources */,
 				767B0CE51ED3560400822C10 /* ContactAddEditNC.swift in Sources */,
 				76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */,
 				840A39611EE96D0500B07E93 /* ContacListTVCPresenterImpl.swift in Sources */,

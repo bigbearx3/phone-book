@@ -12,6 +12,8 @@ struct Contact : Equatable{
     var phone : String
     var email : String?
     var imageData : Data?
+    var latitude : Double?
+    var longitude : Double?
     var fullName : String{ return firstName + " " + lastName }
     
     init(firstName : String, lastName : String, phone : String, email : String?, imageData : Data?) {
@@ -21,7 +23,20 @@ struct Contact : Equatable{
         self.email = email
         self.imageData = imageData
         self.id = UUID.init().uuidString
-    }    
+    }
+    
+    init(firstName : String, lastName : String, phone : String, email : String?, imageData : Data?, latitude : Double?, longitude : Double?) {
+        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    init(id : String , firstName : String, lastName : String, phone : String, email : String?, imageData : Data?, latitude : Double?, longitude : Double?) {
+        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+        self.id = id
+        self.latitude = latitude
+        self.longitude = longitude
+    }
     
     init(id : String ,firstName : String, lastName : String, phone : String, email : String?, imageData : Data? ) {
         self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
@@ -50,7 +65,9 @@ extension Contact {
             guard let phone = aDecoder.decodeObject(forKey:"phone") as? String else { contact = nil; super.init(); return nil }
             let email = aDecoder.decodeObject(forKey:"email") as? String
             let imageData = aDecoder.decodeObject(forKey: "imageData") as? Data
-            contact = Contact(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+            let latitude = aDecoder.decodeObject(forKey: "latitude") as? Double
+            let longitude = aDecoder.decodeObject(forKey: "longitude") as? Double
+            contact = Contact(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData, latitude : latitude, longitude : longitude)
             super.init()
         }
         
@@ -61,6 +78,8 @@ extension Contact {
             aCoder.encode(contact!.phone, forKey: "phone")
             aCoder.encode(contact!.email, forKey: "email")
             aCoder.encode(contact!.imageData, forKey: "imageData")
+            aCoder.encode(contact!.latitude, forKey : "latitude")
+            aCoder.encode(contact!.longitude, forKey : "longitude")
         }
     }
 }

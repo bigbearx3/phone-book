@@ -68,7 +68,9 @@ class ContactList{
             let phone  = userInfo["phone"] as? String{
             let email     = userInfo["email"]    as? String
             let imageData = userInfo["imageData"]    as? Data
-            add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email, imageData : imageData))
+            let latitude  = userInfo["latitude"]    as? Double
+            let longitude     = userInfo["longitude"]    as? Double
+            add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email, imageData : imageData, latitude : latitude, longitude : longitude))
         }
     }
     
@@ -90,9 +92,9 @@ class ContactList{
     public func sortedBy(sortingBy : SortType)->[Contact] {
         switch sortingBy {
         case .firstName :
-            return contacts.sorted { ($0.firstName + $0.lastName).localizedCaseInsensitiveCompare($1.firstName + $1.lastName) == ComparisonResult.orderedAscending }
+            return contacts.sorted { ($0.firstName + " " + $0.lastName).localizedCaseInsensitiveCompare($1.firstName + " " + $1.lastName) == ComparisonResult.orderedAscending }
         case .lastName :
-            return contacts.sorted { ($0.lastName + $0.firstName).localizedCaseInsensitiveCompare($1.lastName + $1.firstName) == ComparisonResult.orderedAscending }
+            return contacts.sorted { ($0.lastName + " " + $0.firstName).localizedCaseInsensitiveCompare($1.lastName +  " " + $1.firstName) == ComparisonResult.orderedAscending }
         }
     }
     

@@ -49,7 +49,8 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC {
         presenter.initView()
         self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 48
+        tableView.estimatedRowHeight = 48        
+        tableView.tableFooterView = UIView()
     }
     
     override func didReceiveMemoryWarning() {

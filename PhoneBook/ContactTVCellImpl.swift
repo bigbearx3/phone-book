@@ -7,10 +7,8 @@ import UIKit
 
 class ContactTVCellImpl: UITableViewCell, ContactTVCell{
     var presenter : ContactTVCellPresenter!
-    var currentID : String!
+    var currentID : String!    
     
-    @IBOutlet weak var heightImageConstraint: NSLayoutConstraint!
-    @IBOutlet weak var widthImageConstraint: NSLayoutConstraint!    
     @IBOutlet weak var phoneBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var phoneTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonOnOff: UIButton!
@@ -57,9 +55,7 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
             contactImage.image =  #imageLiteral(resourceName: "nophoto")        }
     }
     
-    func expand(expanded : Bool){
-        heightImageConstraint.constant = expanded ? 100 : 50
-        widthImageConstraint.constant = expanded ? 100 : 50
+    func expand(expanded : Bool){        
         phoneTopConstraint.priority = expanded ?  250 : 750
         phoneBottomConstraint.priority = expanded ?  250 : 750
         buttonOnOff.setTitle(expanded ? "-" : "+", for: UIControlState.normal)

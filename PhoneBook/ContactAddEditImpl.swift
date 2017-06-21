@@ -52,18 +52,21 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     func showPhotoLibrary(){
         picker.allowsEditing = false
         picker.sourceType = .photoLibrary
+        picker.modalPresentationStyle = .overCurrentContext
         present(picker, animated: true, completion: nil)
     }
     
     func showSavedPhotosAlbum(){
         picker.allowsEditing = false
         picker.sourceType = .savedPhotosAlbum
+        picker.modalPresentationStyle = .overCurrentContext
         present(picker, animated: true, completion: nil)
     }
     
     func showCamera(){
         picker.allowsEditing = false
         picker.sourceType = .camera
+        picker.modalPresentationStyle = .overCurrentContext
         present(picker, animated: true, completion: nil)
     }
     
@@ -173,8 +176,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         super.viewDidLoad()
         presenter.initView()
         NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.keyboardDidShow(_:)), name: Notification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.keyboardWillBeHidden(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContactAddEditImpl.keyboardWillBeHidden(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)        
     }
     
     override func didReceiveMemoryWarning() {
@@ -184,14 +186,6 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    func rotated(){
-        //let heightMultiplier  = CGFloat(UIDevice.current.orientation.isLandscape ? 0.5 : 0.3)        
-        //constraintPhotoHeight.multiplier.add(heightMultiplier)
-    }
-    
-    
-    
     
     weak var activeField: UITextField?
     
@@ -206,6 +200,15 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeField = textField
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToLocationVC" {
+            if let locationVCImpl = segue.destination as? LocationVCImpl {
+                
+                
+            }
+        }
     }
     
     func keyboardDidShow(_ notification: Notification) {
@@ -227,5 +230,4 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
     }
-    
 }
