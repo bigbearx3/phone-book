@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol LocationVC{
+protocol LocationVC : class{
     func showLocationIn(latitude : Double?, longitude : Double?,  deltaLatitude : Double, deltaLongitude : Double)
-    func showMapWithType(mapType : Int)
+    func showMapWithType(mapType : Int)   
 }

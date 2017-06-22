@@ -22,6 +22,10 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         view.close(isEditingMode: isEditingMode)
     }
     
+    func getLocationPresenter(for view: LocationVC)->LocationPresenter{
+        return LocationPresenterImpl(view : view, contactList: contactList, currentId : currentId)    
+    }
+    
     func presentSoursesPhotoAS(){
         var params = [String : ()->Void]()
         if view.isAvailableCamera(){

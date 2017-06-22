@@ -24,7 +24,7 @@ class LocationPresenterImpl : LocationPresenter {
             latitude = contact.latitude
             longitude = contact.longitude
         }
-        view.showLocationIn(latitude: latitude, longitude: longitude, deltaLatitude: 0.001, deltaLongitude: 0.001)
+        view.showLocationIn(latitude: latitude, longitude: longitude, deltaLatitude: 0.01, deltaLongitude: 0.01)
     }
     
     func changeMapType(mapType : Int){

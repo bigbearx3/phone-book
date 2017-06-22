@@ -8,24 +8,27 @@ import MapKit
 import CoreLocation
 
 class LocationVCImpl: UIViewController, MKMapViewDelegate, LocationVC {
+    
     @IBOutlet weak var mapView: MKMapView!
+    var presenter : LocationPresenter!
     var locationManager = CLLocationManager()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         locationManager.requestWhenInUseAuthorization()
+        presenter.initView()        
         
-        mapView.mapType = .standard
-        mapView.showsUserLocation = true
-        mapView.showsScale = true
-        mapView.showsCompass = true
-        
-        let span = MKCoordinateSpan.init(latitudeDelta: 0.001, longitudeDelta: 0.001)
-        let region = MKCoordinateRegion.init(center: (locationManager.location?.coordinate)!, span: span)
-        mapView.setRegion(region, animated: true)
+//        locationManager.requestWhenInUseAuthorization()
+//        
+//        mapView.mapType = .standard
+//        mapView.showsUserLocation = true
+//        mapView.showsScale = true
+//        mapView.showsCompass = true
+//        
+//        let span = MKCoordinateSpan.init(latitudeDelta: 0.001, longitudeDelta: 0.001)
+//        let region = MKCoordinateRegion.init(center: (locationManager.location?.coordinate)!, span: span)
+//        mapView.setRegion(region, animated: true)
         //mapView.center.init()
         
         //mapView.delegate = self
@@ -94,31 +97,30 @@ class LocationVCImpl: UIViewController, MKMapViewDelegate, LocationVC {
 //        }
     }
     
+    @IBAction func changeMapType(_ sender: UISegmentedControl) {
+        presenter.changeMapType(mapType: sender.selectedSegmentIndex)
+    }
     
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        mapView .setCenter(userLocation.coordinate, animated: true)
+        mapView.setCenter(userLocation.coordinate, animated: true)
     }
     
     func showLocationIn(latitude : Double?, longitude : Double?,  deltaLatitude : Double, deltaLongitude : Double){
         let span = MKCoordinateSpan.init(latitudeDelta: deltaLatitude, longitudeDelta: deltaLongitude)
         let region : MKCoordinateRegion
         if let curentLongitude = longitude,
-            let curLatitude = latitude{
-            
-            region = MKCoordinateRegion.init(center: (locationManager.location?.coordinate)!, span: span)
+            let curentLatitude = latitude{
+            let center = CLLocationCoordinate2D(latitude: curentLongitude, longitude: curentLatitude)
+            region = MKCoordinateRegion.init(center: center, span: span)
         }else{
             region = MKCoordinateRegion.init(center: (locationManager.location?.coordinate)!, span: span)
         }
-        //let region = MKCoordinateRegion.init(center: (locationManager.location?.coordinate)!, span: span)
         mapView.setRegion(region, animated: true)
-        
-    
     }
     
     func showMapWithType(mapType : Int){
@@ -133,23 +135,4 @@ class LocationVCImpl: UIViewController, MKMapViewDelegate, LocationVC {
             mapView.mapType = .standard
         }
     }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
-        renderer.lineWidth = 4.0
-        
-        return renderer
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

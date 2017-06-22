@@ -14,5 +14,6 @@ protocol ContactAddEditPresenter {
     func setImage(imageData : Data?)
     func deleteContact()    
     func initView()
-    func closeView()    
+    func closeView()
+    func getLocationPresenter(for view: LocationVC)->LocationPresenter
 }

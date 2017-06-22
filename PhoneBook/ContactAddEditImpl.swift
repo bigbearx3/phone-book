@@ -205,8 +205,8 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToLocationVC" {
             if let locationVCImpl = segue.destination as? LocationVCImpl {
-                
-                
+                let locationPresenter = presenter.getLocationPresenter(for : locationVCImpl)
+                locationVCImpl.presenter = locationPresenter
             }
         }
     }

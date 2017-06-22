@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7615F5CB1EFC251C008906D2 /* NSCodingAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615F5CA1EFC251C008906D2 /* NSCodingAssistant.swift */; };
+		7615F5CD1EFC255D008906D2 /* ContactListAssistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615F5CC1EFC255D008906D2 /* ContactListAssistent.swift */; };
+		7615F5CF1EFC26CF008906D2 /* NetworkAsistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615F5CE1EFC26CF008906D2 /* NetworkAsistent.swift */; };
 		761FA6C31EE0732C00B5F7BA /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FA6C21EE0732C00B5F7BA /* Contact.swift */; };
 		7666AA6B1ECB327C00CF5E2E /* ContactVCImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6A1ECB327C00CF5E2E /* ContactVCImpl.swift */; };
 		7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7666AA6C1ECB3E4000CF5E2E /* ToContactVC.swift */; };
@@ -43,6 +46,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7615F5CA1EFC251C008906D2 /* NSCodingAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCodingAssistant.swift; sourceTree = "<group>"; };
+		7615F5CC1EFC255D008906D2 /* ContactListAssistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAssistent.swift; sourceTree = "<group>"; };
+		7615F5CE1EFC26CF008906D2 /* NetworkAsistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAsistent.swift; sourceTree = "<group>"; };
 		761FA6C21EE0732C00B5F7BA /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		7666AA6A1ECB327C00CF5E2E /* ContactVCImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactVCImpl.swift; sourceTree = "<group>"; };
 		7666AA6C1ECB3E4000CF5E2E /* ToContactVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToContactVC.swift; sourceTree = "<group>"; };
@@ -92,9 +98,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7615F5C91EFC24E4008906D2 /* Assistent */ = {
+			isa = PBXGroup;
+			children = (
+				7615F5CC1EFC255D008906D2 /* ContactListAssistent.swift */,
+				762EBF8F1EFC3183003C663A /* Impl */,
+			);
+			name = Assistent;
+			sourceTree = "<group>";
+		};
+		762EBF8F1EFC3183003C663A /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				7615F5CA1EFC251C008906D2 /* NSCodingAssistant.swift */,
+				7615F5CE1EFC26CF008906D2 /* NetworkAsistent.swift */,
+			);
+			name = Impl;
+			sourceTree = "<group>";
+		};
 		767B0CE31ED340FB00822C10 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7615F5C91EFC24E4008906D2 /* Assistent */,
 				761FA6C21EE0732C00B5F7BA /* Contact.swift */,
 				76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */,
 			);
@@ -287,6 +312,7 @@
 				7666AA6D1ECB3E4000CF5E2E /* ToContactVC.swift in Sources */,
 				767E92271EE9C17D00B1C5FD /* ContactTVCell.swift in Sources */,
 				7678DE831EE871AA00579405 /* ContactVC.swift in Sources */,
+				7615F5CF1EFC26CF008906D2 /* NetworkAsistent.swift in Sources */,
 				767DA3261EE19E3D0031C4C5 /* ContactAddEdit.swift in Sources */,
 				767E92291EE9C38E00B1C5FD /* ContactTVCellPresenter.swift in Sources */,
 				767DA32C1EE1A0A70031C4C5 /* ContactAddEditPresenterImpl.swift in Sources */,
@@ -295,12 +321,14 @@
 				767DA3291EE1A0440031C4C5 /* ContactAddEditPresenter.swift in Sources */,
 				76D8FEF81EC9EF0C0052DD74 /* ContacListTVCImpl.swift in Sources */,
 				840A395D1EE946B300B07E93 /* ContacListTVCPresenter.swift in Sources */,
+				7615F5CB1EFC251C008906D2 /* NSCodingAssistant.swift in Sources */,
 				76D8FEFC1EC9F27B0052DD74 /* ContactAddEditImpl.swift in Sources */,
 				76B8D1371EFAF545000BC345 /* ToLocationVC.swift in Sources */,
 				76B8D1331EFAE3A3000BC345 /* LocationPresenterImpl.swift in Sources */,
 				761FA6C31EE0732C00B5F7BA /* Contact.swift in Sources */,
 				767E922B1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift in Sources */,
 				7666AA6B1ECB327C00CF5E2E /* ContactVCImpl.swift in Sources */,
+				7615F5CD1EFC255D008906D2 /* ContactListAssistent.swift in Sources */,
 				8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */,
 				7678DE871EE8735900579405 /* ContactVCPresenterImpl.swift in Sources */,
 				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNC.swift in Sources */,

@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
+        
+        NetworkAsistent(urlString: "http://10.24.9.10:8080", appID: "").load()
+        
         return true
     }
     
