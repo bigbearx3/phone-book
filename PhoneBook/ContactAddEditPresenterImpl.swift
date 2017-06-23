@@ -89,12 +89,12 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         view.close(isEditingMode : isEditingMode)
     }
     
-    func saveContact(firstName: String, lastName: String, phone: String, email: String?, imageData : Data?){
+    func saveContact(firstName: String, lastName: String, email: String, phone: String?, imageData : Data?){
         let contact : Contact
         if !isEditingMode {
-            contact = Contact(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+            contact = Contact(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
         }else{
-            contact = Contact(id : currentId!, firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+            contact = Contact(id : currentId!, firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
         }
         contactList.update(contact: contact)
     }

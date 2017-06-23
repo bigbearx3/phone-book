@@ -31,7 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
         
-        NetworkAsistent(urlString: "http://10.24.9.10:8080", appID: "").load()
+        let appId = Bundle.main.bundleIdentifier ?? "myApp"
+        let converter =  ContactConverter(appId : appId, nameAppId : "appid", nameId: "userid", nameFirstName: "firstname", nameLastName: "lastname", nameEmail: "email", namePhone: "phonenumber", nameLatitude: "lat", nameLongidude: "lon")
+        
+        let beforeLoad = {() -> Void in
+            DispatchQueue.main.async { print("Befor load")
+            }
+        }
+        
+        let afterLoad = { () -> Void in
+            DispatchQueue.main.async { print("After load")
+            }
+        }
+        
+        let contacts = NetworkAsistent(urlString: "http://10.24.9.10:8080", appID: "", converter : converter).load(beforeLoad : beforeLoad, afterLoad : afterLoad)
+        print(contacts)
         
         return true
     }

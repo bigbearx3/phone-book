@@ -42,11 +42,11 @@ class ContactVCImpl: UIViewController, ContactVC{
         labelForLastName.text = lastName
     }
     
-    func setEmail(email : String?){
+    func setEmail(email : String){
         labelForEmail.text = email
     }
     
-    func setPhone(phone : String){
+    func setPhone(phone : String?){
         labelForPhone.text = phone
     }
     

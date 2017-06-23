@@ -7,7 +7,7 @@ import Foundation
 
 protocol ContactAddEditPresenter {
     init(view: ContactAddEdit, contactList: ContactList, currentId : String?)
-    func saveContact(firstName: String, lastName: String, phone: String, email: String?, imageData : Data?)
+    func saveContact(firstName: String, lastName: String, email: String, phone: String?, imageData : Data?)
     func checkPhone(shouldChangeCharactersIn range: NSRange, replacementString string: String, size : Int) -> Bool
     func closeSourcePhoto()
     func presentSoursesPhotoAS()

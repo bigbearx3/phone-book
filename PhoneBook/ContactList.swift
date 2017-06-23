@@ -34,12 +34,12 @@ class ContactList{
         if let userInfo = notification.userInfo,
             let firstName  = userInfo["firstName"] as? String,
             let lastName  = userInfo["lastName"] as? String,
-            let phone  = userInfo["phone"] as? String{
-            let email     = userInfo["email"]    as? String
+            let email     = userInfo["email"]    as? String{
+            let phone  = userInfo["phone"] as? String
             let imageData = userInfo["imageData"]    as? Data
             let latitude  = userInfo["latitude"]    as? Double
             let longitude     = userInfo["longitude"]    as? Double
-            add(newContact: Contact(firstName : firstName, lastName : lastName, phone : phone, email : email, imageData : imageData, latitude : latitude, longitude : longitude))
+            add(newContact: Contact(firstName : firstName, lastName : lastName, email : email, phone : phone, imageData : imageData, latitude : latitude, longitude : longitude))
         }
     }
     

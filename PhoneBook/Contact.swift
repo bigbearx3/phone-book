@@ -9,14 +9,14 @@ struct Contact : Equatable{
     var id : String
     var firstName : String
     var lastName : String
-    var phone : String
-    var email : String?
+    var email : String
+    var phone : String?
     var imageData : Data?
     var latitude : Double?
     var longitude : Double?
     var fullName : String{ return firstName + " " + lastName }
     
-    init(firstName : String, lastName : String, phone : String, email : String?, imageData : Data?) {
+    init(firstName : String, lastName : String, email : String, phone : String?, imageData : Data?) {
         self.firstName = firstName
         self.lastName = lastName
         self.phone = phone
@@ -25,21 +25,21 @@ struct Contact : Equatable{
         self.id = UUID.init().uuidString
     }
     
-    init(firstName : String, lastName : String, phone : String, email : String?, imageData : Data?, latitude : Double?, longitude : Double?) {
-        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+    init(firstName : String, lastName : String,  email : String, phone : String?, imageData : Data?, latitude : Double?, longitude : Double?) {
+        self.init(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
         self.latitude = latitude
         self.longitude = longitude
     }
     
-    init(id : String , firstName : String, lastName : String, phone : String, email : String?, imageData : Data?, latitude : Double?, longitude : Double?) {
-        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+    init(id : String , firstName : String, lastName : String,  email : String, phone : String?, imageData : Data?, latitude : Double?, longitude : Double?) {
+        self.init(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
         self.id = id
         self.latitude = latitude
         self.longitude = longitude
     }
     
-    init(id : String ,firstName : String, lastName : String, phone : String, email : String?, imageData : Data? ) {
-        self.init(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData)
+    init(id : String ,firstName : String, lastName : String,  email : String, phone : String?, imageData : Data? ) {
+        self.init(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
         self.id = id
     }
     
@@ -56,18 +56,18 @@ extension Contact {
         init(contact: Contact) {
             self.contact = contact
             super.init()
-        }        
+        }
         
         required init?(coder aDecoder: NSCoder) {
             guard let id = aDecoder.decodeObject(forKey: "id") as? String else { contact = nil; super.init(); return nil }
             guard let firstName = aDecoder.decodeObject(forKey:"firstName") as? String else { contact = nil; super.init(); return nil }
             guard let lastName = aDecoder.decodeObject(forKey:"lastName") as? String else { contact = nil; super.init(); return nil }
-            guard let phone = aDecoder.decodeObject(forKey:"phone") as? String else { contact = nil; super.init(); return nil }
-            let email = aDecoder.decodeObject(forKey:"email") as? String
+            guard let email = aDecoder.decodeObject(forKey:"email") as? String else { contact = nil; super.init(); return nil }
+            let phone = aDecoder.decodeObject(forKey:"phone") as? String
             let imageData = aDecoder.decodeObject(forKey: "imageData") as? Data
             let latitude = aDecoder.decodeObject(forKey: "latitude") as? Double
             let longitude = aDecoder.decodeObject(forKey: "longitude") as? Double
-            contact = Contact(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, imageData : imageData, latitude : latitude, longitude : longitude)
+            contact = Contact(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData, latitude : latitude, longitude : longitude)
             super.init()
         }
         
@@ -75,8 +75,8 @@ extension Contact {
             aCoder.encode(contact!.id, forKey: "id")
             aCoder.encode(contact!.firstName, forKey: "firstName")
             aCoder.encode(contact!.lastName, forKey: "lastName")
-            aCoder.encode(contact!.phone, forKey: "phone")
             aCoder.encode(contact!.email, forKey: "email")
+            aCoder.encode(contact!.phone, forKey: "phone")
             aCoder.encode(contact!.imageData, forKey: "imageData")
             aCoder.encode(contact!.latitude, forKey : "latitude")
             aCoder.encode(contact!.longitude, forKey : "longitude")

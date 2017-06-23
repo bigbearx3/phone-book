@@ -31,11 +31,11 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
         labelLastName.text = lastName
     }
     
-    func setPhone(phone : String){
+    func setPhone(phone : String?){
         labelPhone.text = phone
     }
     
-    func setEmail(email : String?){
+    func setEmail(email : String){
         labelEmail.text = email
     }
     

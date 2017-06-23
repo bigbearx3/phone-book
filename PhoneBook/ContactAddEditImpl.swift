@@ -106,11 +106,11 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         textFieldLastName.text = lastName
     }
     
-    func setPhone(phone : String){
+    func setPhone(phone : String?){
         textFieldPhone.text = phone
     }
     
-    func setEmail(email : String?){
+    func setEmail(email : String){
         textFieldEmail.text = email
     }
     
@@ -157,10 +157,10 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     @IBAction func saveContact(_ sender: UIBarButtonItem) {
         if let firstName = textFieldFirstName.text,
             let lastName = textFieldLastName.text,
-            let phone = textFieldPhone.text{
-            let email = textFieldEmail.text
+            let email = textFieldEmail.text{           
+            let phone = textFieldPhone.text    
             let imageData = buttonContactImage.currentImage ==  #imageLiteral(resourceName: "nophoto")  ? nil : UIImagePNGRepresentation(buttonContactImage.currentImage!)
-            presenter.saveContact(firstName: firstName, lastName: lastName, phone: phone, email: email, imageData: imageData)
+            presenter.saveContact(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData: imageData)
         }
         presenter.closeView()
     }

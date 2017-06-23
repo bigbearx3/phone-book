@@ -29,8 +29,8 @@ class ContactVCPresenterImpl: ContactVCPresenter {
         if let contact = contactList.get(byID: currentId){
             view.setFirstName(firstName: contact.firstName)
             view.setLastName(lastName: contact.lastName)
-            view.setPhone(phone: contact.phone)
             view.setEmail(email: contact.email)
+            view.setPhone(phone: contact.phone)
             view.setImage(imageData : contact.imageData)
             view.setTitle(title: contact.fullName)
         }
