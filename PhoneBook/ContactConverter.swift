@@ -33,12 +33,34 @@ class ContactConverter{
         result[nameFirstName] = contact.firstName
         result[nameLastName] = contact.lastName
         result[nameEmail] = contact.email
-        result[namePhone] = contact.phone
-        result[nameLatitude] = String (describing: contact.latitude)
-        result[nameLongidude] = String(describing: contact.longitude)
-        result[nameAppId] = appId
+        if let phone  = contact.phone{
+            result[namePhone] = phone
+        }
+        if let latitude = contact.latitude,
+            let longitude = contact.longitude{
+            result[nameLatitude] = String (latitude)
+            result[nameLongidude] = String(longitude)
+        }
         return result
     }
+    
+    /*func hardConvertTo(contact : Contact)->[String : String?]{
+        var result = [String : String?]()
+        result["user_id"] = contact.id
+        result["first_name"] = contact.firstName
+        result["last_name"] = contact.lastName
+        result["email"] = contact.email
+        if let phone  = contact.phone{
+            result["phone_number"] = phone
+        }        
+        if let latitude = contact.latitude,
+            let longitude = contact.longitude{
+            result["lat"] = String (latitude)
+            result["lon"] = String(longitude)
+        }        
+        return result
+    }
+     */
     
     init(appId : String, nameAppId : String, nameId : String, nameFirstName : String, nameLastName : String, nameEmail : String, namePhone : String, nameLatitude : String, nameLongidude : String) {
         self.nameId = nameId

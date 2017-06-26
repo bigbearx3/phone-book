@@ -95,7 +95,10 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
         view.setEditingMode(isEditing: isEditingMode)
         view.setTitleSortBy(title: "Sort by " + sortType.toString())
         setVisibleButtons()
-        
+    }
+    
+    func resfreshModel(){
+        contactList.load()
     }
     
     @objc func refreshView(){

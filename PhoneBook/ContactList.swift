@@ -87,7 +87,9 @@ class ContactList{
         if  index > -1 {
             contacts.remove(at: index)
         }
+        //delete(contactId : contactID)
         NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+        
         save()
     }
     
