@@ -143,7 +143,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         barButtonSave.isEnabled =
             !((textFieldFirstName.text?.isEmpty ?? true) ||
                 (textFieldLastName.text?.isEmpty ?? true)  ||
-                (textFieldPhone.text?.isEmpty ?? true))
+                (textFieldEmail.text?.isEmpty ?? true))
     }
     
     @IBAction func buttonDeleteContact(_ sender: UIButton) {
@@ -212,8 +212,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     }
     
     func keyboardDidShow(_ notification: Notification) {
-        if let activeField = self.activeField, let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            
+        if let activeField = self.activeField, let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {            
             let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
             self.scrollView.contentInset = contentInsets
             self.scrollView.scrollIndicatorInsets = contentInsets

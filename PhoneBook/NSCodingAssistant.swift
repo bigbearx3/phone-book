@@ -5,7 +5,8 @@
 
 import Foundation
 
-class NSCodingAssistent : ContactListAssistent{
+//class NSCodingAssistent : ContactListAssistent{
+class NSCodingAssistent {
     private var sourceFile : String
     private var destinationFile : String
     

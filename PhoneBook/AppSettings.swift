@@ -7,7 +7,11 @@ import Foundation
 
 internal struct PBNotification {
     static let ContactListChanged = "ContactListChanged"
-    static let ContactChanged = "ContactChanged"   
+    static let ContactChanged = "ContactChanged"
+    static let ContactListLoadFail = "ContactListLoadFail"
+    static let ContactSaveFail = "ContactSaveFail"
+    static let ContactUpdateFail = "ContactUpdateFail"
+    static let ContactDeleteFail = "ContactDeleteFail"
 }
 
 internal struct AppSetting{

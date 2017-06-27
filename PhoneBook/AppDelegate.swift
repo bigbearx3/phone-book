@@ -19,11 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let networkAssistent = NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId)
-        networkAssistent.load()
-
-        contactList = ContactList(assistent: NSCodingAssistent(sourceFile: "Contacts.db", destinationFile: "Contacts.db"))
-        contactList?.load()
+        contactList = ContactList(assistent:  NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId))        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhoneBookNC")

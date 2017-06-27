@@ -5,13 +5,14 @@
 
 import Foundation
 
-class NetworkAsistent{
+class NetworkAsistent : ContactListAssistent{
     private let appID : String
     private let urlString : String
+    weak var delegate : AsistentDelegate!
     
     init(urlString : String, appID : String){
         self.urlString = urlString
-        self.appID = appID        
+        self.appID = appID
     }
     
     func save(contact : Contact){
@@ -19,31 +20,34 @@ class NetworkAsistent{
         let defaultSession = URLSession(configuration: .default)
         var dataTask: URLSessionDataTask?
         var errorMessage = ""
-        dataTask?.cancel()        
+        dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             urlComponents.path = "/user"
             urlComponents.query = "app_id=\(appID)"
-            guard let url = urlComponents.url else { return}
+            guard let url = urlComponents.url else { self.delegate.failSave(); return}
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            var jsonData : Data
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: converter.convertTo(contact: contact))
             } catch {
+                print("Error serializing JSON: \(converter.convertTo(contact: contact))")
+                self.delegate.failSave()
                 return
             }
             dataTask = defaultSession.dataTask(with: request) { data, response, error in
                 defer { dataTask = nil }
-                
                 if let error = error {
-                    errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-                    print(errorMessage)
+                    print(error.localizedDescription + "\n")
+                    self.delegate.failSave()
                 } else if let response = response as? HTTPURLResponse{
-                        debugPrint(request)
-                        debugPrint("status \(response.statusCode)")
-                        //debugPrint("Contact saved")
+                    if response.statusCode == 201{
+                        self.delegate.successSave(newContact: contact)
+                    }else{
+                        self.delegate.failSave()
+                        print("Error saving: response.statusCode = \(response.statusCode)")
                     }
                 }
+            }
             dataTask?.resume()
         }
     }
@@ -56,62 +60,59 @@ class NetworkAsistent{
         dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             urlComponents.path = "/user/\(contact.id)"
-            //urlComponents.query = "app_id=\(appID)"
-            
-            guard let url = urlComponents.url else { return}
+            guard let url = urlComponents.url else { self.delegate.failUpdate(); return}
             var request = URLRequest(url: url)
             request.httpMethod = "PUT"
-            //request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            var jsonData : Data
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: converter.convertTo(contact: contact))
             } catch {
+                print("Error serializing JSON: \(converter.convertTo(contact: contact))")
+                self.delegate.failUpdate()
                 return
             }
             dataTask = defaultSession.dataTask(with: request) { data, response, error in
                 defer { dataTask = nil }
-                
                 if let error = error {
-                    errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-                    print(errorMessage)
+                    print(error.localizedDescription + "\n")
                 } else if let response = response as? HTTPURLResponse{
-                    debugPrint(request)
-                    debugPrint("status \(response.statusCode)")
-                    //debugPrint("Contact saved")
+                    if response.statusCode == 200{
+                        self.delegate.successUpdate(contact : contact)
+                    }else{
+                        self.delegate.failUpdate()
+                        print("Error updating: response.statusCode = \(response.statusCode)")
+                    }
                 }
             }
             dataTask?.resume()
         }
-        
     }
     
-    func delele(id : String){
+    func delete(contactId : String){
         let defaultSession = URLSession(configuration: .default)
         var dataTask: URLSessionDataTask?
         var errorMessage = ""
         dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
-            urlComponents.path = "/user/\(id)"
-            
-            guard let url = urlComponents.url else { return}
+            urlComponents.path = "/user/\(contactId)"
+            guard let url = urlComponents.url else { self.delegate.failDelete(); return}
             var request = URLRequest(url: url)
             request.httpMethod = "DELETE"
             dataTask = defaultSession.dataTask(with: request) { data, response, error in
                 defer { dataTask = nil }
-                
                 if let error = error {
-                    errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-                    print(errorMessage)
+                    print(error.localizedDescription + "\n")
                 } else if let response = response as? HTTPURLResponse{
-                    debugPrint(request)
-                    debugPrint("status \(response.statusCode)")
-                    //debugPrint("Contact saved")
+                    if response.statusCode == 200{
+                        self.delegate.successDelete(contactID : contactId)
+                    }else{
+                        self.delegate.failDelete()
+                        print("Error deleting: response.statusCode = \(response.statusCode)")
+                    }
                 }
             }
             dataTask?.resume()
         }
     }
-    
     
     func load(){
         let converter = ContactConverter(appId: appID, nameAppId: "appid", nameId: "userid", nameFirstName: "firstname", nameLastName: "lastname", nameEmail: "email", namePhone: "phonenumber", nameLatitude: "lat", nameLongidude: "lon")
@@ -119,32 +120,37 @@ class NetworkAsistent{
         let defaultSession = URLSession(configuration: .default)
         var dataTask: URLSessionDataTask?
         var errorMessage = ""
-        
         dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             urlComponents.path = "/user"
             urlComponents.query = "app_id=\(appID)"
-            
-            guard let url = urlComponents.url else { return }
+            guard let url = urlComponents.url else { self.delegate.failLoad() ; return }
             dataTask = defaultSession.dataTask(with: url) { data, response, error in
                 defer { dataTask = nil }
                 if let error = error {
-                    errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-                    print(errorMessage)
+                    print(error.localizedDescription + "\n")
+                    self.delegate.failLoad()
                 } else if let data = data,
-                    let response = response as? HTTPURLResponse,
-                    response.statusCode == 200 {
-                    do {
-                        if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                            let users = json["users"] as? [[String: Any]] {
-                            for user in users {
-                                if let contact = converter.convertFrom(rawData: user) {
-                                    result.append(contact)
+                    let response = response as? HTTPURLResponse{
+                    if response.statusCode == 200{
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                                let users = json["users"] as? [[String: Any]] {
+                                for user in users {
+                                    if let contact = converter.convertFrom(rawData: user) {
+                                        result.append(contact)
+                                    }
                                 }
+                                self.delegate.successLoad(contacts: result)
                             }
+                        } catch {
+                            print("Error deserializing JSON: \(error)")
+                            self.delegate.failLoad()
+                            return
                         }
-                    } catch {
-                        print("Error deserializing JSON: \(error)")
+                    }else{
+                        self.delegate.failLoad()
+                        print("Error loading: response.statusCode = \(response.statusCode)")
                     }
                 }
             }

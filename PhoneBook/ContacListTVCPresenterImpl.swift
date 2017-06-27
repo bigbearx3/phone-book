@@ -52,7 +52,7 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     
     func deleteContact(byIndex : Int) {
         let delId = contactListInCurrentState[byIndex].id
-        contactList.remove(contactID: delId)
+        contactList.remove(contactId: delId)
         contactCellPresenters[delId] = nil
         refreshView()
     }
@@ -92,13 +92,10 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     }
     
     func initView(){
+        contactList.load()
         view.setEditingMode(isEditing: isEditingMode)
         view.setTitleSortBy(title: "Sort by " + sortType.toString())
         setVisibleButtons()
-    }
-    
-    func resfreshModel(){
-        contactList.load()
     }
     
     @objc func refreshView(){

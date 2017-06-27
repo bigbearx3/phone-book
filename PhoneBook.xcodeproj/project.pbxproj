@@ -32,6 +32,7 @@
 		76B8D1331EFAE3A3000BC345 /* LocationPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */; };
 		76B8D1351EFAE41D000BC345 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1341EFAE41D000BC345 /* LocationVC.swift */; };
 		76B8D1371EFAF545000BC345 /* ToLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1361EFAF545000BC345 /* ToLocationVC.swift */; };
+		76CF55621F029AF600091DFD /* AsistentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CF55611F029AF600091DFD /* AsistentDelegate.swift */; };
 		76D8FEE61EC9ED220052DD74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */; };
 		76D8FEEB1EC9ED220052DD74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEE91EC9ED220052DD74 /* Main.storyboard */; };
 		76D8FEED1EC9ED220052DD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D8FEEC1EC9ED220052DD74 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenterImpl.swift; sourceTree = "<group>"; };
 		76B8D1341EFAE41D000BC345 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		76B8D1361EFAF545000BC345 /* ToLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToLocationVC.swift; sourceTree = "<group>"; };
+		76CF55611F029AF600091DFD /* AsistentDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsistentDelegate.swift; sourceTree = "<group>"; };
 		76D8FEE21EC9ED220052DD74 /* PhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D8FEE51EC9ED220052DD74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D8FEEA1EC9ED220052DD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				7615F5CC1EFC255D008906D2 /* ContactListAssistent.swift */,
 				762EBF8F1EFC3183003C663A /* Impl */,
+				76CF55611F029AF600091DFD /* AsistentDelegate.swift */,
 			);
 			name = Assistent;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				7615F5CD1EFC255D008906D2 /* ContactListAssistent.swift in Sources */,
 				8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */,
 				7678DE871EE8735900579405 /* ContactVCPresenterImpl.swift in Sources */,
+				76CF55621F029AF600091DFD /* AsistentDelegate.swift in Sources */,
 				76D8FEFA1EC9F0E80052DD74 /* PhoneBookNC.swift in Sources */,
 				76B8D1351EFAE41D000BC345 /* LocationVC.swift in Sources */,
 				7678DE851EE872B100579405 /* ContactVCPresenter.swift in Sources */,

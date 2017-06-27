@@ -53,7 +53,6 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
     }
     
     func initView(){
-        isEditingMode = false
         if let id = currentId, let myContact = contactList.get(byID: id){
             view.setTitle(title: myContact.fullName)
             view.setFirstName(firstName: myContact.firstName)
@@ -65,6 +64,7 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
         }else{
             view.setTitle(title: "New contact")
             view.setImage(imageData : nil)
+            isEditingMode = false
         }
         view.setEnableSaveButton(enable: isEditingMode)
         view.setVisibleDeleteButton(visible: !isEditingMode)
@@ -84,19 +84,20 @@ class ContactAddEditPresenterImpl : ContactAddEditPresenter{
     
     func deleteContact(){
         if let id = currentId{
-            contactList.remove(contactID: id)
+            contactList.remove(contactId: id)
         }
         view.close(isEditingMode : isEditingMode)
     }
     
     func saveContact(firstName: String, lastName: String, email: String, phone: String?, imageData : Data?){
-        let contact : Contact
-        if !isEditingMode {
-            contact = Contact(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
-        }else{
+        let contact : Contact        
+        if isEditingMode {
             contact = Contact(id : currentId!, firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
-        }
-        contactList.update(contact: contact)
+            contactList.update(contact: contact)
+        }else{
+            contact = Contact(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData : imageData)
+            contactList.add(newContact: contact)
+        }        
     }
     
     func checkPhone(shouldChangeCharactersIn range: NSRange, replacementString string: String, size : Int) -> Bool{

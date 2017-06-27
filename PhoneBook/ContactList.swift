@@ -25,10 +25,14 @@ enum SortType : Int{
     }
 }
 
-class ContactList{
+class ContactList : AsistentDelegate{
     private var contacts : [Contact] = []
     private var helper : ContactListAssistent
-    private var inProssesLoading = false
+    
+    init(assistent: ContactListAssistent) {
+        helper = assistent
+        helper.delegate = self
+    }
     
     @objc private func addAction(notification : Notification){
         if let userInfo = notification.userInfo,
@@ -43,8 +47,46 @@ class ContactList{
         }
     }
     
-    init(assistent : ContactListAssistent) {
-        self.helper = assistent
+    func successLoad(contacts : [Contact]){
+        self.contacts = contacts
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+    }
+    
+    func failLoad(){
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListLoadFail), object: nil)
+    }
+    
+    func successUpdate(contact : Contact){
+        let index = getIndex(contactID: contact.id)
+        if index > -1{
+            contacts[index] = contact
+            NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactChanged), object: nil, userInfo : ["id" : contact.id])
+        }
+    }
+    
+    func failUpdate(){
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactUpdateFail), object: nil)
+    }
+    
+    func successDelete(contactID: String){
+        let index = getIndex(contactID: contactID)
+        if  index > -1 {
+            contacts.remove(at: index)
+            NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+        }
+    }
+    
+    func failDelete(){
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactDeleteFail), object: nil)
+    }
+    
+    func successSave(newContact : Contact){
+        contacts.append(newContact)
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+    }
+    
+    func failSave(){
+        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactSaveFail), object: nil)
     }
     
     private func getIndex(contactID : String)->Int{
@@ -68,9 +110,7 @@ class ContactList{
     }
     
     public func add(newContact : Contact){
-        contacts.append(newContact)
-        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
-        save()
+        helper.save(contact: newContact)
     }
     
     public func get(byID contactID : String) -> Contact?{
@@ -82,33 +122,16 @@ class ContactList{
         }
     }
     
-    public func remove(contactID : String){
-        let index = getIndex(contactID: contactID)
-        if  index > -1 {
-            contacts.remove(at: index)
-        }
-        //delete(contactId : contactID)
-        NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactListChanged), object: nil)
-        
-        save()
+    public func remove(contactId : String){
+        helper.delete(contactId: contactId)
     }
     
     public func update(contact : Contact){
-        let index = getIndex(contactID: contact.id)
-        if index > -1{
-            contacts[index] = contact
-            NotificationCenter.default.post(name: Notification.Name(PBNotification.ContactChanged), object: nil, userInfo : ["id" : contact.id])
-        }else{
-            add(newContact: contact)
-        }
-        save()
-    }
-    
-    public func save(){        
-        helper.save(contactArray: contacts)
+        helper.update(contact: contact)
+        
     }
     
     public func load(){
-        contacts = helper.load()
+        helper.load()
     }
 }
