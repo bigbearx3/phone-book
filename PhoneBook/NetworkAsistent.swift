@@ -24,27 +24,30 @@ class NetworkAsistent : ContactListAssistent{
         if var urlComponents = URLComponents(string: urlString) {
             urlComponents.path = "/user"
             urlComponents.query = "app_id=\(appID)"
-            guard let url = urlComponents.url else { self.delegate.failSave(); return}
+            guard let url = urlComponents.url else {
+                DispatchQueue.main.async { self.delegate.failSave() }
+                return
+            }
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: converter.convertTo(contact: contact))
             } catch {
                 print("Error serializing JSON: \(converter.convertTo(contact: contact))")
-                self.delegate.failSave()
+                DispatchQueue.main.async { self.delegate.failSave() }
                 return
             }
             dataTask = defaultSession.dataTask(with: request) { data, response, error in
                 defer { dataTask = nil }
                 if let error = error {
                     print(error.localizedDescription + "\n")
-                    self.delegate.failSave()
+                    DispatchQueue.main.async { self.delegate.failSave() }
                 } else if let response = response as? HTTPURLResponse{
                     if response.statusCode == 201{
-                        self.delegate.successSave(newContact: contact)
+                        DispatchQueue.main.async { self.delegate.successSave(newContact: contact) }
                     }else{
-                        self.delegate.failSave()
                         print("Error saving: response.statusCode = \(response.statusCode)")
+                        DispatchQueue.main.async { self.delegate.failSave() }
                     }
                 }
             }
@@ -60,26 +63,30 @@ class NetworkAsistent : ContactListAssistent{
         dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             urlComponents.path = "/user/\(contact.id)"
-            guard let url = urlComponents.url else { self.delegate.failUpdate(); return}
+            guard let url = urlComponents.url else {
+                DispatchQueue.main.async { self.delegate.failUpdate() }
+                return
+            }
             var request = URLRequest(url: url)
             request.httpMethod = "PUT"
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: converter.convertTo(contact: contact))
             } catch {
                 print("Error serializing JSON: \(converter.convertTo(contact: contact))")
-                self.delegate.failUpdate()
+                DispatchQueue.main.async { self.delegate.failUpdate() }
                 return
             }
             dataTask = defaultSession.dataTask(with: request) { data, response, error in
                 defer { dataTask = nil }
                 if let error = error {
                     print(error.localizedDescription + "\n")
+                    DispatchQueue.main.async { self.delegate.failUpdate() }
                 } else if let response = response as? HTTPURLResponse{
                     if response.statusCode == 200{
-                        self.delegate.successUpdate(contact : contact)
+                        DispatchQueue.main.async { self.delegate.successUpdate(contact : contact) }
                     }else{
-                        self.delegate.failUpdate()
                         print("Error updating: response.statusCode = \(response.statusCode)")
+                        DispatchQueue.main.async { self.delegate.failUpdate() }
                     }
                 }
             }
@@ -94,19 +101,23 @@ class NetworkAsistent : ContactListAssistent{
         dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             urlComponents.path = "/user/\(contactId)"
-            guard let url = urlComponents.url else { self.delegate.failDelete(); return}
+            guard let url = urlComponents.url else {
+                DispatchQueue.main.async { self.delegate.failDelete() }
+                return
+            }
             var request = URLRequest(url: url)
             request.httpMethod = "DELETE"
             dataTask = defaultSession.dataTask(with: request) { data, response, error in
                 defer { dataTask = nil }
                 if let error = error {
                     print(error.localizedDescription + "\n")
+                    DispatchQueue.main.async { self.delegate.failDelete() }
                 } else if let response = response as? HTTPURLResponse{
                     if response.statusCode == 200{
-                        self.delegate.successDelete(contactID : contactId)
+                        DispatchQueue.main.async { self.delegate.successDelete(contactID : contactId) }
                     }else{
-                        self.delegate.failDelete()
                         print("Error deleting: response.statusCode = \(response.statusCode)")
+                        DispatchQueue.main.async { self.delegate.failDelete() }
                     }
                 }
             }
@@ -129,7 +140,7 @@ class NetworkAsistent : ContactListAssistent{
                 defer { dataTask = nil }
                 if let error = error {
                     print(error.localizedDescription + "\n")
-                    self.delegate.failLoad()
+                    DispatchQueue.main.async { self.delegate.failLoad() }
                 } else if let data = data,
                     let response = response as? HTTPURLResponse{
                     if response.statusCode == 200{
@@ -141,15 +152,15 @@ class NetworkAsistent : ContactListAssistent{
                                         result.append(contact)
                                     }
                                 }
-                                self.delegate.successLoad(contacts: result)
+                                DispatchQueue.main.async { self.delegate.successLoad(contacts: result) }
                             }
                         } catch {
                             print("Error deserializing JSON: \(error)")
-                            self.delegate.failLoad()
+                            DispatchQueue.main.async { self.delegate.failLoad() }
                             return
                         }
                     }else{
-                        self.delegate.failLoad()
+                        DispatchQueue.main.async { self.delegate.failLoad() }
                         print("Error loading: response.statusCode = \(response.statusCode)")
                     }
                 }

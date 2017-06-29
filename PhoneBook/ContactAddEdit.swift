@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol ContactAddEdit: class {
+protocol ContactAddEdit: class, BaseView{
     func setEnableSaveButton(enable : Bool)
     func setVisibleDeleteButton(visible : Bool)
     func setTitle(title : String)

@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol ContactTVCell: class {
+protocol ContactTVCell: class{
     func setCurrentId(currentId : String)
     func setFirstName(firstName : String)
     func setLastName(lastName : String)

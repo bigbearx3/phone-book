@@ -27,8 +27,8 @@ class ContactConverter{
         return Contact(id : id , firstName : firstName, lastName : lastName,  email : email, phone : phone, imageData : nil, latitude : latitude, longitude : longitude)
     }
     
-    func convertTo(contact : Contact) -> [String : String]{
-        var result = [String : String]()
+    func convertTo(contact : Contact) -> [String : Any]{
+        var result = [String : Any]()
         result[nameId] = contact.id
         result[nameFirstName] = contact.firstName
         result[nameLastName] = contact.lastName
@@ -38,8 +38,8 @@ class ContactConverter{
         }
         if let latitude = contact.latitude,
             let longitude = contact.longitude{
-            result[nameLatitude] = String (latitude)
-            result[nameLongidude] = String(longitude)
+            result[nameLatitude] = latitude
+            result[nameLongidude] = longitude
         }
         return result
     }

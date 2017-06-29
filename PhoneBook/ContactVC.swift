@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol ContactVC: class {
+protocol ContactVC: class{
     func setFirstName(firstName : String)
     func setLastName(lastName : String)
     func setPhone(phone : String?)

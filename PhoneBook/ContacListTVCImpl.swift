@@ -4,8 +4,9 @@
 //
 
 import UIKit
+import MBProgressHUD
 
-class ContacListTVCImpl: UITableViewController, ContacListTVC {
+class ContacListTVCImpl: UITableViewController, ContacListTVC{
     var presenter: ContacListTVCPresenter!
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!    
@@ -18,8 +19,24 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC {
         presenter.changeSort()
     }
     
+    func showSpinerActivityIndicator(title : String, message : String, minTime : Double, animated : Bool){
+        showSpinerActivity(title: title, message: message, minTime: minTime, animated: animated)
+    }
+    
+    func closeSpinerActivityIndicator(animated : Bool){
+        closeSpinerActivity( animated: animated)
+    }
+    
     func setEditingMode(isEditing : Bool){
         setEditing(isEditing, animated: true)
+    }
+    
+    func showProgress(){
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.label.text = "Loading..."
+        hud.detailsLabel.text = "Please, wait"        
+        hud.graceTime = 0.3
+        hud.isUserInteractionEnabled = true
     }
     
     func setVisibleButtonSortBy(isVisible : Bool){
@@ -46,11 +63,13 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showProgress()
         presenter.initView()
         self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 48        
         tableView.tableFooterView = UIView()
+        tableView.tableHeaderView = UIView()
     }
     
     override func didReceiveMemoryWarning() {

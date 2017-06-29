@@ -18,13 +18,18 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
         self.sortType = sortType        
         contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
         NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.refreshView), name: Notification.Name(PBNotification.ContactListChanged), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.refreshCell), name: Notification.Name(PBNotification.ContactChanged), object: nil)        
+        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.refreshCell), name: Notification.Name(PBNotification.ContactChanged), object: nil)
+       // NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.hideSpinerActivityIndicator), name: Notification.Name(PBNotification.ContactListChanged), object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
+    /*@objc func hideSpinerActivityIndicator(){
+        view.closeSpinerActivityIndicator(animated: true)
+    }
+    */
     func getContactCellPresenter(byIndex : Int, view : ContactTVCell) -> ContactTVCellPresenter{
         let contact = contactListInCurrentState[byIndex]
         var presenter = contactCellPresenters[contact.id]
@@ -92,6 +97,8 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     }
     
     func initView(){
+        debugPrint("show")
+        view.showSpinerActivityIndicator(title: "Loading ...", message: "Please, wait.", minTime: 0, animated: true)
         contactList.load()
         view.setEditingMode(isEditing: isEditingMode)
         view.setTitleSortBy(title: "Sort by " + sortType.toString())
@@ -99,6 +106,8 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     }
     
     @objc func refreshView(){
+        debugPrint("close")
+        view.closeSpinerActivityIndicator(animated: true)
         contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
         setVisibleButtons()
         view.setTitleSortBy(title: "Sort by " + sortType.toString())        
@@ -113,9 +122,8 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
             let currentCellPresenter = contactCellPresenters[id],
             let  updRowIndex = contactListInCurrentState.index(of: updatedContact){
             currentCellPresenter.updateData(contact : updatedContact)
-            contactListInCurrentState[updRowIndex] = updatedContact
-            let indexPath = IndexPath(item: updRowIndex, section: 0)
-            view.refreshCellData(byIndexPath : indexPath)
+            currentCellPresenter.initView()
+            contactListInCurrentState[updRowIndex] = updatedContact            
         }
     }
 }

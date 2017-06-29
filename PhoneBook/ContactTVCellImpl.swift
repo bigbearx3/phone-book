@@ -21,7 +21,7 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
     
     func setCurrentId(currentId : String){
         self.currentID = currentId
-    }
+    }    
     
     func setFirstName(firstName : String){
         labelFirstName.text = firstName

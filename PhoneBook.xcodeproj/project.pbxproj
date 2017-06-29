@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F65197023777DE1D155BED5 /* Pods_PhoneBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F155D0477DA508242BCB75B /* Pods_PhoneBook.framework */; };
 		7615F5CB1EFC251C008906D2 /* NSCodingAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615F5CA1EFC251C008906D2 /* NSCodingAssistant.swift */; };
 		7615F5CD1EFC255D008906D2 /* ContactListAssistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615F5CC1EFC255D008906D2 /* ContactListAssistent.swift */; };
 		7615F5CF1EFC26CF008906D2 /* NetworkAsistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615F5CE1EFC26CF008906D2 /* NetworkAsistent.swift */; };
@@ -28,6 +29,8 @@
 		767E922B1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */; };
 		769315601EF414FE00451967 /* LocationVCImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7693155F1EF414FE00451967 /* LocationVCImpl.swift */; };
 		769315631EF415DD00451967 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769315621EF415DD00451967 /* MapKit.framework */; };
+		7694E63F1F0567D1005146D8 /* SpinnerActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7694E63E1F0567D1005146D8 /* SpinnerActivity.swift */; };
+		7694E6441F057448005146D8 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7694E6431F057448005146D8 /* BaseView.swift */; };
 		76B8D1311EFAE356000BC345 /* LocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1301EFAE356000BC345 /* LocationPresenter.swift */; };
 		76B8D1331EFAE3A3000BC345 /* LocationPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */; };
 		76B8D1351EFAE41D000BC345 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1341EFAE41D000BC345 /* LocationVC.swift */; };
@@ -49,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66CE210D39464B81AB9DE39B /* Pods-PhoneBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhoneBook/Pods-PhoneBook.release.xcconfig"; sourceTree = "<group>"; };
 		7615F5CA1EFC251C008906D2 /* NSCodingAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCodingAssistant.swift; sourceTree = "<group>"; };
 		7615F5CC1EFC255D008906D2 /* ContactListAssistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListAssistent.swift; sourceTree = "<group>"; };
 		7615F5CE1EFC26CF008906D2 /* NetworkAsistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAsistent.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 		767E922A1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellPresenterImpl.swift; sourceTree = "<group>"; };
 		7693155F1EF414FE00451967 /* LocationVCImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVCImpl.swift; sourceTree = "<group>"; };
 		769315621EF415DD00451967 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7694E63E1F0567D1005146D8 /* SpinnerActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerActivity.swift; sourceTree = "<group>"; };
+		7694E6431F057448005146D8 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		76B8D1301EFAE356000BC345 /* LocationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenter.swift; sourceTree = "<group>"; };
 		76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenterImpl.swift; sourceTree = "<group>"; };
 		76B8D1341EFAE41D000BC345 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
@@ -90,6 +96,8 @@
 		840A395E1EE94D5E00B07E93 /* ContacListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTVC.swift; sourceTree = "<group>"; };
 		840A39601EE96D0500B07E93 /* ContacListTVCPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTVCPresenterImpl.swift; sourceTree = "<group>"; };
 		8452E7D61ECDB24900B348ED /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		8F155D0477DA508242BCB75B /* Pods_PhoneBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhoneBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D545BF2558C0A39641F3074 /* Pods-PhoneBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhoneBook/Pods-PhoneBook.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				769315631EF415DD00451967 /* MapKit.framework in Frameworks */,
+				4F65197023777DE1D155BED5 /* Pods_PhoneBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,8 +185,17 @@
 			isa = PBXGroup;
 			children = (
 				769315621EF415DD00451967 /* MapKit.framework */,
+				8F155D0477DA508242BCB75B /* Pods_PhoneBook.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7694E6421F0573C0005146D8 /* Ext */ = {
+			isa = PBXGroup;
+			children = (
+				7694E63E1F0567D1005146D8 /* SpinnerActivity.swift */,
+			);
+			name = Ext;
 			sourceTree = "<group>";
 		};
 		76D8FED91EC9ED220052DD74 = {
@@ -186,6 +204,7 @@
 				76D8FEE41EC9ED220052DD74 /* PhoneBook */,
 				76D8FEE31EC9ED220052DD74 /* Products */,
 				769315611EF415DD00451967 /* Frameworks */,
+				BA496FC95BEC34E44DA3F874 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -219,9 +238,11 @@
 		76DEB8EE1ECF41F400FABF00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7694E6421F0573C0005146D8 /* Ext */,
 				767DA32A1EE1A05D0031C4C5 /* Impl */,
 				76B8D1341EFAE41D000BC345 /* LocationVC.swift */,
 				840A395E1EE94D5E00B07E93 /* ContacListTVC.swift */,
+				7694E6431F057448005146D8 /* BaseView.swift */,
 				767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */,
 				767DA3251EE19E3D0031C4C5 /* ContactAddEdit.swift */,
 				7678DE821EE871AA00579405 /* ContactVC.swift */,
@@ -239,6 +260,15 @@
 			name = Segues;
 			sourceTree = "<group>";
 		};
+		BA496FC95BEC34E44DA3F874 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9D545BF2558C0A39641F3074 /* Pods-PhoneBook.debug.xcconfig */,
+				66CE210D39464B81AB9DE39B /* Pods-PhoneBook.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -246,9 +276,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76D8FEF41EC9ED220052DD74 /* Build configuration list for PBXNativeTarget "PhoneBook" */;
 			buildPhases = (
+				E9E212DAB782F32E12DB5DF0 /* [CP] Check Pods Manifest.lock */,
 				76D8FEDE1EC9ED220052DD74 /* Sources */,
 				76D8FEDF1EC9ED220052DD74 /* Frameworks */,
 				76D8FEE01EC9ED220052DD74 /* Resources */,
+				5416DCF44A8947CD3FEB2865 /* [CP] Embed Pods Frameworks */,
+				D678CB19600BE639F894441F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -311,6 +344,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5416DCF44A8947CD3FEB2865 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhoneBook/Pods-PhoneBook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D678CB19600BE639F894441F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PhoneBook/Pods-PhoneBook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9E212DAB782F32E12DB5DF0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		76D8FEDE1EC9ED220052DD74 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -329,6 +410,7 @@
 				7666AA6F1ECB575400CF5E2E /* ToContactAddVC.swift in Sources */,
 				767DA3291EE1A0440031C4C5 /* ContactAddEditPresenter.swift in Sources */,
 				76D8FEF81EC9EF0C0052DD74 /* ContacListTVCImpl.swift in Sources */,
+				7694E6441F057448005146D8 /* BaseView.swift in Sources */,
 				840A395D1EE946B300B07E93 /* ContacListTVCPresenter.swift in Sources */,
 				7615F5CB1EFC251C008906D2 /* NSCodingAssistant.swift in Sources */,
 				76D8FEFC1EC9F27B0052DD74 /* ContactAddEditImpl.swift in Sources */,
@@ -338,6 +420,7 @@
 				763A5B611EFD6D320092565E /* ContactConverter.swift in Sources */,
 				767E922B1EE9C3F100B1C5FD /* ContactTVCellPresenterImpl.swift in Sources */,
 				7666AA6B1ECB327C00CF5E2E /* ContactVCImpl.swift in Sources */,
+				7694E63F1F0567D1005146D8 /* SpinnerActivity.swift in Sources */,
 				7615F5CD1EFC255D008906D2 /* ContactListAssistent.swift in Sources */,
 				8452E7D71ECDB24900B348ED /* AppSettings.swift in Sources */,
 				7678DE871EE8735900579405 /* ContactVCPresenterImpl.swift in Sources */,
@@ -471,6 +554,7 @@
 		};
 		76D8FEF51EC9ED220052DD74 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D545BF2558C0A39641F3074 /* Pods-PhoneBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhoneBook/Info.plist;
@@ -483,6 +567,7 @@
 		};
 		76D8FEF61EC9ED220052DD74 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66CE210D39464B81AB9DE39B /* Pods-PhoneBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhoneBook/Info.plist;

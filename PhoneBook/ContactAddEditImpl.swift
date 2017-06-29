@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var presenter: ContactAddEditPresenter!
     var ac: UIAlertController?
     @IBOutlet weak var textFieldFirstName: UITextField!
@@ -23,6 +23,14 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     
     @IBAction func imageTap(_ sender: Any) {
         presenter.presentSoursesPhotoAS()
+    }
+    
+    func showSpinerActivityIndicator(title : String, message : String, minTime : Double, animated : Bool){
+        showSpinerActivity(title: title, message: message, minTime: minTime, animated: animated)
+    }
+    
+    func closeSpinerActivityIndicator(animated : Bool){
+        closeSpinerActivity( animated: animated)
     }
     
     func isAvailablePhotoLibrary()->Bool{
@@ -129,7 +137,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
         
     }
     
-    func close(isEditingMode : Bool){
+    func close(isEditingMode : Bool){       
         if isEditingMode {
             if let navC = self.navigationController{
                 navC.popToRootViewController(animated: true)
