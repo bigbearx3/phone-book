@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var presenter: ContactAddEditPresenter!
@@ -18,7 +19,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var constraintPhotoHeight: NSLayoutConstraint!
-    
+    private var spinnerActivity : MBProgressHUD?
     let picker = UIImagePickerController()
     
     @IBAction func imageTap(_ sender: Any) {
@@ -26,13 +27,20 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     }
     
     func showSpinerActivityIndicator(title : String, message : String, minTime : Double, animated : Bool){
-        showSpinerActivity(title: title, message: message, minTime: minTime, animated: animated)
+        if spinnerActivity == nil {
+            spinnerActivity = MBProgressHUD(view : view)
+        }
+        SpinerActivityIndicatorUtil.showSpinner(spinnerActivity: spinnerActivity!, title: title, message: message, minTime: minTime, animated: animated)
     }
     
     func closeSpinerActivityIndicator(animated : Bool){
-        closeSpinerActivity( animated: animated)
+        if let spinner  = spinnerActivity{
+            SpinerActivityIndicatorUtil.closeSpinner(spinnerActivity: spinner, animated: animated)
+        }
     }
+
     
+        
     func isAvailablePhotoLibrary()->Bool{
         return UIImagePickerController.availableMediaTypes(for: .photoLibrary) != nil
     }

@@ -30,7 +30,6 @@
 		769315601EF414FE00451967 /* LocationVCImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7693155F1EF414FE00451967 /* LocationVCImpl.swift */; };
 		769315631EF415DD00451967 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769315621EF415DD00451967 /* MapKit.framework */; };
 		7694E63F1F0567D1005146D8 /* SpinnerActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7694E63E1F0567D1005146D8 /* SpinnerActivity.swift */; };
-		7694E6441F057448005146D8 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7694E6431F057448005146D8 /* BaseView.swift */; };
 		76B8D1311EFAE356000BC345 /* LocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1301EFAE356000BC345 /* LocationPresenter.swift */; };
 		76B8D1331EFAE3A3000BC345 /* LocationPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */; };
 		76B8D1351EFAE41D000BC345 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8D1341EFAE41D000BC345 /* LocationVC.swift */; };
@@ -45,6 +44,7 @@
 		76D8FEFC1EC9F27B0052DD74 /* ContactAddEditImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFB1EC9F27B0052DD74 /* ContactAddEditImpl.swift */; };
 		76D8FEFE1ECA069B0052DD74 /* ContactTVCellImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFD1ECA069B0052DD74 /* ContactTVCellImpl.swift */; };
 		76D8FF001ECA0FAF0052DD74 /* ContactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */; };
+		76F64D111F069B94003830D9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F64D101F069B94003830D9 /* BaseView.swift */; };
 		840A395D1EE946B300B07E93 /* ContacListTVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A395C1EE946B300B07E93 /* ContacListTVCPresenter.swift */; };
 		840A395F1EE94D5E00B07E93 /* ContacListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A395E1EE94D5E00B07E93 /* ContacListTVC.swift */; };
 		840A39611EE96D0500B07E93 /* ContacListTVCPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A39601EE96D0500B07E93 /* ContacListTVCPresenterImpl.swift */; };
@@ -75,7 +75,6 @@
 		7693155F1EF414FE00451967 /* LocationVCImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVCImpl.swift; sourceTree = "<group>"; };
 		769315621EF415DD00451967 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7694E63E1F0567D1005146D8 /* SpinnerActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerActivity.swift; sourceTree = "<group>"; };
-		7694E6431F057448005146D8 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		76B8D1301EFAE356000BC345 /* LocationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenter.swift; sourceTree = "<group>"; };
 		76B8D1321EFAE3A3000BC345 /* LocationPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPresenterImpl.swift; sourceTree = "<group>"; };
 		76B8D1341EFAE41D000BC345 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		76D8FEFB1EC9F27B0052DD74 /* ContactAddEditImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAddEditImpl.swift; sourceTree = "<group>"; };
 		76D8FEFD1ECA069B0052DD74 /* ContactTVCellImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTVCellImpl.swift; sourceTree = "<group>"; };
 		76D8FEFF1ECA0FAF0052DD74 /* ContactList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactList.swift; sourceTree = "<group>"; };
+		76F64D101F069B94003830D9 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		840A395C1EE946B300B07E93 /* ContacListTVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTVCPresenter.swift; sourceTree = "<group>"; };
 		840A395E1EE94D5E00B07E93 /* ContacListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTVC.swift; sourceTree = "<group>"; };
 		840A39601EE96D0500B07E93 /* ContacListTVCPresenterImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContacListTVCPresenterImpl.swift; sourceTree = "<group>"; };
@@ -190,12 +190,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7694E6421F0573C0005146D8 /* Ext */ = {
+		7694E6421F0573C0005146D8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
 				7694E63E1F0567D1005146D8 /* SpinnerActivity.swift */,
 			);
-			name = Ext;
+			name = Util;
 			sourceTree = "<group>";
 		};
 		76D8FED91EC9ED220052DD74 = {
@@ -238,14 +238,14 @@
 		76DEB8EE1ECF41F400FABF00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7694E6421F0573C0005146D8 /* Ext */,
+				7694E6421F0573C0005146D8 /* Util */,
 				767DA32A1EE1A05D0031C4C5 /* Impl */,
 				76B8D1341EFAE41D000BC345 /* LocationVC.swift */,
 				840A395E1EE94D5E00B07E93 /* ContacListTVC.swift */,
-				7694E6431F057448005146D8 /* BaseView.swift */,
 				767E92261EE9C17D00B1C5FD /* ContactTVCell.swift */,
 				767DA3251EE19E3D0031C4C5 /* ContactAddEdit.swift */,
 				7678DE821EE871AA00579405 /* ContactVC.swift */,
+				76F64D101F069B94003830D9 /* BaseView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -410,7 +410,7 @@
 				7666AA6F1ECB575400CF5E2E /* ToContactAddVC.swift in Sources */,
 				767DA3291EE1A0440031C4C5 /* ContactAddEditPresenter.swift in Sources */,
 				76D8FEF81EC9EF0C0052DD74 /* ContacListTVCImpl.swift in Sources */,
-				7694E6441F057448005146D8 /* BaseView.swift in Sources */,
+				76F64D111F069B94003830D9 /* BaseView.swift in Sources */,
 				840A395D1EE946B300B07E93 /* ContacListTVCPresenter.swift in Sources */,
 				7615F5CB1EFC251C008906D2 /* NSCodingAssistant.swift in Sources */,
 				76D8FEFC1EC9F27B0052DD74 /* ContactAddEditImpl.swift in Sources */,

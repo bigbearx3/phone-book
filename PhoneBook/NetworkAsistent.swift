@@ -144,7 +144,7 @@ class NetworkAsistent : ContactListAssistent{
                 } else if let data = data,
                     let response = response as? HTTPURLResponse{
                     if response.statusCode == 200{
-                        do {
+                        do {                            
                             if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                                 let users = json["users"] as? [[String: Any]] {
                                 for user in users {
@@ -167,6 +167,68 @@ class NetworkAsistent : ContactListAssistent{
             }
             dataTask?.resume()
         }
+    }
+    
+    static func uploadImage( urlString : String, dataImage : Data){
+        
+        let defaultSession = URLSession(configuration: .default)
+        var uploadTask: URLSessionDataTask?
+                uploadTask?.cancel()
+        if var urlComponents = URLComponents(string: urlString) {            
+            var request = URLRequest(url: urlComponents.url!)
+            request.httpMethod  = "POST"
+            
+            request.addValue("Basic YWNjXzM1MmM3NTFkOTJhMjFmODowMmY4NmJmMzhlNGY4MDIyMjM3ZTdhMzU5NWQyNzA1Nw==", forHTTPHeaderField: "Authorization")
+            let encodedImageData = dataImage.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+            let postString = "image=(encodedImageData)"
+            request.httpBody = postString.data(using: .utf8)
+            
+            print("Befor task")
+            uploadTask = defaultSession.dataTask(with: request){ data, response, error in
+                defer { uploadTask = nil }
+                print("run task")
+                if let error = error {
+                    print(error.localizedDescription + "\n")
+                    
+                } else if let response = response as? HTTPURLResponse{
+                    debugPrint(response)
+                    if response.statusCode == 200{
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any],
+                                let success = json["success"] ,
+                                let uploads = json["uploaded"] as? [[String : String]]{
+                                debugPrint(json)
+                                debugPrint(success)
+                                for upload in uploads {
+                                    debugPrint(upload["id"] ?? "")
+                                    debugPrint(upload["filename"] ?? "")
+                                }
+                            }
+                            if let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any],
+                                let err = json["error"] {
+                                debugPrint(err)
+                            
+                            }
+                        } catch {
+                            print("Error deserializing JSON: \(error)")
+                            
+                            return
+                            
+                        }
+                    }
+                    else{
+                        print("Error deleting: response.statusCode = \(response.statusCode)")
+                        
+                    }
+                }
+               
+            }
+           uploadTask?.resume()
+        }
+    }
+    
+    func downloadImage(){
+    
     }
     
 }

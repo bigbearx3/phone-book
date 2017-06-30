@@ -7,19 +7,17 @@ import UIKit
 import MBProgressHUD
 
 
-extension  UIViewController{
-    //let spinnerActivity = MBProgressHUD(view)
-    func showSpinerActivity(title : String, message : String, minTime : Double, animated : Bool){
-        let spinnerActivity = MBProgressHUD.showAdded(to: view, animated: animated)
-        //spinnerActivity.animated = true
+class SpinerActivityIndicatorUtil{
+    static func showSpinner(spinnerActivity : MBProgressHUD ,title : String, message : String, minTime : Double, animated : Bool) {
         spinnerActivity.label.text = title
         spinnerActivity.detailsLabel.text = message
         spinnerActivity.graceTime = minTime
         spinnerActivity.isUserInteractionEnabled = false
+        spinnerActivity.show(animated: animated)        
     }
     
-    func closeSpinerActivity(animated : Bool){        
-        MBProgressHUD.hide(for: view, animated: animated)
+    static func closeSpinner(spinnerActivity : MBProgressHUD, animated : Bool){
+        spinnerActivity.hide(animated: animated)
     }
 }
 

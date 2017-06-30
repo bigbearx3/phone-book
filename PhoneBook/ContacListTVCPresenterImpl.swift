@@ -18,18 +18,15 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
         self.sortType = sortType        
         contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
         NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.refreshView), name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.closeSpinner), name: Notification.Name(PBNotification.ContactListLoadFail), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.refreshCell), name: Notification.Name(PBNotification.ContactChanged), object: nil)
-       // NotificationCenter.default.addObserver(self, selector: #selector(ContacListTVCPresenterImpl.hideSpinerActivityIndicator), name: Notification.Name(PBNotification.ContactListChanged), object: nil)
+        
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    /*@objc func hideSpinerActivityIndicator(){
-        view.closeSpinerActivityIndicator(animated: true)
-    }
-    */
     func getContactCellPresenter(byIndex : Int, view : ContactTVCell) -> ContactTVCellPresenter{
         let contact = contactListInCurrentState[byIndex]
         var presenter = contactCellPresenters[contact.id]
@@ -105,9 +102,13 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
         setVisibleButtons()
     }
     
+    @objc func closeSpinner(){
+        view.closeSpinerActivityIndicator(animated: true)
+    }
+    
     @objc func refreshView(){
         debugPrint("close")
-        view.closeSpinerActivityIndicator(animated: true)
+        closeSpinner()
         contactListInCurrentState = contactList.sortedBy(sortingBy: sortType)
         setVisibleButtons()
         view.setTitleSortBy(title: "Sort by " + sortType.toString())        

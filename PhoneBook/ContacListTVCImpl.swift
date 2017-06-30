@@ -10,6 +10,7 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC{
     var presenter: ContacListTVCPresenter!
     @IBOutlet weak var barButtonItemEdit: UIBarButtonItem!
     @IBOutlet weak var barButtonItemSortBy: UIBarButtonItem!    
+    private var spinnerActivity : MBProgressHUD?
     
     @IBAction func barButtonItemEditAction(_ sender: UIBarButtonItem) {
         presenter.switchEditing()
@@ -20,11 +21,16 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC{
     }
     
     func showSpinerActivityIndicator(title : String, message : String, minTime : Double, animated : Bool){
-        showSpinerActivity(title: title, message: message, minTime: minTime, animated: animated)
+        if spinnerActivity == nil {
+            spinnerActivity = MBProgressHUD(view : view)
+        }
+        SpinerActivityIndicatorUtil.showSpinner(spinnerActivity: spinnerActivity!, title: title, message: message, minTime: minTime, animated: animated)
     }
     
     func closeSpinerActivityIndicator(animated : Bool){
-        closeSpinerActivity( animated: animated)
+        if let spinner  = spinnerActivity{
+            SpinerActivityIndicatorUtil.closeSpinner(spinnerActivity: spinner, animated: animated)
+        }
     }
     
     func setEditingMode(isEditing : Bool){

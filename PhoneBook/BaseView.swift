@@ -2,7 +2,6 @@
 //  BaseView.swift
 //  PhoneBook
 //
-
 import Foundation
 
 protocol BaseView{
