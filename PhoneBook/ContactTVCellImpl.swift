@@ -52,10 +52,11 @@ class ContactTVCellImpl: UITableViewCell, ContactTVCell{
             let image = UIImage(data : iData){
             contactImage.image = image
         }else{
-            contactImage.image =  #imageLiteral(resourceName: "nophoto")        }
+            contactImage.image =  #imageLiteral(resourceName: "nophoto")
+        }
     }
     
-    func expand(expanded : Bool){        
+    func expand(expanded : Bool){
         phoneTopConstraint.priority = expanded ?  250 : 750
         phoneBottomConstraint.priority = expanded ?  250 : 750
         buttonOnOff.setTitle(expanded ? "-" : "+", for: UIControlState.normal)

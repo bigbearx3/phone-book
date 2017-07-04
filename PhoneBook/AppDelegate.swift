@@ -9,7 +9,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var contactList : ContactList?
-    
+    private var imageList : ImageListAssistent?
     var window: UIWindow?
     
     private func loadSortType()->SortType{
@@ -18,13 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return SortType(rawValue : intValue)!
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        contactList = ContactList(assistent:  NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId))       
-        
-        let photoURL = "https://api.imagga.com/v1/content"
-        let photoData = UIImageJPEGRepresentation(#imageLiteral(resourceName: "nophoto"), 0.7)
-        NetworkAsistent.uploadImage(urlString: photoURL, dataImage: photoData!)
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {        
+        contactList = ContactList(assistent:  NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId))
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhoneBookNC")
