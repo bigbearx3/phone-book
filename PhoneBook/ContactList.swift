@@ -110,7 +110,7 @@ class ContactList : AsistentDelegate{
     }
     
     public func add(newContact : Contact){
-        helper.save(contact: newContact)
+        helper.saveWithImage(contact: newContact)
     }
     
     public func get(byID contactID : String) -> Contact?{
@@ -123,15 +123,27 @@ class ContactList : AsistentDelegate{
     }
     
     public func remove(contactId : String){
-        helper.delete(contactId: contactId)
+        if let deletingContact = get(byID: contactId){
+            remove(contact: deletingContact)
+        }    
+    }
+    
+    public func remove(contact : Contact){
+        helper.deleteWithImage(contact: contact)
     }
     
     public func update(contact : Contact){
-        helper.update(contact: contact)
-        
-    }
+        helper.updateWithImage(contact: contact)
+    }    
+    
     
     public func load(){
         helper.load()
+    }
+    
+    public func clear(){
+        for contact in contacts{
+            remove(contact: contact)
+        }
     }
 }

@@ -9,7 +9,6 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var contactList : ContactList?
-    private var imageList : ImageListAssistent?
     var window: UIWindow?
     
     private func loadSortType()->SortType{
@@ -18,8 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return SortType(rawValue : intValue)!
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {        
-        contactList = ContactList(assistent:  NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId))
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let imageAssistent = NetworkImageAssistent(clientId: AppSetting.clientId,
+                                              bearer: AppSetting.bearer,
+                                              urlString: AppSetting.imageURLString,
+                                              loadUrlString : AppSetting.loadImageUrl,
+                                              ext : AppSetting.ext)
+        let assistent = NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId, imageHelper : imageAssistent)
+        contactList = ContactList(assistent:  assistent)
+        
+        contactList?.clear()
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhoneBookNC")

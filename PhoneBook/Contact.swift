@@ -12,6 +12,7 @@ struct Contact : Equatable{
     var email : String
     var phone : String?
     var imageData : Data?
+    var imageId = ""
     var latitude : Double?
     var longitude : Double?
     var fullName : String{ return firstName + " " + lastName }

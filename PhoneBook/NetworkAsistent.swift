@@ -8,11 +8,34 @@ import Foundation
 class NetworkAsistent : ContactListAssistent{
     private let appID : String
     private let urlString : String
+    private let imageHelper : ImageAssistent
     weak var delegate : AsistentDelegate!
     
-    init(urlString : String, appID : String){
+    
+    init(urlString : String, appID : String, imageHelper : ImageAssistent){
         self.urlString = urlString
         self.appID = appID
+        self.imageHelper = imageHelper
+    }
+    
+    func saveWithImage(contact : Contact){
+        if contact.imageData != nil{
+            imageHelper.saveImage(contact: contact, successCallBack: save)
+        }else{
+            save(contact: contact)
+        }
+    }
+    
+    func updateWithImage(contact : Contact){
+        if contact.imageData != nil{
+            imageHelper.updateImage(contact: contact, successCallBack: update)
+        }else{
+            update(contact: contact)
+        }
+    }
+    
+    func deleteWithImage(contact : Contact){
+        imageHelper.deleteImage(contact: contact, successCallBack: delete)
     }
     
     func save(contact : Contact){
@@ -94,13 +117,13 @@ class NetworkAsistent : ContactListAssistent{
         }
     }
     
-    func delete(contactId : String){
+    func delete(contact : Contact){
         let defaultSession = URLSession(configuration: .default)
         var dataTask: URLSessionDataTask?
         var errorMessage = ""
         dataTask?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
-            urlComponents.path = "/user/\(contactId)"
+            urlComponents.path = "/user/\(contact.id)"
             guard let url = urlComponents.url else {
                 DispatchQueue.main.async { self.delegate.failDelete() }
                 return
@@ -114,7 +137,7 @@ class NetworkAsistent : ContactListAssistent{
                     DispatchQueue.main.async { self.delegate.failDelete() }
                 } else if let response = response as? HTTPURLResponse{
                     if response.statusCode == 200{
-                        DispatchQueue.main.async { self.delegate.successDelete(contactID : contactId) }
+                        DispatchQueue.main.async { self.delegate.successDelete(contactID : contact.id) }
                     }else{
                         print("Error deleting: response.statusCode = \(response.statusCode)")
                         DispatchQueue.main.async { self.delegate.failDelete() }
@@ -167,13 +190,5 @@ class NetworkAsistent : ContactListAssistent{
             }
             dataTask?.resume()
         }
-    }
-}
-
-
-extension Data {
-    mutating func appendString(_ string: String) {
-        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        append(data!)
     }
 }
