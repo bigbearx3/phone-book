@@ -24,10 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                               loadUrlString : AppSetting.loadImageUrl,
                                               ext : AppSetting.ext)
         let assistent = NetworkAsistent(urlString: AppSetting.src, appID: AppSetting.appId, imageHelper : imageAssistent)
-        contactList = ContactList(assistent:  assistent)
-        
-        contactList?.clear()
-        
+        contactList = ContactList(assistent:  assistent)       
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "PhoneBookNC")

@@ -18,9 +18,9 @@ internal struct PBNotification {
 internal struct AppSetting{
     static let src = "http://10.24.9.10:8080"
     static let appId = Bundle.main.bundleIdentifier ?? "myApp"
-    static let imageURLString = "https://api.imgur.com/3/image"
-    static let clientId = ""
-    static let bearer = ""
+    static let imageURLString = "https://api.imgur.com/3/image/"
+    static let clientId = "Client-ID "
+    static let bearer = "Bearer "
     static let loadImageUrl = "https://i.imgur.com/"
     static let ext = ".png"    
 }

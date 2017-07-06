@@ -125,7 +125,7 @@ class ContactList : AsistentDelegate{
     public func remove(contactId : String){
         if let deletingContact = get(byID: contactId){
             remove(contact: deletingContact)
-        }    
+        }
     }
     
     public func remove(contact : Contact){
@@ -136,14 +136,7 @@ class ContactList : AsistentDelegate{
         helper.updateWithImage(contact: contact)
     }    
     
-    
     public func load(){
         helper.load()
-    }
-    
-    public func clear(){
-        for contact in contacts{
-            remove(contact: contact)
-        }
     }
 }

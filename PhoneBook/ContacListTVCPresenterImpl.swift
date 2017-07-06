@@ -103,7 +103,7 @@ class ContacListTVCPresenterImpl : ContacListTVCPresenter{
     }
     
     @objc func closeSpinner(){
-        view.closeSpinerActivityIndicator(animated: true)
+        view.closeSpinerActivityIndicator(animated: true)        
     }
     
     @objc func refreshView(){

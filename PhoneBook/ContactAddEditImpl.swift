@@ -88,8 +88,9 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let imageData = UIImagePNGRepresentation(pickedImage)
-            presenter.setImage(imageData : imageData)
+            //let imageData = UIImagePNGRepresentation(pickedImage)
+            buttonContactImage.setImage(pickedImage, for: .normal)
+            //presenter.setImage(imageData : imageData)
         }
         presenter.closeSourcePhoto()
     }
@@ -175,7 +176,7 @@ class ContactAddEditImpl: UIViewController, UITextFieldDelegate, ContactAddEdit,
             let lastName = textFieldLastName.text,
             let email = textFieldEmail.text{           
             let phone = textFieldPhone.text    
-            let imageData = buttonContactImage.currentImage ==  #imageLiteral(resourceName: "nophoto")  ? nil : UIImagePNGRepresentation(buttonContactImage.currentImage!)
+            let imageData = buttonContactImage.currentImage ==  #imageLiteral(resourceName: "nophoto")  ? nil : UIImagePNGRepresentation(buttonContactImage.currentImage!)            
             presenter.saveContact(firstName: firstName, lastName: lastName, email: email, phone: phone, imageData: imageData)
         }
         presenter.closeView()

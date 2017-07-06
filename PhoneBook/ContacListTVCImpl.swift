@@ -28,8 +28,8 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC{
     }
     
     func closeSpinerActivityIndicator(animated : Bool){
-        if let spinner  = spinnerActivity{
-            SpinerActivityIndicatorUtil.closeSpinner(spinnerActivity: spinner, animated: animated)
+        if spinnerActivity != nil{
+            SpinerActivityIndicatorUtil.closeSpinner(spinnerActivity: spinnerActivity!, animated: animated)
         }
     }
     
@@ -37,13 +37,13 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC{
         setEditing(isEditing, animated: true)
     }
     
-    func showProgress(){
+    /*func showProgress(){
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud.label.text = "Loading..."
         hud.detailsLabel.text = "Please, wait"        
         hud.graceTime = 0.3
         hud.isUserInteractionEnabled = true
-    }
+    }*/
     
     func setVisibleButtonSortBy(isVisible : Bool){
         barButtonItemSortBy.isEnabled = isVisible
@@ -69,7 +69,7 @@ class ContacListTVCImpl: UITableViewController, ContacListTVC{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showProgress()
+        //showProgress()
         presenter.initView()
         self.navigationItem.leftBarButtonItem = self.barButtonItemEdit
         tableView.rowHeight = UITableViewAutomaticDimension
