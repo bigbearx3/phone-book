@@ -43,8 +43,6 @@ class NetworkImageAssistent: ImageAssistent{
     
     func saveImage(contact : Contact, successCallBack : @escaping (_ : Contact) -> Void){
         guard let imgData = contact.imageData else {return}
-        
-        
         var contact = contact
         var body = Data()
         let defaultSession = URLSession.shared
@@ -56,7 +54,7 @@ class NetworkImageAssistent: ImageAssistent{
             request.httpMethod = "POST"
             request.cachePolicy = .reloadIgnoringLocalCacheData
             
-            request.addValue(clientId, forHTTPHeaderField: "Authorization")
+            //request.addValue(clientId, forHTTPHeaderField: "Authorization")
             request.addValue(bearer, forHTTPHeaderField: "Authorization")
             
             
@@ -71,9 +69,10 @@ class NetworkImageAssistent: ImageAssistent{
             body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
             
             request.httpBody = body
-            debugPrint(request.allHTTPHeaderFields as Any)
+            //debugPrint(request.allHTTPHeaderFields as Any)
             dataTask = defaultSession.dataTask(with: request){ data, response, error in
                 defer { dataTask = nil }
+                debugPrint("---------- Start --------------")
                 if let error = error {
                     print(error.localizedDescription + "\n")
                     return
@@ -89,7 +88,8 @@ class NetworkImageAssistent: ImageAssistent{
                                     let imgId  = data["id"] as? String {
                                     //contact.imageId = imgId
                                     contact.phone = imgId
-                                    //DispatchQueue.main.async { successCallBack(contact) }
+                                    DispatchQueue.main.async { successCallBack(contact) }
+                                    debugPrint("call save contact information")
                                 }
                             }
                         }
@@ -152,7 +152,8 @@ class NetworkImageAssistent: ImageAssistent{
                         return
                     }
                 }
-                DispatchQueue.main.async { successCallBack(contact) }
+                //DispatchQueue.main.async { successCallBack(contact) }
+                debugPrint("call delete contact information")
             }
             dataTask?.resume()
         }

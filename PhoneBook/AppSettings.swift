@@ -22,6 +22,7 @@ internal struct AppSetting{
     static let clientId = "Client-ID "
     static let bearer = "Bearer "
     static let loadImageUrl = "https://i.imgur.com/"
-    static let ext = ".png"    
+    static let ext = ".png"
+    
 }
 
