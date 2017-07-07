@@ -69,7 +69,7 @@ class NetworkImageAssistent: ImageAssistent{
             body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
             
             request.httpBody = body
-            //debugPrint(request.allHTTPHeaderFields as Any)
+            debugPrint(request.allHTTPHeaderFields as Any)
             dataTask = defaultSession.dataTask(with: request){ data, response, error in
                 defer { dataTask = nil }
                 debugPrint("---------- Start --------------")

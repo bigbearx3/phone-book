@@ -20,7 +20,7 @@ internal struct AppSetting{
     static let appId = Bundle.main.bundleIdentifier ?? "myApp"
     static let imageURLString = "https://api.imgur.com/3/image/"
     static let clientId = "Client-ID "
-    static let bearer = "Bearer "
+    static let bearer = "Bearer fee767f3c6fc29ccfb455cb1d31815ee41f133bb"
     static let loadImageUrl = "https://i.imgur.com/"
     static let ext = ".png"
     
